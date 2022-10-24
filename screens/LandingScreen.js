@@ -1,18 +1,16 @@
-import { Button, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import Button from '../components/Button';
 export default function LandingScreen({ navigation }) {
   const handleSubmit = () => {
-    navigation.native({ screen: 'SignInScreen' })
+    navigation.navigate({ screen: 'SignInScreen' })
   }
   return (
     <View>
       <Image style={styles.image} source={require('../assets/logo.jpg')}
         onPress={() => navigation.navigate('DemoScreen')} />
-  
 
-      <TouchableOpacity onPress={() => handleSubmit()} style={styles.button} activeOpacity={0.8}>
-        <Text style={styles.textButton}>J'ai déjà un compte</Text>
-      </TouchableOpacity>
+
+      <Button Text="j'ai déjà un compte" color='caféaulaitchaud' onPress={() => handleSubmit()} ></Button>
     </View>
   )
 
@@ -24,10 +22,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  image:{
-    
-    width:'40%',
-    height:'40%',
+  image: {
+    flex:1,
+    width: '40%',
+    height: '40%',
     alignItems: 'center',
     justifyContent: 'center',
   }
