@@ -1,11 +1,12 @@
 import { Button, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+
 export default function LandingScreen({ navigation }) {
   const handleSubmit = () => {
     navigation.native({ screen: 'SignInScreen' })
   }
   return (
     <View>
-      <Image source={require('../assets/logo.jpg')}
+      <Image style={styles.image} source={require('../assets/logo.jpg')}
         onPress={() => navigation.navigate('DemoScreen')} />
   
 
@@ -19,7 +20,16 @@ export default function LandingScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff'
+    backgroundColor: '#ffffff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  image:{
+    
+    width:'40%',
+    height:'40%',
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 }
 )

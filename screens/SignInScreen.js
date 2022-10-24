@@ -1,10 +1,10 @@
 import {Button, Text,View, StyleSheet} from 'react-native';
-import 
+
 
 
 export default function SignInScreen({ navigation }){
     return(
-
+<Text>SingIn</Text>
     )
 }
 const styles= StyleSheet.create({
