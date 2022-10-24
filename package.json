@@ -8,14 +8,45 @@
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
+  "private": true,
   "dependencies": {
-    "expo": "~46.0.16",
-    "expo-status-bar": "~1.4.0",
-    "react": "18.0.0",
-    "react-native": "0.69.6"
+    "@react-native-async-storage/async-storage": "^1.17.10",
+    "@react-navigation/bottom-tabs": "6",
+    "@react-navigation/native": "6",
+    "@react-navigation/native-stack": "6",
+    "@reduxjs/toolkit": "^1.8.3",
+    "expo": "~45.0.0",
+    "expo-camera": "~12.2.0",
+    "expo-status-bar": "~1.3.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-native": "0.68.2",
+    "react-native-safe-area-context": "4.2.4",
+    "react-native-screens": "~3.11.1",
+    "react-native-web": "0.17.7",
+    "react-redux": "^8.0.2",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@testing-library/react-native": "^10.1.1",
+    "@types/react": "~17.0.21",
+    "@types/react-native": "~0.66.13",
+    "@types/react-native-vector-icons": "^6.4.11",
+    "@types/react-redux": "^7.1.24",
+    "jest": "^26.6.3",
+    "jest-expo": "^45.0.1",
+    "node-fetch": "2",
+    "prettier": "2.7.1",
+    "react-test-renderer": "17"
   },
-  "private": true
+  "resolutions": {
+    "@types/react": "~17.0.21"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true
+  }
 }
