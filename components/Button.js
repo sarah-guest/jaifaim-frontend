@@ -27,7 +27,7 @@ export default function OurButton(props) {
   const buttonContent = text ? (
     <Text style={styles.buttonText}>{text}</Text>
   ) : (
-    <FontAwesome name={icon} size={20} color="#ffffff" />
+    <FontAwesome name={icon} size={20} color='#ffffff' />
   );
 
   return (
