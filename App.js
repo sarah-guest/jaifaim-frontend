@@ -9,8 +9,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // SCREENS
 import LandingScreen from './screens/LandingScreen';
 import DemoScreen from './screens/DemoScreen';
-import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
+import SignInScreen from './screens/SignInScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
 import EaterProviderScreen from './screens/EaterProviderScreen';
 import MapScreen from './screens/MapScreen';
 
@@ -29,6 +30,7 @@ export default function App() {
           <Stack.Screen name="EaterProvider" component={EaterProviderScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
+          <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Map" component={MapScreen} />
         </Stack.Navigator>
       </NavigationContainer>

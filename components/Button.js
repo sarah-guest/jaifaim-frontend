@@ -18,13 +18,16 @@ export default function OurButton(props) {
     elevation: 1,
   };
 
-  containerStyle.width = !text && 50; // Si !props.text, bouton rond
+  // Si !props.text, bouton rond
+  if (!text) {
+    containerStyle.width = 50;
+  }
 
   // Si props.text, contenu sera texte ; sinon, icône
   const buttonContent = text ? (
     <Text style={styles.buttonText}>{text}</Text>
   ) : (
-    <FontAwesome name={icon} size={20} color="#ffffff" />
+    <FontAwesome name={icon} size={20} color='#ffffff' />
   );
 
   return (

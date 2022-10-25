@@ -1,13 +1,16 @@
 import { StyleSheet, View, Image } from 'react-native';
-import Button from '../components/Button';
+import OurButton from '../components/Button';
 export default function LandingScreen({ navigation }) {
-  
+
   const handleSignUp = () => {
     navigation.navigate('Demo');
   };
 
-  const handleSignIn = () => {
-    navigation.navigate('SignIn');
+  const handleSignInRestaurant = () => {
+    navigation.navigate('SignIn', { type: 'restaurant' });
+  };
+  const handleSignInUser = () => {
+    navigation.navigate('SignIn', { type: 'user' });
   };
 
   return (
@@ -17,17 +20,23 @@ export default function LandingScreen({ navigation }) {
         source={require('../assets/logo.jpg')}
       />
 
-      <Button
-        Text="je m'inscris"
+      <OurButton
+        text="je m'inscris"
         color="caféaulaitchaud"
-        onPress={() => handleSignUp()}
-      ></Button>
+        onPress={handleSignUp}
+      ></OurButton>
 
-      <Button
-        Text="j'ai déjà un compte"
+      <OurButton
+        text="j'ai un compte restaurateur"
         color="caféaulaitchaud"
-        onPress={() => handleSignIn()}
-      ></Button>
+        onPress={handleSignInRestaurant}
+      ></OurButton>
+
+      <OurButton
+        text="j'ai un compte utilisateur"
+        color="caféaulaitchaud"
+        onPress={handleSignInUser}
+      ></OurButton>
     </View>
   );
 }

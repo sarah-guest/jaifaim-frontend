@@ -1,4 +1,4 @@
-import { Button, Text, View, StyleSheet, TextInput } from 'react-native';
+import { Text, View, StyleSheet, TextInput } from 'react-native';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSignIn } from '../reducers/user';
@@ -11,26 +11,28 @@ export default function SignInScreen({ navigation }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  //   const handleRegister = () => {
-  //     fetch(`http://192.168.10.144:3000/signup`, {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify({
-  //         email: email,
-  //         username: name,
-  //         password: password,
-  //       })
-  //         .then((response) => response.json())
-  //         .then((data) => {
-  //           if (data.result) {
-  //             dispatch(getSignIn({ name: name, token: data.token }));
-  //             setEmail('');
-  //             setName('');
-  //             setPassword('');
-  //           }
-  //         }),
-  //     });
-  //   };
+
+  const handleRegister = () => {
+    console.log("coucou")
+    //     fetch(`http://192.168.10.144:3000/signup`, {
+    //       method: 'POST',
+    //       headers: { 'Content-Type': 'application/json' },
+    //       body: JSON.stringify({
+    //         email: email,
+    //         username: name,
+    //         password: password,
+    //       })
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //           if (data.result) {
+    //             dispatch(getSignIn({ name: name, token: data.token }));
+    //             setEmail('');
+    //             setName('');
+    //             setPassword('');
+    //           }
+    //         }),
+    //     });
+  };
 
   return (
     <View style={styles.container}>
@@ -50,14 +52,17 @@ export default function SignInScreen({ navigation }) {
         value={password}
       />
 
-      {/* <OurButton
+      <OurButton
         text="Je m'inscris"
         color="caféaulaitchaud"
         onPress={handleRegister}
-      /> */}
+      />
       <Text>-----------OU------------</Text>
 
-      {/* <OurButton text="S'inscrire avec Google" color="caféaulaitchaud" /> */}
+      <OurButton
+        text="S'inscrire avec Google"
+        color="caféaulaitchaud"
+      />
     </View>
   );
 }
