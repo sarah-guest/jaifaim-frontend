@@ -12,6 +12,7 @@ import DemoScreen from './screens/DemoScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import EaterProviderScreen from './screens/EaterProviderScreen';
+import MapScreen from './screens/MapScreen';
 
 const Stack = createNativeStackNavigator();
 const store = configureStore({
@@ -23,6 +24,7 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Map" component={MapScreen} />
           <Stack.Screen name="Landing" component={LandingScreen} />
           <Stack.Screen name="Demo" component={DemoScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
