@@ -13,10 +13,8 @@ import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import EaterProviderScreen from './screens/EaterProviderScreen';
 import MapScreen from './screens/MapScreen';
-import FaqScreen from './screens/FaqScreen';
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
 const store = configureStore({
   reducer: { user },
 });
@@ -26,12 +24,11 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="FaqScreen" component={FaqScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="Map" component={MapScreen} />
           <Stack.Screen name="Landing" component={LandingScreen} />
           <Stack.Screen name="Demo" component={DemoScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="EaterProvider" component={EaterProviderScreen} />
         </Stack.Navigator>
       </NavigationContainer>
