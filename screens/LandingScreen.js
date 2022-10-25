@@ -1,21 +1,32 @@
 import { StyleSheet, View, Image } from 'react-native';
 import Button from '../components/Button';
 export default function LandingScreen({ navigation }) {
-  const handleSubmit = () => {
+  
+  const handleSignUp = () => {
+    navigation.navigate('Demo');
+  };
+
+  const handleSignIn = () => {
     navigation.navigate('SignIn');
   };
+
   return (
     <View style={styles.container}>
       <Image
         style={styles.image}
         source={require('../assets/logo.jpg')}
-        onPress={() => navigation.navigate('DemoScreen')}
       />
+
+      <Button
+        Text="je m'inscris"
+        color="caféaulaitchaud"
+        onPress={() => handleSignUp()}
+      ></Button>
 
       <Button
         Text="j'ai déjà un compte"
         color="caféaulaitchaud"
-        onPress={() => handleSubmit()}
+        onPress={() => handleSignIn()}
       ></Button>
     </View>
   );
