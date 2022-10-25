@@ -4,62 +4,67 @@ import { Text, View, StyleSheet } from 'react-native';
 import TextInput from '../components/TextInput';
 import OurButton from '../components/Button';
 import { useDispatch } from 'react-redux';
-import { getSignIn } from '../reducers/user';
+import { signInUser } from '../reducers/user';
+import { signInRestaurant } from '../reducers/restaurant'
 
 export default function SignInScreen({ navigation, route }) {
-  //Imports du reducer
+  //Import du reducer
   const dispatch = useDispatch();
 
   //On détermine le type d'utilisateur pour savoir quoi afficher dans l'écran
   let { type } = route.params;
 
-  //On crée les états de l'utilisateur
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  //on crée des inputs pour surveiller :
+  const [user, setUser] = useState(''); //nom de l'utilisateur
+  const [name, setName] = useState(''); //nom du restaurant
+  const [password, setPassword] = useState(null);
 
-  //On crée les états du restaurant
+  //On crée la fonction de connexion
+  const handleConnection = () => {
+    let path = ''
+    let whatUser = ''
+    let whatPassword = ''
 
+    if (type === 'user') {
+      path = 'users';
+      whatUser = user;
+      whatPassword = password;
+    }
 
-  //On crée la fonction de connexion d'un utilisateur
-  const handleUserConnection = () => {
-    //On fetch sur la route POST /users/signin pour enregistrer les username et password
-    fetch('http://192.168.10.130:3000/users/signin', {
+    else if (type === 'restaurant') {
+      path = 'restaurants';
+      whatUser = name;
+      whatPassword = password;
+    }
+
+    //On fetch sur la route POST /users OU restaurants/signin 
+    //pour enregistrer les username OU name et password
+    fetch(`http://192.168.10.130:3000/${path}/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: username, password: password }),
+      body: JSON.stringify({
+        username: whatUser,
+        password: whatPassword,
+      }),
     }).then(response => response.json())
       .then(data => {
+
         //Si l'utilisateur existe
         if (data.result) {
-          console.log("réussi", data.result);
-          dispatch(getSignIn({ username: username, token: data.token }));
-          // setUsername('');
+          if (type === 'user') {
+            dispatch(signInUser({ username: whatUser, token: data.token }));
+            navigation.navigate('Welcome', { type: 'user' });
+          } else if (type === 'restaurant') {
+            dispatch(signInRestaurant({ username: whatUser, token: data.token }));
+            navigation.navigate('Welcome', { type: 'restaurant' });
+            console.log(whatUser)
+          }
           // setPassword('');
-          navigation.navigate('Welcome', { type: 'user' });
+          // setUser('');
         }
         //Si l'utilisateur n'existe pas
         else {
           console.log("Ton compte n'est pas reconnu")
-        }
-      });
-  };
-
-  //On crée la fonction de connexion d'un restaurateur
-  const handleRestaurantConnection = () => {
-    fetch('http://192.168.10.130:3000/restaurants/signin', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: username, password: password }),
-    }).then(response => response.json())
-      .then(data => {
-        if (data.result) {
-          console.log("réussi", data.result);
-          //dispatch(login({ username: username, token: data.token }));
-          // setSignInUsername('');
-          // setSignInPassword('');
-          // setIsModalVisible(false)
-        } else {
-          console.log("pas de résultat")
         }
       });
   };
@@ -71,8 +76,8 @@ export default function SignInScreen({ navigation, route }) {
         <Text>Utilisateur</Text>
         <TextInput
           placeholder="Username"
-          onChangeText={(value) => setUsername(value)}
-          value={username}
+          onChangeText={(value) => setUser(value)}
+          value={user}
         />
         <TextInput
           placeholder="Mot de passe"
@@ -82,7 +87,7 @@ export default function SignInScreen({ navigation, route }) {
         <OurButton
           text="je m'inscris"
           color="caféaulaitchaud"
-          onPress={handleUserConnection}
+          onPress={handleConnection}
         ></OurButton>
       </View>
     )
@@ -96,9 +101,9 @@ export default function SignInScreen({ navigation, route }) {
           Restaurant
         </Text>
         <TextInput
-          placeholder="Username"
-          onChangeText={(value) => setUsername(value)}
-          value={username}
+          placeholder="Nom du restaurant"
+          onChangeText={(value) => setName(value)}
+          value={name}
         />
         <TextInput
           placeholder="Mot de passe"
@@ -106,9 +111,9 @@ export default function SignInScreen({ navigation, route }) {
           value={password}
         />
         <OurButton
-          text="je m'inscris"
+          text="Je m'inscris"
           color="caféaulaitchaud"
-          onPress={handleRestaurantConnection}
+          onPress={handleConnection}
         ></OurButton>
       </View>
     )

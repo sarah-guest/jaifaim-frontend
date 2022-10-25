@@ -2,6 +2,7 @@
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import user from './reducers/user';
+import restaurant from './reducers/restaurant';
 // NAVIGATION
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -17,7 +18,7 @@ import MapScreen from './screens/MapScreen';
 
 const Stack = createNativeStackNavigator();
 const store = configureStore({
-  reducer: { user },
+  reducer: { user, restaurant },
 });
 
 export default function App() {

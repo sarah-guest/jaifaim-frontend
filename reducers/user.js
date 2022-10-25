@@ -8,11 +8,11 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    getSignIn: (state, action) => {
+    signInUser: (state, action) => {
       state.value.token = action.payload.token;
       state.value.username = action.payload.username;
     },
   },
 });
-export const { getSignIn } = userSlice.actions;
+export const { signInUser } = userSlice.actions;
 export default userSlice.reducer;
