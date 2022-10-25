@@ -2,6 +2,7 @@
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import user from './reducers/user';
+import restaurant from './reducers/restaurant';
 // NAVIGATION
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -11,8 +12,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // SCREENS
 import LandingScreen from './screens/LandingScreen';
 import DemoScreen from './screens/DemoScreen';
-import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
+import SignInScreen from './screens/SignInScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
 import EaterProviderScreen from './screens/EaterProviderScreen';
 import MapScreen from './screens/MapScreen';
 // // SCREENS POUR TAB
@@ -20,7 +22,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import SnapScreen from './screens/SnapScreen';
 // REDUX
 const store = configureStore({
-  reducer: { user },
+  reducer: { user, restaurant },
 });
 const getIconName = (routeName) => {
   switch (routeName) {
@@ -107,6 +109,10 @@ export default function App() {
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="Map" component={MapScreen} />
           <Stack.Screen name="EaterProvider" component={EaterProviderScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="SignIn" component={SignInScreen} />
+          <Stack.Screen name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen name="Map" component={MapScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
