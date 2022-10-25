@@ -9,8 +9,8 @@ export default function EaterProviderScreen({ navigation }) {
     <View style={styles.container}>
       <Text>J'ai</Text>
       <Image style={styles.image} source={require('../assets/logo.jpg')} />
-      {/* <OurButton onPress={handleSubmit} color="pingouin" text="...faim" />
-      <OurButton onPress={handleSubmit} color="pingouin" text="...à manger" /> */}
+      <OurButton onPress={handleSubmit} color="pingouin" text="...faim" />
+      <OurButton onPress={handleSubmit} color="pingouin" text="...à manger" />
     </View>
   );
 }
@@ -20,5 +20,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  image: {
+    width: 400,
+    height: 200,
   },
 });
