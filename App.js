@@ -17,6 +17,7 @@ import SignInScreen from './screens/SignInScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import EaterProviderScreen from './screens/EaterProviderScreen';
 import MapScreen from './screens/MapScreen';
+import HomePageScreen from './screens/HomePageScreen';
 // // SCREENS POUR TAB
 import ProfileScreen from './screens/ProfileScreen';
 import SnapScreen from './screens/SnapScreen';
@@ -106,6 +107,7 @@ export default function App() {
           <Stack.Screen name="Landing" component={LandingScreen} />
           <Stack.Screen name="Demo" component={DemoScreen} />
           <Stack.Screen name="EaterProvider" component={EaterProviderScreen} />
+          <Stack.Screen name="HomePage" component={HomePageScreen} options={{ animation: 'fade' }} />
           <Stack.Screen name="Map" component={MapScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
