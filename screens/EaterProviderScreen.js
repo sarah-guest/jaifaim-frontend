@@ -1,16 +1,24 @@
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Image, Text, View, StyleSheet } from 'react-native';
+import OurButton from '../components/Button';
+
 export default function EaterProviderScreen({ navigation }) {
-    const handleSubmit=()=>{}
-        navigation.native({screen:'SignUpScreen'})
-    return (
-        <View>
-            <Text>J'ai</Text>
-            <Image source={require('../assets/logo.jpg')} />
-            <TouchableOpacity onPress={() => handleSubmit()} style={styles.button} activeOpacity={0.8}>
-                <Text style={styles.textButton}>...faim</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => handleSubmit()} style={styles.button} activeOpacity={0.8}>
-                    <Text style={styles.textButton}>...à manger</Text>
-                </TouchableOpacity>
-        </View>
-    )
+  const handleSubmit = () => {
+    navigation.navigate('SignUp');
+  };
+  return (
+    <View style={styles.container}>
+      <Text>J'ai</Text>
+      <Image style={styles.image} source={require('../assets/logo.jpg')} />
+      {/* <OurButton onPress={handleSubmit} color="pingouin" text="...faim" />
+      <OurButton onPress={handleSubmit} color="pingouin" text="...à manger" /> */}
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
