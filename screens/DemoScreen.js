@@ -1,21 +1,18 @@
-import { Text, View, StyleSheet } from "react-native";
-import OurButton from "../components/Button";
+import { Button, Text, View, StyleSheet } from 'react-native';
+
 export default function DemoScreen({ navigation }) {
-    return (
-        <View>
-            <Text>DemoScreen</Text>
-            <OurButton
-                title="Demostration"
-                onPress={() => navigation.navigate('SignUp')}
-            />
-        </View>
-
-
-    )
+  return (
+    <View style={styles.container}>
+      <Text>DemoScreen</Text>
+      <Button title="Sign In" onPress={() => navigation.navigate('SignIn')} />
+    </View>
+  );
 }
+
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#ffffff'
-    }
-})
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
