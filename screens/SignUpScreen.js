@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet, TextInput } from 'react-native';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState,useSelector } from 'react';
+import { useDispatch } from 'react-redux';
 import { signInUser } from '../reducers/user';
 import { signInRestaurant } from '../reducers/user';
 import OurButton from '../components/Button';
@@ -48,15 +48,15 @@ export default function SignInScreen({ navigation, route }) {
         password: whichPassword,
       }),
     }).then(response => response.json())
-        .then(data => {
+        .then(data => { 
           if (data.result) {
             console.log(data.result,'hello');
             if (type === 'user') {
               dispatch(signInUser({ username: whichUser, token: data.token }));
               navigation.navigate('AskName',{ type: 'user' });
             } else if (type === 'restaurant') {
-              dispatch(signInRestaurant({ name: whichUser, tolen: data / token }));
-              navigation.navigate('AskName', { type: 'restaurant' });
+              dispatch(signInRestaurant({ name: whichUser, token: data.token }));
+              navigation.navigate('AskName',{ type: 'restaurant' });
             }
             //   setEmail('');
             // setName('');

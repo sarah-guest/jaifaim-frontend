@@ -1,10 +1,10 @@
 import { Button, Text, View, StyleSheet } from 'react-native';
-
+import OurButton from '../components/Button';
 export default function DemoScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text>DemoScreen</Text>
-      <Button title="Sign Up" onPress={() => navigation.navigate('EaterProvider')} />
+      <OurButton text="Sign Up" onPress={() => navigation.navigate('EaterProvider')} />
     </View>
   );
 }
