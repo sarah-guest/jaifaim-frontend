@@ -29,7 +29,7 @@ export default function WelcomeScreen({ navigation, route }) {
         whatUser = name;
     }
 
-    fetch(`http://192.168.10.130:3000/${path}/${type}`, {
+    fetch(`http://192.168.0.20:3000/${path}/${type}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: whatUser }),

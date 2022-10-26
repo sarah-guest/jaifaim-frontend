@@ -39,7 +39,7 @@ export default function SignInScreen({ navigation, route }) {
 
     //On fetch sur la route POST /users OU restaurants/signin 
     //pour enregistrer les username OU name et password
-    fetch(`http://192.168.10.130:3000/${path}/signin`, {
+    fetch(`http://192.168.0.20:3000/${path}/signin`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

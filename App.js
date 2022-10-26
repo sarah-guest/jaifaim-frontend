@@ -17,6 +17,7 @@ import SignInScreen from './screens/SignInScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import EaterProviderScreen from './screens/EaterProviderScreen';
 import MapScreen from './screens/MapScreen';
+import AskNameScreen from './screens/AskNameScreen';
 // // SCREENS POUR TAB
 import ProfileScreen from './screens/ProfileScreen';
 import SnapScreen from './screens/SnapScreen';
@@ -103,6 +104,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="TabNavigation" component={TabNavigation} />
+          <Stack.Screen name= 'AskName' component={AskNameScreen}/>
           <Stack.Screen name="Landing" component={LandingScreen} />
           <Stack.Screen name="Demo" component={DemoScreen} />
           <Stack.Screen name="EaterProvider" component={EaterProviderScreen} />
