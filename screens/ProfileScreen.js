@@ -10,15 +10,19 @@ const adresse = '56 Bd Pereire, 75017 Paris';
 const website = 'https://www.lacapsule.academy/'; // Todo : http/https links in react native
 // ---------------
 
-export default function TabOneScreen() {
-  return (
-    <View style={styles.container}>
-      <Image source={restaurantAvatarSource} />
-      <Text style={styles.name}>{name}</Text>
-      <Text style={styles.underName}>{adresse}</Text>
-      <Text style={styles.bioShort}>{bioShort}</Text>
-    </View>
-  );
+export default function ProfileScreen() {
+  const RestaurantProfileScreen = () => {
+    return (
+      <View style={styles.container}>
+        <Image source={restaurantAvatarSource} />
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.underName}>{adresse}</Text>
+        <Text style={styles.bioShort}>{bioShort}</Text>
+      </View>
+    );
+  };
+
+  return <RestaurantProfileScreen />;
 }
 
 const styles = StyleSheet.create({

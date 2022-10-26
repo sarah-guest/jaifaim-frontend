@@ -1,7 +1,7 @@
 import { StyleSheet, TextInput } from 'react-native';
 
 export default function OurTextInput(props) {
-  const { onChangeText, placeholder, inputAndButton } = props;
+  const { onChangeText, placeholder, inputAndButton, secureTextEntry } = props;
   const propsStyle = inputAndButton && {
     flex: 1,
     marginRight: 10,
@@ -12,6 +12,7 @@ export default function OurTextInput(props) {
       style={[styles.input, propsStyle]}
       placeholder={placeholder}
       onChangeText={(value) => onChangeText(value)}
+      secureTextEntry={secureTextEntry}
     />
   );
 }

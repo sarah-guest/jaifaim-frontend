@@ -4,15 +4,15 @@ import { useSelector, useState } from 'react';
 import { getFirstName } from '../reducers/user';
 import { getName } from '../reducers/restaurant';
 
-//import OurButton from '../components/Button';
+import OurButton from '../components/Button';
 import OurTextInput from '../components/TextInput';
 
 
 export default function AskNameScreen({ navigation, route }) {
   //On récupère l'utilisateur dans le reducer
-  const user = useSelector((state) => state.user.value.user);
+  //const user = useSelector((state) => state.user.value.user);
   //On récupère le restaurant dans le reducer
-  const name = useSelector((state) => state.restaurant.value.name);
+  //const name = useSelector((state) => state.restaurant.value.name);
 
   //On détermine le type d'utilisateur pour savoir quoi afficher dans l'écran
   let { type } = route.params;
@@ -23,18 +23,19 @@ export default function AskNameScreen({ navigation, route }) {
   const [restaurantName, setRestaurantName] = useState('');
 
   //On fetch l'utilisateur OU le restaurant pour récupérer le firstname OU name dans la base de données
+  const myNameIs=()=>{
   let path = '';
   let whatUser = '';
   let whatName = '';
 
   if (type === 'user') {
     path = 'users';
-    whatUser = user;
+    whatUser = firstname;
   }
 
   else if (type === 'restaurant') {
     path = 'restaurants';
-    whatUser = name;
+    whatUser = restaurantName;
   }
   fetch(`http://192.168.0.20:3000/${path}/signup`, {
     method: 'POST',
@@ -57,7 +58,7 @@ export default function AskNameScreen({ navigation, route }) {
       }
     });
 
-
+  }
   if (type === 'user') {
     return (
 
@@ -68,7 +69,10 @@ export default function AskNameScreen({ navigation, route }) {
           onChangeText={(value) => setFirstname(value)}
           value={firstname}
         />
-        <Button>Valider</Button>
+        <OurButton
+        text="Je m'inscris"
+        color="caféaulaitchaud"
+        onPress={myNameIs}/>
       </View>
     );
   } else if (type === 'restaurant') {
@@ -81,7 +85,10 @@ export default function AskNameScreen({ navigation, route }) {
           onChangeText={(value) => setRestaurantName(value)}
           value={restaurantName}
         />
-        <Button>Valider</Button>
+           <OurButton
+        text="Je m'inscris"
+        color="caféaulaitchaud"
+        onPress={myNameIs}/>
       </View>
     );
   }

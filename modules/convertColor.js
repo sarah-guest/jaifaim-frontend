@@ -12,7 +12,7 @@ const convertColor = (name) => {
       return '#DDB892';
     case 'caféaulaitfroid':
       return '#B08968';
-    case 'caféaulaitfroid':
+    case 'cannelle':
       return '#7F5539';
     case 'sucreroux':
       return '#9C6644';
@@ -21,7 +21,10 @@ const convertColor = (name) => {
     case 'océan':
       return '#1D487F';
     default:
-      console.log('Couleur non reconnue (props "color" dans <Button />)');
+      console.log(
+        '🤡 Tu as utilisé un composant <OurButton /> mais as oublié ou mal orthographié la valeur de sa props "color" alors je t\'ai mis "cannelle" par défaut 🤡'
+      );
+      return '#7F5539';
   }
 };
 

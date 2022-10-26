@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
+import Title from '../components/Title';
 
 export default function WelcomeScreen({ navigation, route }) {
     //On récupère l'utilisateur dans le reducer
@@ -11,9 +12,17 @@ export default function WelcomeScreen({ navigation, route }) {
     //On détermine le type d'utilisateur pour savoir quoi afficher dans l'écran
     let { type } = route.params;
 
+    // const IP_ADDRESS = '192.168.10.130';
+    const IP_ADDRESS = '192.168.0.20';
+
     //On initialise des variables pour le nom à afficher
     const [userFirstname, setUserFirstname] = useState('');
     const [restaurantName, setRestaurantName] = useState('');
+
+    //On set un délai d'affichage : 3 secondes avant le passage au screen suivant
+    setTimeout(() => {
+        navigation.navigate('HomePage');
+    }, 2000);
 
     //On fetch l'utilisateur OU le restaurant pour récupérer le firstname OU name dans la base de données
     let path = ''
@@ -29,7 +38,7 @@ export default function WelcomeScreen({ navigation, route }) {
         whatUser = name;
     }
 
-    fetch(`http://192.168.0.20:3000/${path}/${type}`, {
+    fetch(`http://${IP_ADDRESS}:3000/${path}/${type}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: whatUser }),
@@ -37,24 +46,24 @@ export default function WelcomeScreen({ navigation, route }) {
         .then(data => {
             //Si l'utilisateur existe
             if (type === 'user') {
-                console.log(data)
-                data.result ? setUserFirstname(data.data.firstname) : setUserFirstname(userFirstname)
+                data.result !== null ? setUserFirstname(data.data.firstname) : setUserFirstname(userFirstname)
             } else if (type === 'restaurant') {
-                data.result ? setRestaurantName(data.data.name) : setRestaurantName(restaurantName)
+                data.result !== null ? setRestaurantName(data.data.name) : setRestaurantName(restaurantName)
             }
         });
 
     if (type === 'user') {
         return (
             <View style={styles.container}>
-                <Text>Bienvenue {userFirstname}</Text>
+                <Title h4>Bienvenue {userFirstname}</Title>
             </View>
         );
     }
     if (type === 'restaurant') {
         return (
             <View style={styles.container}>
-                <Text>Bienvenue {restaurantName}</Text>
+                {/* <Title text={`Bienvenue ${restaurantName}`} /> */}
+                <Title h4>Bienvenue {restaurantName}</Title>
             </View>
         );
     }
