@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
+import Title from '../components/Title';
 
 export default function WelcomeScreen({ navigation, route }) {
     //On récupère l'utilisateur dans le reducer
@@ -54,14 +55,17 @@ export default function WelcomeScreen({ navigation, route }) {
     if (type === 'user') {
         return (
             <View style={styles.container}>
-                <Text>Bienvenue {userFirstname}</Text>
+                <Title text={`Bienvenue ${userFirstname}`} />
             </View>
         );
     }
     if (type === 'restaurant') {
         return (
             <View style={styles.container}>
-                <Text>Bienvenue {restaurantName}</Text>
+                {/* <Title text={`Bienvenue ${restaurantName}`} /> */}
+                <Title h4>
+                    Bienvenue {restaurantName}
+                </Title>
             </View>
         );
     }
