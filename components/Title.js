@@ -9,10 +9,12 @@ const fetchFonts = () => {
 };
 
 export default function Title(props) {
+    //On détermine les tailles de typo
     const { h1, h2, h3, h4, h5, h6 } = props;
 
-    const [hNumber, sethNumber] = useState('h1');
+    //On crée un état chargé de vérifier si la font est chargée ou non
     const [fontsLoaded, setFontsLoaded] = useState(false);
+    //On charge la font et on set l'état à true
     useEffect(() => {
         async function getFonts() {
             await fetchFonts();
@@ -21,6 +23,7 @@ export default function Title(props) {
         getFonts();
     }, []);
 
+    //Composant
     if (!fontsLoaded || fontsLoaded) {
         return (
             <Text
