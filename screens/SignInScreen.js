@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
 //imports de nos composants
 import TextInput from '../components/TextInput';
 import OurButton from '../components/Button';
@@ -74,7 +74,7 @@ export default function SignInScreen({ navigation, route }) {
   //Si compte utilisateur :
   if (type === 'user') {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
         <Text>Utilisateur</Text>
         <TextInput
           placeholder="Username"
@@ -91,14 +91,14 @@ export default function SignInScreen({ navigation, route }) {
           color="caféaulaitchaud"
           onPress={handleConnection}
         ></OurButton>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 
   //Si compte restaurant :
   else if (type === 'restaurant') {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <Text>
           Restaurant
         </Text>
@@ -117,7 +117,7 @@ export default function SignInScreen({ navigation, route }) {
           color="caféaulaitchaud"
           onPress={handleConnection}
         ></OurButton>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }

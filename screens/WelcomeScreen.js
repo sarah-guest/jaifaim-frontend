@@ -21,7 +21,7 @@ export default function WelcomeScreen({ navigation, route }) {
     //On set un délai d'affichage : 3 secondes avant le passage au screen suivant
     setTimeout(() => {
         navigation.navigate('HomePage');
-    }, 3000);
+    }, 2000);
 
     //On fetch l'utilisateur OU le restaurant pour récupérer le firstname OU name dans la base de données
     let path = ''
