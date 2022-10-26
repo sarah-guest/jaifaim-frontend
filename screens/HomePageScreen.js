@@ -1,6 +1,9 @@
 import { Button, Text, View, StyleSheet } from 'react-native';
 
 export default function HomePageScreen({ navigation }) {
+
+
+
     return (
         <View style={styles.container}>
             <Text>HomePage</Text>

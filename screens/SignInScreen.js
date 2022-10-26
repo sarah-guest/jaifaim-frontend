@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { Text, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, View } from 'react-native';
+//import FontAwesome
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //imports de nos composants
 import TextInput from '../components/TextInput';
 import OurButton from '../components/Button';
+import OurText from '../components/OurText';
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../reducers/user';
-import { signInRestaurant } from '../reducers/restaurant'
-import OurText from '../components/OurText';
+import { signInRestaurant } from '../reducers/restaurant';
 
 export default function SignInScreen({ navigation, route }) {
   //Import du reducer
@@ -21,7 +23,9 @@ export default function SignInScreen({ navigation, route }) {
   //on crée des inputs pour surveiller :
   const [user, setUser] = useState(''); //nom de l'utilisateur
   const [name, setName] = useState(''); //nom du restaurant
+  const [passwordVisible, setPasswordVisible] = useState(true);
   const [password, setPassword] = useState(null);
+  const [error, setError] = useState(false);
 
   //On crée la fonction de connexion
   const handleConnection = () => {
@@ -62,12 +66,12 @@ export default function SignInScreen({ navigation, route }) {
             dispatch(signInRestaurant({ username: whatUser, token: data.token }));
             navigation.navigate('Welcome', { type: 'restaurant' });
           }
-          // setPassword('');
-          // setUser('');
+          setError(false);
         }
         //Si l'utilisateur n'existe pas
         else {
           console.log("Ton compte n'est pas reconnu")
+          setError(true)
         }
       });
   };
@@ -76,17 +80,22 @@ export default function SignInScreen({ navigation, route }) {
   if (type === 'user') {
     return (
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
-        <OurText body2>Utilisateur</OurText>
+        <OurText body1>Utilisateur</OurText>
         <TextInput
           placeholder="Username"
           onChangeText={(value) => setUser(value)}
           value={user}
         />
-        <TextInput
-          placeholder="Mot de passe"
-          onChangeText={(value) => setPassword(value)}
-          value={password}
-        />
+        <View style={styles.password}>
+          <TextInput
+            placeholder="Mot de passe"
+            onChangeText={(value) => setPassword(value)}
+            value={password}
+            secureTextEntry={passwordVisible}
+          />
+          <FontAwesome style={styles.showHide} name={passwordVisible ? "eye" : "eye-slash"} onPress={() => setPasswordVisible(!passwordVisible)} />
+        </View>
+        {error && <OurText body2>Ce compte n'existe pas</OurText>}
         <OurButton
           text="je me connecte"
           color="caféaulaitchaud"
@@ -108,11 +117,16 @@ export default function SignInScreen({ navigation, route }) {
           onChangeText={(value) => setName(value)}
           value={name}
         />
-        <TextInput
-          placeholder="Mot de passe"
-          onChangeText={(value) => setPassword(value)}
-          value={password}
-        />
+        <View style={styles.password}>
+          <TextInput
+            placeholder="Mot de passe"
+            onChangeText={(value) => setPassword(value)}
+            value={password}
+            secureTextEntry={passwordVisible}
+          />
+          <FontAwesome style={styles.showHide} name={passwordVisible ? "eye" : "eye-slash"} onPress={() => setPasswordVisible(!passwordVisible)} />
+        </View>
+        {error && <OurText body2>Ce compte n'existe pas</OurText>}
         <OurButton
           text="Je me connecte"
           color="caféaulaitchaud"
@@ -128,4 +142,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  password: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  showHide: {
+    margin: 10,
+    fontSize: 15,
+  }
 });
