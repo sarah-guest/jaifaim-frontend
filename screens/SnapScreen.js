@@ -38,7 +38,6 @@ export default function SnapScreen({ navigation }) {
   // --- bouton "check": redirection vers le screen pdjForm
   if (temporary.platdujourPhoto) {
     const imgSource = temporary.platdujourPhoto;
-    console.log(imgSource);
     return (
       <View style={styles.container}>
         <Image style={styles.image} source={imgSource} />
