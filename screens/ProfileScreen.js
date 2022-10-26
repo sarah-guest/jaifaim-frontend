@@ -3,10 +3,10 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 
 // DUMMY RESOURCES
 const restaurantAvatarSource = require('../assets/images/avatarRestaurant.png');
-const name = 'La Capsule';
+const name = 'user';
 const bioShort =
-  'La Capsule est un Coding Bootcamp classé N#1 en France qui propose des formations de haut niveau pour apprendre à coder en web et mobile.';
-const adresse = '56 Bd Pereire, 75017 Paris';
+  '';
+const adresse = '';
 const website = 'https://www.lacapsule.academy/'; // Todo : http/https links in react native
 // ---------------
 
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#E6CCB3',
   },
   name: {
     fontSize: 32,
