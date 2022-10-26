@@ -6,6 +6,7 @@ import OurButton from '../components/Button';
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../reducers/user';
 import { signInRestaurant } from '../reducers/restaurant'
+import OurText from '../components/OurText';
 
 export default function SignInScreen({ navigation, route }) {
   //Import du reducer
@@ -75,7 +76,7 @@ export default function SignInScreen({ navigation, route }) {
   if (type === 'user') {
     return (
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
-        <Text>Utilisateur</Text>
+        <OurText body2>Utilisateur</OurText>
         <TextInput
           placeholder="Username"
           onChangeText={(value) => setUser(value)}
@@ -98,10 +99,10 @@ export default function SignInScreen({ navigation, route }) {
   //Si compte restaurant :
   else if (type === 'restaurant') {
     return (
-      <KeyboardAvoidingView style={styles.container}>
-        <Text>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
+        <OurText body1>
           Restaurant
-        </Text>
+        </OurText>
         <TextInput
           placeholder="Nom du restaurant"
           onChangeText={(value) => setName(value)}
