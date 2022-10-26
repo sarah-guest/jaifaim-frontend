@@ -2,7 +2,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-nativ
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
-export default function FaqScreen({ navigation }) {
+export default function FaqScreen({ navigation , route }) {
     return (
       <View style={styles.container}>
         
@@ -24,9 +24,6 @@ export default function FaqScreen({ navigation }) {
     },
     text: {
         backgroundColor: 'blue',
-        
-        
-        
     },
     input: {
         height: 50,
