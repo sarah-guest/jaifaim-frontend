@@ -1,7 +1,7 @@
 // IMPORTS HABITUELS
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function TabTwoScreen() {
+export default function SnapScreen() {
   return (
     <View style={styles.container}>
       <Text>Tab 2!</Text>
