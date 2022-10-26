@@ -55,7 +55,7 @@ export default function WelcomeScreen({ navigation, route }) {
     if (type === 'user') {
         return (
             <View style={styles.container}>
-                <Title text={`Bienvenue ${userFirstname}`} />
+                <Title h4>Bienvenue {userFirstname}</Title>
             </View>
         );
     }
@@ -63,9 +63,7 @@ export default function WelcomeScreen({ navigation, route }) {
         return (
             <View style={styles.container}>
                 {/* <Title text={`Bienvenue ${restaurantName}`} /> */}
-                <Title h4>
-                    Bienvenue {restaurantName}
-                </Title>
+                <Title h4>Bienvenue {restaurantName}</Title>
             </View>
         );
     }
