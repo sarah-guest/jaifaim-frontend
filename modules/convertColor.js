@@ -12,7 +12,7 @@ const convertColor = (name) => {
       return '#DDB892';
     case 'caféaulaitfroid':
       return '#B08968';
-    case 'caféaulaitfroid':
+    case 'cannelle':
       return '#7F5539';
     case 'sucreroux':
       return '#9C6644';
