@@ -25,6 +25,7 @@ import SnapScreen from './screens/SnapScreen';
 const store = configureStore({
   reducer: { user, restaurant },
 });
+
 const getIconName = (routeName) => {
   switch (routeName) {
     case 'Home': // commun: feed pour users, dashboard pour restaurants
