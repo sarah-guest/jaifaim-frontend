@@ -1,8 +1,8 @@
 // IMPORTS HABITUELS
 import { Image, StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useState } from 'react';
-import { useSelector, useEffect} from 'react-redux';
+import { useState,useEffect } from 'react';
+import { useSelector, } from 'react-redux';
  
 
 
