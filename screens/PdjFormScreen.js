@@ -1,22 +1,25 @@
-// IMPORTS HABITUELS
+// IMPORTS REACT
+import { useEffect, useState } from 'react';
+// IMPORTS COMPOSANTS
 import { Image, StyleSheet, View } from 'react-native';
+import OurButton from '../components/Button';
+import OurTag from '../components/Tag';
 import OurTextInput from '../components/TextInput';
 import Title from '../components/Title';
 // IMPORTS REDUCER
 import { useSelector } from 'react-redux';
-import OurButton from '../components/Button';
-import OurTag from '../components/Tag';
-import { useEffect, useState } from 'react';
 
 export default function PdjFormScreen({ navigation }) {
   const [selectedDiets, setSelectedDiets] = useState([]);
   const [name, setName] = useState(null);
+  const [description, setDescription] = useState(null);
   const [diets, setDiets] = useState([]);
   const temporary = useSelector((state) => state.temporary.value);
+  const monAdresseIP = 'Dummy'; // Todo supprimer ça
 
   // Lorsque le composant est initialisé, récupère les régimes dans le backend
   useEffect(() => {
-    fetch('http://192.168.43.122:3000/diets')
+    fetch(`http://${monAdresseIP}:3000/diets`)
       .then((response) => response.json())
       .then((json) => {
         setDiets(json.diets); // Stocke-les dans l'état "diets"
@@ -46,8 +49,22 @@ export default function PdjFormScreen({ navigation }) {
   ));
 
   const sendPlatdujourToBackend = () => {
-    // todo: fetch POST addplatdujour
-    console.log('Plat envoyé dans le back a+');
+    const data = {
+      description,
+      diets: selectedDiets,
+      name,
+      src: 'Dummy', // Todo cloudinary
+      token: 'Dummy', // Todo reducer
+    };
+
+    fetch(`http://${monAdresseIP}:3000/restaurants/addplatdujour`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json, 'plat envoyé dans le back'))
+      .catch((err) => console.log(err, 'lol'));
   };
 
   return (
@@ -61,6 +78,13 @@ export default function PdjFormScreen({ navigation }) {
         />
         <Title h4={true}>Régimes compatibles</Title>
         <View style={styles.tagCloud}>{dietsDom}</View>
+        <Title h4={true}>Description</Title>
+        <OurTextInput
+          multiline={true}
+          numberOfLines={4}
+          placeholder="Brève description du plat"
+          onChangeText={(value) => setDescription(value)}
+        ></OurTextInput>
       </View>
       <View style={styles.buttonValidate}>
         <OurButton
