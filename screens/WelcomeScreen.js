@@ -62,7 +62,6 @@ export default function WelcomeScreen({ navigation, route }) {
     if (type === 'restaurant') {
         return (
             <View style={styles.container}>
-                {/* <Title text={`Bienvenue ${restaurantName}`} /> */}
                 <Title h4>Bienvenue {restaurantName}</Title>
             </View>
         );

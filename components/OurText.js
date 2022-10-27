@@ -9,7 +9,12 @@ import {
 } from '@expo-google-fonts/lato';
 
 export default function OurText(props) {
-    const { subtitle, body1, body2 } = props;
+    const { subtitle, body1, body2, isLight } = props;
+
+    //condition pour que le texte s'affiche en blanc (si le fond est sombre)
+    const color = isLight && {
+        color: 'white'
+    }
 
     //FONT LATO
     let [fontsLoaded] = useFonts({
@@ -22,7 +27,7 @@ export default function OurText(props) {
 
     if (!fontsLoaded || fontsLoaded) {
         return (
-            <Text style={[
+            <Text style={[color,
                 subtitle && { fontFamily: 'Lato_700Bold', fontSize: 20, },
                 body1 && { fontFamily: 'Lato_400Regular', fontSize: 20, },
                 body2 && { fontFamily: 'Lato_400Regular', fontSize: 16, },
