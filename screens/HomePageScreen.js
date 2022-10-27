@@ -16,6 +16,9 @@ export default function HomePageScreen({ navigation }) {
 
     //on récupère les plats du jour
     useEffect(() => {
+        //on crée un tableau dans lequel push les données
+        const updatedMealsData = mealsData;
+
         fetch(`http://${IP_ADDRESS}:3000/users/getplatsdujour`)
             .then(res => res.json())
             .then(data => {
@@ -32,18 +35,24 @@ export default function HomePageScreen({ navigation }) {
                                 date: dailyMeal.date,
                             }
                             //on les push dans le tableau s'ils n'y sont pas encore
+                            updatedMealsData.push(pdj)
                             if (!mealsData.includes(pdj)) {
-                                mealsData.push(pdj)
                             }
                         }
                     }
                 }
             })
-    }, []);
+        //on set dans mealsData les données récoltées
+        setMealsData(updatedMealsData)
+    }, [mealsData]);
+
+    //                         PROBLÈME 1 : DEVRAIT SE REMPLIR MAIS RESTE VIDE JUSQU'À CE QU'ON ACTUALISE
+    //                         PROBLÈME 2 : charge en double les éléments à chaque actualisation
+    console.log(mealsData)
 
     const meals = mealsData.map((data, i) => {
         return (
-            <Meal key={i} src={data.src} meal={data.meal} restaurant={data.restaurant} />
+            <Meal key={i} {...data} />
         )
     })
 
@@ -56,7 +65,12 @@ export default function HomePageScreen({ navigation }) {
             <SafeAreaView style={styles.container}>
                 <ScrollView>
                     {/* Populaires */}
-                    <ScrollView style={styles.scroll} horizontal={true}>
+                    <ScrollView
+                        style={styles.scroll}
+                        horizontal={true}
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                    >
                         {meals}
                     </ScrollView>
 
