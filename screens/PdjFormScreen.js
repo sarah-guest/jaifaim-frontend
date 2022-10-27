@@ -15,7 +15,8 @@ export default function PdjFormScreen({ navigation }) {
   const [description, setDescription] = useState(null);
   const [diets, setDiets] = useState([]);
   const temporary = useSelector((state) => state.temporary.value);
-  const monAdresseIP = 'Dummy'; // Todo supprimer ça
+  const monAdresseIP = ''; // Todo supprimer
+  const monTokenRestaurant = ''; // Todo reducer
 
   // Lorsque le composant est initialisé, récupère les régimes dans le backend
   useEffect(() => {
@@ -49,22 +50,38 @@ export default function PdjFormScreen({ navigation }) {
   ));
 
   const sendPlatdujourToBackend = () => {
-    const data = {
-      description,
-      diets: selectedDiets,
-      name,
-      src: 'Dummy', // Todo cloudinary
-      token: 'Dummy', // Todo reducer
-    };
+    const formData = new FormData();
 
-    fetch(`http://${monAdresseIP}:3000/restaurants/addplatdujour`, {
+    formData.append('photoFromFront', {
+      uri: temporary.platdujourPhoto.uri,
+      name: 'photo.jpg',
+      type: 'image/jpeg',
+    });
+
+    fetch(`http://${monAdresseIP}:3000/restaurants/platdujour/photo/create`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: formData,
     })
       .then((response) => response.json())
-      .then((json) => console.log(json, 'plat envoyé dans le back'))
-      .catch((err) => console.log(err, 'lol'));
+      .then((json) => {
+        if (json.result) {
+          const data = {
+            description,
+            diets: selectedDiets,
+            name,
+            src: json.url,
+            token: monTokenRestaurant,
+          };
+
+          fetch(`http://${monAdresseIP}:3000/restaurants/platdujour/create`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          })
+            .then((response) => response.json())
+            .then((json) => console.log(json));
+        }
+      });
   };
 
   return (
