@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
   tagCloud: {
     width: 350,
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   buttonValidate: {
     position: 'absolute',
