@@ -6,15 +6,25 @@ import Title from '../components/Title';
 import { useSelector } from 'react-redux';
 import OurButton from '../components/Button';
 import OurTag from '../components/Tag';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function PdjFormScreen({ navigation }) {
   const [selectedDiets, setSelectedDiets] = useState([]);
   const [name, setName] = useState(null);
+  const [diets, setDiets] = useState([]);
   const temporary = useSelector((state) => state.temporary.value);
 
+  // Lorsque le composant est initialisé, récupère les régimes dans le backend
+  useEffect(() => {
+    fetch('http://192.168.43.122:3000/diets')
+      .then((response) => response.json())
+      .then((json) => {
+        setDiets(json.diets); // Stocke-les dans l'état "diets"
+      });
+  }, []);
+
   // Fonction passée en props "onPress" à chaque <OurTag />
-  // Lorsque je presse un tag:
+  // Lorsque je presse un <OurTag /> :
   // --- si son diet n'existe pas dans selectedDiets, push-le dedans
   // --- inversement (son diet existe dans selectedDiets), supprime-le
   const toggleDietSelection = (diet) => {
@@ -23,22 +33,17 @@ export default function PdjFormScreen({ navigation }) {
       : setSelectedDiets(selectedDiets.filter((e) => e !== diet));
   };
 
-  // todo: fetch GET diets
-  const diets = ['Végétarien', 'Vegan', 'Casher'];
-
-  const dietsDom = [];
-  diets.map((diet, key) => {
-    dietsDom.push(
-      <OurTag
-        key={key}
-        text={diet}
-        onPress={() => {
-          toggleDietSelection(diet);
-        }}
-        isPressed={selectedDiets.includes(diet)}
-      />
-    );
-  });
+  // Pour chaque régime dans diets, retourne un <OurTag /> et stocke-le dans dietsDom
+  const dietsDom = diets.map((diet, key) => (
+    <OurTag
+      key={key}
+      text={diet.name}
+      onPress={() => {
+        toggleDietSelection(diet.name);
+      }}
+      isPressed={selectedDiets.includes(diet.name)}
+    />
+  ));
 
   const sendPlatdujourToBackend = () => {
     // todo: fetch POST addplatdujour
@@ -83,6 +88,7 @@ const styles = StyleSheet.create({
   tagCloud: {
     width: 350,
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   buttonValidate: {
     position: 'absolute',

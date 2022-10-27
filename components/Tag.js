@@ -21,6 +21,7 @@ export default function OurButton(props) {
 const styles = StyleSheet.create({
   tag: {
     marginRight: 6,
+    marginBottom: 6,
     paddingVertical: 6,
     paddingHorizontal: 16,
     borderRadius: 100,
