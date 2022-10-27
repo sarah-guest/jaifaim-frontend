@@ -1,70 +1,61 @@
 // IMPORTS HABITUELS
 import { Image, StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { useSelector, useEffect} from 'react-redux';
  
-// DUMMY RESOURCES
-const restaurantAvatarSource = require('../assets/images/avatarRestaurant.png');
-const name = '';
-const path = 'restaurants';
 
 
+export default function ProfileScreen( {route} ) {
+  //const RestaurantProfileScreen = () => {
 
-export default function ProfileScreen({ navigation, route }) {
+    const name = useSelector((state) => state.restaurant.value.username)
+    //let { type } = route.params;
+    const IP_ADDRESS = '192.168.1.36';
+    const [restaurantName, setRestaurantName] = useState('');
+    let path = ''
+    
 
- const dispatch = useDispatch();
- let { type } = route.params;
- const [user, setUser] = useState(''); //nom de l'utilisateur
- const [profile, setProfile] = useState(''); //Profil
+    // if (type === 'restaurant') {
+    //     path = 'restaurants';
+    //     whatUser = name;
+    // } else {}
 
- fetch(`http://${IP_ADDRESS}:3000/${path}/restaurant`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        user: setUser,
-        profile: setProfile,
-      }),
+    useEffect(() => {
+    fetch(`http://${IP_ADDRESS}:3000/restaurants/restaurant`, {
+        // method: 'GET',
+        // headers: { 'Content-Type': 'application/json' },
+        // body: JSON.stringify({ name: whatUser }),
     }).then(response => response.json())
-      .then(data => {
+        .then(data => {
+            
+            // if (type === 'restaurant') {
+                data.result !== null ? setRestaurantName(data.data.name) : setRestaurantName(restaurantName)
+           // }
+        });
+      }, []);
 
-       
-        if (data.result) {
-          if (type === 'user') {
-            dispatch(({ user: setUser, token: data.token }));
-            navigation.navigate( { setUser });
-          } else if (type === 'restaurant') {
-            dispatch(({ profile: setProfile, token: data.token }));
-            navigation.navigate('Welcome', { type: 'restaurant' });
-          }
-         
-        
-        else {}
-      };
-  })};
 
- 
 
-  const RestaurantProfileScreen = () => {
     return (
       <View style={styles.container}>
         <View style={styles.view}> 
         <Image source={restaurantAvatarSource} />
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.underName}>{adresse}</Text>
-        <Text style={styles.bioShort}>{bioShort}</Text>
+        <Text style={styles.name}>{restaurantName}</Text>
+        <Text style={styles.underName}></Text>
+        <Text style={styles.bioShort}></Text>
         </View>
       </View>
     );
+    return <RestaurantProfileScreen />;
   };
 
-  return <RestaurantProfileScreen/>;
 
+//}
 
 const styles = StyleSheet.create({
   container: {
-    
-    padding: 110,
+    padding: 5,
     flex: 1,
     justifyContent: 'left',
     alignItems: 'center',
@@ -75,7 +66,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 32,
     marginTop: 42,
-    
+    flexdirection: 'column',
     
   },
   bioShort: {
