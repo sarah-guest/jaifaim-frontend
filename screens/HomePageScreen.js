@@ -18,8 +18,6 @@ export default function HomePageScreen({ navigation }) {
     //on récupère les éléments likés
     const liked = useSelector(state => state.likedMeals.value)
 
-    console.log(liked)
-
     //on crée un état dans lequel stocker les plats à afficher
     const [mealsData, setMealsData] = useState([]);
     //on récupère les plats du jour

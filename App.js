@@ -107,11 +107,11 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="HomePage" component={HomePageScreen} options={{ animation: 'fade' }} />
           <Stack.Screen name="TabNavigation" component={TabNavigation} />
           <Stack.Screen name="Landing" component={LandingScreen} />
           <Stack.Screen name="Demo" component={DemoScreen} />
           <Stack.Screen name="EaterProvider" component={EaterProviderScreen} />
+          <Stack.Screen name="HomePage" component={HomePageScreen} options={{ animation: 'fade' }} />
           <Stack.Screen name="Map" component={MapScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
