@@ -13,8 +13,6 @@ import { signInRestaurant } from '../reducers/restaurant';
 export default function SignInScreen({ navigation, route }) {
   //Import du reducer
   const dispatch = useDispatch();
-  const restaurant = useSelector(state => state.restaurant.value)
-
   //On détermine le type d'utilisateur pour savoir quoi afficher dans l'écran
   let { type } = route.params;
 
