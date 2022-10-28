@@ -1,7 +1,7 @@
 // IMPORTS HABITUELS
 import { Image, StyleSheet, Text, View } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, } from 'react-redux';
  
 
@@ -40,7 +40,7 @@ export default function ProfileScreen( {route} ) {
     return (
       <View style={styles.container}>
         <View style={styles.view}> 
-        <Image source={restaurantAvatarSource} />
+        
         <Text style={styles.name}>{restaurantName}</Text>
         <Text style={styles.underName}></Text>
         <Text style={styles.bioShort}></Text>
@@ -66,8 +66,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 32,
     marginTop: 42,
-    flexdirection: 'column',
-    
+   
   },
   bioShort: {
     fontSize: 18,
