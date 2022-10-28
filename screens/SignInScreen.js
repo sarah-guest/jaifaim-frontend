@@ -16,8 +16,8 @@ export default function SignInScreen({ navigation, route }) {
   //On détermine le type d'utilisateur pour savoir quoi afficher dans l'écran
   let { type } = route.params;
 
-  const IP_ADDRESS = '192.168.10.136';
-  //const IP_ADDRESS = '192.168.1.36';
+  //const IP_ADDRESS = '192.168.10.136';
+  const IP_ADDRESS = '192.168.1.36';
 
   //on crée des inputs pour surveiller :
   const [user, setUser] = useState(''); //nom de l'utilisateur
