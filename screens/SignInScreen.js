@@ -6,13 +6,14 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import TextInput from '../components/TextInput';
 import OurButton from '../components/Button';
 import OurText from '../components/OurText';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signInUser } from '../reducers/user';
 import { signInRestaurant } from '../reducers/restaurant';
 
 export default function SignInScreen({ navigation, route }) {
   //Import du reducer
   const dispatch = useDispatch();
+  const restaurant = useSelector(state => state.restaurant.value)
 
   //On détermine le type d'utilisateur pour savoir quoi afficher dans l'écran
   let { type } = route.params;

@@ -5,7 +5,9 @@ import {
     StyleSheet
 } from 'react-native';
 //import FontAwesome
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+// import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+// import { faMugSaucer } from '@fortawesome/free-solid-svg-icons/faMugSaucer'
 //imports de nos composants
 import convertColor from '../modules/convertColor';
 import OurText from '../components/OurText';
@@ -31,7 +33,8 @@ export default function Meal(props) {
                     </OurText>
                 </View>
                 <View style={styles.like}>
-                    <FontAwesome style={styles.heart} name={likedMeal ? "faHeart" : "farHeart"} onPress={() => handleLike()} />
+                    <FontAwesomeIcon style={styles.heart} name={likedMeal ? "heart" : "heart-o"} onPress={() => handleLike()} />
+                    {/* <FontAwesomeIcon icon={faMugSaucer} /> */}
                 </View>
             </View>
         </View>

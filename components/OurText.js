@@ -1,12 +1,13 @@
 import { Text, StyleSheet } from 'react-native';
-// FONT LATO
-import {
-    useFonts,
-    Lato_400Regular,
-    Lato_400Regular_Italic,
-    Lato_700Bold,
-    Lato_700Bold_Italic,
-} from '@expo-google-fonts/lato';
+import { useState, useEffect } from 'react';
+// FONTS LATO
+import * as Font from 'expo-font';
+const fetchFonts = () => {
+    return Font.loadAsync({
+        'LatoBold': require('../assets/fonts/LatoBold.ttf'),
+        'LatoReg': require('../assets/fonts/LatoRegular.ttf'),
+    });
+};
 
 export default function OurText(props) {
     const { subtitle, body1, body2, isLight } = props;
@@ -16,14 +17,16 @@ export default function OurText(props) {
         color: 'white'
     }
 
-    //FONT LATO
-    let [fontsLoaded] = useFonts({
-        Lato_400Regular,
-        Lato_400Regular_Italic,
-        Lato_700Bold,
-        Lato_700Bold_Italic,
-    });
-
+    //On crée un état chargé de vérifier si la font est chargée ou non
+    const [fontsLoaded, setFontsLoaded] = useState(false);
+    //On charge la font et on set l'état à true
+    useEffect(() => {
+        async function getFonts() {
+            await fetchFonts();
+            setFontsLoaded(true);
+        }
+        getFonts();
+    }, []);
 
     if (!fontsLoaded) {
         return null;
@@ -31,9 +34,9 @@ export default function OurText(props) {
 
     return (
         <Text style={[color,
-            subtitle && { fontFamily: 'Lato_700Bold', fontSize: 20, },
-            body1 && { fontFamily: 'Lato_400Regular', fontSize: 20, },
-            body2 && { fontFamily: 'Lato_400Regular', fontSize: 16, },
+            subtitle && { fontFamily: 'LatoBold', fontSize: 20, },
+            body1 && { fontFamily: 'LatoReg', fontSize: 20, },
+            body2 && { fontFamily: 'LatoReg', fontSize: 16, },
         ]}>
             {props.children}
         </Text>

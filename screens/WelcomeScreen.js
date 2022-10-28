@@ -55,7 +55,7 @@ export default function WelcomeScreen({ navigation, route }) {
     if (type === 'user') {
         return (
             <View style={styles.container}>
-                <View>
+                <View style={styles.center}>
                     <Title h2>Bienvenue</Title>
                     <View style={styles.name}>
                         <Title h1>{userFirstname}</Title>
@@ -67,7 +67,7 @@ export default function WelcomeScreen({ navigation, route }) {
     if (type === 'restaurant') {
         return (
             <View style={styles.container}>
-                <View>
+                <View style={styles.center}>
                     <Title h2>Bienvenue</Title>
                     <View style={styles.name}>
                         <Title h1>{restaurantName}</Title>
@@ -84,6 +84,10 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    center: {
+        justifyContent: 'center',
+        backgroundColor: 'red',
     },
     name: {
         display: 'block',
