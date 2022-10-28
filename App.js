@@ -15,12 +15,18 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import LandingScreen from './screens/LandingScreen';
 import DemoScreen from './screens/DemoScreen';
 import SignUpScreen from './screens/SignUpScreen';
+import AskNameScreen from './screens/AskNameScreen';
 import SignInScreen from './screens/SignInScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import EaterProviderScreen from './screens/EaterProviderScreen';
 import MapScreen from './screens/MapScreen';
 import HomePageScreen from './screens/HomePageScreen';
 import PdjFormScreen from './screens/PdjFormScreen';
+import ScanQrCodeScreen from './screens/ScanQrCodeScreen';
+import InfoUserScreen from './screens/InfoUserScreen';
+import InfoRestaurantScreen from './screens/InfoRestaurantScreen'
+import RestaurantPrefScreen from './screens/RestaurantPrefScreen'
+import UserPrefScreen from './screens/UserPrefScreen'
 // // SCREENS POUR TAB
 import ProfileScreen from './screens/ProfileScreen';
 import SnapScreen from './screens/SnapScreen';
@@ -108,16 +114,27 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="TabNavigation" component={TabNavigation} />
+          <Stack.Screen name= 'AskName' component={AskNameScreen}/>
           <Stack.Screen name="Landing" component={LandingScreen} />
           <Stack.Screen name="Demo" component={DemoScreen} />
           <Stack.Screen name="EaterProvider" component={EaterProviderScreen} />
-          <Stack.Screen name="HomePage" component={HomePageScreen} options={{ animation: 'fade' }} />
+          <Stack.Screen name ='InfoUser' component={InfoUserScreen}/>
+          <Stack.Screen name= 'InfoRestaurant'component={InfoRestaurantScreen}/>
+          <Stack.Screen name ='RestaurantPref'component={RestaurantPrefScreen}/>
+          <Stack.Screen name ='UserPref'component={UserPrefScreen}/>
+        
+          <Stack.Screen
+            name="HomePage"
+            component={HomePageScreen}
+            options={{ animation: 'fade' }}
+          />
           <Stack.Screen name="Map" component={MapScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Snap" component={SnapScreen} />
           <Stack.Screen name="PdjForm" component={PdjFormScreen} />
+          <Stack.Screen name = "ScanQrCode" component={ScanQrCodeScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
