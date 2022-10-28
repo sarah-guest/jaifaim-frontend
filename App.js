@@ -21,6 +21,9 @@ import EaterProviderScreen from './screens/EaterProviderScreen';
 import MapScreen from './screens/MapScreen';
 import HomePageScreen from './screens/HomePageScreen';
 import PdjFormScreen from './screens/PdjFormScreen';
+import ScanQrCodeScreen from './screens/ScanQrCodeScreen';
+import InfoUserScreen from './screens/InfoUserScreen';
+import InfoRestaurantScreen from './screens/InfoRestaurantScreen'
 // // SCREENS POUR TAB
 import ProfileScreen from './screens/ProfileScreen';
 import SnapScreen from './screens/SnapScreen';
@@ -112,6 +115,8 @@ export default function App() {
           <Stack.Screen name="Landing" component={LandingScreen} />
           <Stack.Screen name="Demo" component={DemoScreen} />
           <Stack.Screen name="EaterProvider" component={EaterProviderScreen} />
+          <Stack.Screen name ='InfoUser' component={InfoUserScreen}/>
+          <Stack.Screen name= 'InfoRestaurant'component={InfoRestaurantScreen}/>
           <Stack.Screen
             name="HomePage"
             component={HomePageScreen}
@@ -123,6 +128,7 @@ export default function App() {
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Snap" component={SnapScreen} />
           <Stack.Screen name="PdjForm" component={PdjFormScreen} />
+          <Stack.Screen name = "ScanQrCode" component={ScanQrCodeScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

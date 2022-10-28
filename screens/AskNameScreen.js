@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { useSelector, useState } from 'react';
+import { useState } from 'react';
 import { getFirstName } from '../reducers/user';
 import { getName } from '../reducers/restaurant';
 
@@ -9,11 +9,6 @@ import OurTextInput from '../components/TextInput';
 
 
 export default function AskNameScreen({ navigation, route }) {
-  //On récupère l'utilisateur dans le reducer
-  //const user = useSelector((state) => state.user.value.user);
-  //On récupère le restaurant dans le reducer
-  //const name = useSelector((state) => state.restaurant.value.name);
-
   //On détermine le type d'utilisateur pour savoir quoi afficher dans l'écran
   let { type } = route.params;
   //Import du reducer
@@ -23,42 +18,34 @@ export default function AskNameScreen({ navigation, route }) {
   const [restaurantName, setRestaurantName] = useState('');
 
   //On fetch l'utilisateur OU le restaurant pour récupérer le firstname OU name dans la base de données
-  const myNameIs=()=>{
-  let path = '';
-  let whatUser = '';
-  let whatName = '';
+  const myNameIs = () => {
+    let path = '';
+    let whatUser = '';
 
-  if (type === 'user') {
-    path = 'users';
-    whatUser = firstname;
-  }
+    if (type === 'user') {
+      path = 'users';
+      whatUser = firstname;
+    }
 
-  else if (type === 'restaurant') {
-    path = 'restaurants';
-    whatUser = restaurantName;
-  }
-  fetch(`http://192.168.0.20:3000/${path}/signup`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      firstname: whatName,
-    }),
-  }).then(response => response.json())
-    .then(data => {
-      if (data.result) {
-        //Si utilisateur, on enregistre son firstname et l'envoie dans le Store
-        if (type === 'user') {
-          dispatch(getFirstName({ firstname: whatName }));
-          navigation.navigate('Welcome', { type: 'user' });
-          //Si restaurateur, on enregistre son nom de restaurant et l'envoie dans le Store
-        } else if (type === 'restaurant') {
-          dispatch(getName({ name: whatName }));
-          navigation.navigate('Welcome', { type: 'restaurant' });
-        }
-      }
-    });
+    else if (type === 'restaurant') {
+      path = 'restaurants';
+      whatUser = restaurantName;
+    }
 
+    //Si utilisateur, on enregistre son firstname et l'envoie dans le Store
+    if (type === 'user') {
+      dispatch(getFirstName({ firstname: whatUser }));
+      navigation.navigate("InfoUser", { type: 'user' });
+
+      //Si restaurateur, on enregistre son nom de restaurant et l'envoie dans le Store
+    } else if (type === 'restaurant') {
+      dispatch(getName({ name: whatUser }));
+      navigation.navigate('InfoRestaurant', { type: 'restaurant' });
+    }
   }
+    ;
+
+
   if (type === 'user') {
     return (
 
@@ -70,9 +57,9 @@ export default function AskNameScreen({ navigation, route }) {
           value={firstname}
         />
         <OurButton
-        text="Je m'inscris"
-        color="caféaulaitchaud"
-        onPress={myNameIs}/>
+          text="Je m'inscris"
+          color="caféaulaitchaud"
+          onPress={myNameIs} />
       </View>
     );
   } else if (type === 'restaurant') {
@@ -85,10 +72,10 @@ export default function AskNameScreen({ navigation, route }) {
           onChangeText={(value) => setRestaurantName(value)}
           value={restaurantName}
         />
-           <OurButton
-        text="Je m'inscris"
-        color="caféaulaitchaud"
-        onPress={myNameIs}/>
+         <OurButton
+          text="Je m'inscris"
+          color="caféaulaitchaud"
+          onPress={myNameIs} />
       </View>
     );
   }

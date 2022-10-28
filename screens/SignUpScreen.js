@@ -2,7 +2,7 @@ import { Text, View, StyleSheet, TextInput } from 'react-native';
 import { useState,useSelector } from 'react';
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../reducers/user';
-import { signInRestaurant } from '../reducers/user';
+import { signInRestaurant } from '../reducers/restaurant';
 import OurButton from '../components/Button';
 import OurTextInput from '../components/TextInput';
 
@@ -39,32 +39,16 @@ export default function SignInScreen({ navigation, route }) {
       whichPassword = password;
     }
 
-    fetch(`http://192.168.0.20:3000/${path}/signup`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: whichEmail,
-        username: whichUser,
-        password: whichPassword,
-      }),
-    }).then(response => response.json())
-        .then(data => { 
-          if (data.result) {
-            console.log(data.result,'hello');
+  
             if (type === 'user') {
-              dispatch(signInUser({ username: whichUser, token: data.token }));
+              dispatch(signInUser({ username: whichUser, email: whichEmail, password:whichPassword }));
               navigation.navigate('AskName',{ type: 'user' });
             } else if (type === 'restaurant') {
-              dispatch(signInRestaurant({ name: whichUser, token: data.token }));
+              dispatch(signInRestaurant({ username: whichUser, email: whichEmail, password:whichPassword }));
               navigation.navigate('AskName',{ type: 'restaurant' });
             }
-            //   setEmail('');
-            // setName('');
-            //  setPassword('');
-          }else{
-            console.log("error")
-          }
-        });
+        
+        
    
   };
 //Si on s'incrit en tant qu'utilisateur
@@ -73,15 +57,16 @@ if(type==='user'){
     <View style={styles.container}>
       <Text>J'ai faim</Text>
       <OurTextInput
-        placeholder="New email"
-        onChangeText={(value) => setEmail(value)}
-        value={email}
-      />
-      <OurTextInput
         placeholder="New name"
         onChangeText={(value) => SetUser(value)}
         value={user}
       />
+      <OurTextInput
+        placeholder="New email"
+        onChangeText={(value) => setEmail(value)}
+        value={email}
+      />
+      
       <OurTextInput
         placeholder="New password"
         onChangeText={(value) => setPassword(value)}
@@ -103,15 +88,15 @@ else if(type==='restaurant'){
     return (
       <View style={styles.container}>
         <Text>J'ai à manger</Text>
+         <OurTextInput
+          placeholder="New name"
+          onChangeText={(value) => setName(value)}
+          value={name}
+        />
         <OurTextInput
           placeholder="New email"
           onChangeText={(value) => setEmail(value)}
           value={email}
-        />
-        <OurTextInput
-          placeholder="New name"
-          onChangeText={(value) => setName(value)}
-          value={name}
         />
         <OurTextInput
           placeholder="New password"

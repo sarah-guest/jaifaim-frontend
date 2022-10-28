@@ -8,7 +8,7 @@ import { useState } from 'react';
 const restaurantAvatarSource = require('../assets/images/avatarRestaurant.png');
 const name = '';
 const path = 'restaurants';
-
+const IP_ADDRESS= '192.168.10.165'
 
 
 export default function ProfileScreen({ navigation, route }) {
@@ -41,7 +41,7 @@ export default function ProfileScreen({ navigation, route }) {
         
         else {}
       };
-  })};
+  });
 
  
 
@@ -59,7 +59,7 @@ export default function ProfileScreen({ navigation, route }) {
   };
 
   return <RestaurantProfileScreen/>;
-
+}
 
 const styles = StyleSheet.create({
   container: {

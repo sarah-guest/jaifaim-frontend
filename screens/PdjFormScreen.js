@@ -16,7 +16,7 @@ export default function PdjFormScreen({ navigation }) {
 
   // Lorsque le composant est initialisé, récupère les régimes dans le backend
   useEffect(() => {
-    fetch('http://192.168.43.122:3000/diets')
+    fetch('http://192.168.10.165:3000/diets')
       .then((response) => response.json())
       .then((json) => {
         setDiets(json.diets); // Stocke-les dans l'état "diets"
