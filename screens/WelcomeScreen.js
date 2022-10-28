@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     name: {
-        display: 'block',
         width: '100%'
     },
 });
