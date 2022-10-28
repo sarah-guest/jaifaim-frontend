@@ -1,7 +1,14 @@
 import { StyleSheet, TextInput } from 'react-native';
 
 export default function OurTextInput(props) {
-  const { onChangeText, placeholder, inputAndButton, secureTextEntry } = props;
+  const {
+    multiline,
+    numberOfLines,
+    onChangeText,
+    placeholder,
+    inputAndButton,
+    secureTextEntry,
+  } = props;
   const propsStyle = inputAndButton && {
     flex: 1,
     marginRight: 10,
@@ -13,6 +20,8 @@ export default function OurTextInput(props) {
       placeholder={placeholder}
       onChangeText={(value) => onChangeText(value)}
       secureTextEntry={secureTextEntry}
+      multiline={multiline}
+      numberOfLines={numberOfLines}
     />
   );
 }
@@ -31,5 +40,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     elevation: 1,
+    textAlignVertical: 'top',
   },
 });

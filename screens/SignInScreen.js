@@ -6,19 +6,20 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import TextInput from '../components/TextInput';
 import OurButton from '../components/Button';
 import OurText from '../components/OurText';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signInUser } from '../reducers/user';
 import { signInRestaurant } from '../reducers/restaurant';
 
 export default function SignInScreen({ navigation, route }) {
   //Import du reducer
   const dispatch = useDispatch();
+  const restaurant = useSelector(state => state.restaurant.value)
 
   //On détermine le type d'utilisateur pour savoir quoi afficher dans l'écran
   let { type } = route.params;
 
-  //const IP_ADDRESS = '192.168.10.130';
-  const IP_ADDRESS = '192.168.1.36';
+  const IP_ADDRESS = '192.168.10.136';
+  //const IP_ADDRESS = '192.168.1.36';
 
   //on crée des inputs pour surveiller :
   const [user, setUser] = useState(''); //nom de l'utilisateur
