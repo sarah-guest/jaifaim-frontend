@@ -19,12 +19,11 @@ import SignInScreen from './screens/SignInScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import EaterProviderScreen from './screens/EaterProviderScreen';
 import MapScreen from './screens/MapScreen';
-import HomePageScreen from './screens/HomePageScreen';
+import HomeScreen from './screens/HomeScreen';
 import PdjFormScreen from './screens/PdjFormScreen';
-// // SCREENS POUR TAB
 import ProfileScreen from './screens/ProfileScreen';
 import SnapScreen from './screens/SnapScreen';
-// REDUX
+
 const store = configureStore({
   reducer: { user, restaurant, likedMeals, temporary },
 });
@@ -48,7 +47,9 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 // Ce composant renvoie la TabNavigation pour restaurant OU user selon le reducer
-const TabNavigation = () => {
+const TabNavigation = ({ route }) => {
+  const type = route.params;
+
   // RESTAURANT NAVIGATION
   const RestaurantNavigation = (
     <Tab.Navigator
@@ -69,7 +70,7 @@ const TabNavigation = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Home" component={LandingScreen} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Snap" component={SnapScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
@@ -93,13 +94,17 @@ const TabNavigation = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Home" component={LandingScreen} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Map" component={MapScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 
-  return UserNavigation; // Todo: mettre condition ici pour renvoyer navigation user ou resto !
+  if (type === 'restaurant') {
+    return RestaurantNavigation;
+  } else {
+    return UserNavigation;
+  }
 };
 
 export default function App() {
@@ -107,11 +112,15 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="TabNavigation" component={TabNavigation} />
           <Stack.Screen name="Landing" component={LandingScreen} />
+          <Stack.Screen name="TabNavigation" component={TabNavigation} />
           <Stack.Screen name="Demo" component={DemoScreen} />
           <Stack.Screen name="EaterProvider" component={EaterProviderScreen} />
-          <Stack.Screen name="HomePage" component={HomePageScreen} options={{ animation: 'fade' }} />
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ animation: 'fade' }}
+          />
           <Stack.Screen name="Map" component={MapScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
