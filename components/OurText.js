@@ -25,17 +25,19 @@ export default function OurText(props) {
     });
 
 
-    if (!fontsLoaded || fontsLoaded) {
-        return (
-            <Text style={[color,
-                subtitle && { fontFamily: 'Lato_700Bold', fontSize: 20, },
-                body1 && { fontFamily: 'Lato_400Regular', fontSize: 20, },
-                body2 && { fontFamily: 'Lato_400Regular', fontSize: 16, },
-            ]}>
-                {props.children}
-            </Text>
-        );
+    if (!fontsLoaded) {
+        return null;
     }
+
+    return (
+        <Text style={[color,
+            subtitle && { fontFamily: 'Lato_700Bold', fontSize: 20, },
+            body1 && { fontFamily: 'Lato_400Regular', fontSize: 20, },
+            body2 && { fontFamily: 'Lato_400Regular', fontSize: 16, },
+        ]}>
+            {props.children}
+        </Text>
+    );
 }
 
 const styles = StyleSheet.create({
