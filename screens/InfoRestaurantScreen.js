@@ -1,78 +1,87 @@
-import { StyleSheet, Text } from 'react-native';
-import OurButton from '../components/Button';
+//Imports habituels
+import { StyleSheet, Text, View } from 'react-native';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+//Import de nos composants
+import OurText from '../components/OurText';
+import OurButton from '../components/Button';
+import OurTextInput from '../components/TextInput';
+//Import de la fonction du reducer
+import { getInfoAdress } from '../reducers/restaurant';
 export default function InfoRestaurant({ navigation, route }) {
+    //On set les états des inputs
+
     const [siren, setSiren] = useState('');
-    
     const [webSite, setWebSite] = useState('');
-    const [Telephone, setTelephone] = useState('');
+    const [telephone, setTelephone] = useState('');
     const [emailPublic, SetEmailPublic] = useState('');
     const [streetNumber, setStreetNumber] = useState('');
     const [streetType, setStreetType] = useState('');
     const [streetName, setStreetName] = useState('');
     const [postCode, setPostCOde] = useState('');
     const [city, SetCity] = useState('');
-
-
-
+    const dispatch = useDispatch();
+    const handleValider = () => {
+        dispatch(getInfoAdress({
+            siren: siren,
+            webSite: webSite,
+            telephone: telephone,
+            emailPublic: emailPublic,
+            streetNumber: streetNumber,
+            streetType: streetType, 
+            streetName: streetName,
+            postCode: postCode,
+            city: city
+        }));
+        navigation.navigate('RestaurantPref');
+    };
     return (
         <View style={styles.container}>
-            <Text>Information du restaurant</Text>
             <OurTextInput
-                placeholder="Siren"
+                placeholder="N° Siren"
                 onChangeText={(value) => setSiren(value)}
-                value={firstname}
+                value={siren}
             />
             <OurTextInput
-                placeholder="Prénom"
-                onChangeText={(value) => setFirstname(value)}
-                value={firstname}
+                placeholder="Numéro de Téléphone"
+                onChangeText={(value) => setTelephone(value)}
+                value={telephone}
             />
             <OurTextInput
-                placeholder="Prénom"
-                onChangeText={(value) => setFirstname(value)}
-                value={firstname}
+                placeholder="E-mail public"
+                onChangeText={(value) => SetEmailPublic(value)}
+                value={emailPublic}
             />
             <OurTextInput
-                placeholder="Prénom"
-                onChangeText={(value) => setFirstname(value)}
-                value={firstname}
+                placeholder="Numéro de voie"
+                onChangeText={(value) => setStreetNumber(value)}
+                value={streetNumber}
             />
             <OurTextInput
-                placeholder="Prénom"
-                onChangeText={(value) => setFirstname(value)}
-                value={firstname}
+                placeholder="Type de voie"
+                onChangeText={(value) => setStreetType(value)}
+                value={streetType}
             />
             <OurTextInput
-                placeholder="Prénom"
-                onChangeText={(value) => setFirstname(value)}
-                value={firstname}
+                placeholder="Nom de voie"
+                onChangeText={(value) => setStreetName(value)}
+                value={streetName}
             />
             <OurTextInput
-                placeholder="Prénom"
-                onChangeText={(value) => setFirstname(value)}
-                value={firstname}
+                placeholder="Code postal"
+                onChangeText={(value) => setPostCOde(value)}
+                value={postCode}
             />
             <OurTextInput
-                placeholder="Prénom"
-                onChangeText={(value) => setFirstname(value)}
-                value={firstname}
-            />
-            <OurTextInput
-                placeholder="Prénom"
-                onChangeText={(value) => setFirstname(value)}
-                value={firstname}
-            />
-            <OurTextInput
-                placeholder="Prénom"
-                onChangeText={(value) => setFirstname(value)}
-                value={firstname}
+                placeholder="Ville"
+                onChangeText={(value) => SetCity(value)}
+                value={city}
             />
 
             <OurButton
                 text="Valider"
                 color="caféaulaitchaud"
-                onPress={myNameIs} />
+                onPress={handleValider} />
 
 
         </View>

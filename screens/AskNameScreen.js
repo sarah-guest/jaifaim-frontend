@@ -17,7 +17,7 @@ export default function AskNameScreen({ navigation, route }) {
   const [firstname, setFirstname] = useState('');
   const [restaurantName, setRestaurantName] = useState('');
 
-  //On fetch l'utilisateur OU le restaurant pour récupérer le firstname OU name dans la base de données
+  //on défini les type user OU restaurant
   const myNameIs = () => {
     let path = '';
     let whatUser = '';
