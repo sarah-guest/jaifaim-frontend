@@ -1,5 +1,6 @@
 import { Image, Text, View, StyleSheet } from 'react-native';
 import OurButton from '../components/Button';
+import Title from '../components/Title';
 
 export default function EaterProviderScreen({ navigation }) {
   //On crée une qui définit si on est user...
@@ -13,7 +14,9 @@ export default function EaterProviderScreen({ navigation }) {
   
   return (
     <View style={styles.container}>
-      <Text>J'ai</Text>
+      <View style={styles.page}>
+       <Title name={styles.titre} 
+      h1={true}>J'ai</Title> 
      
        <OurButton 
        text="...faim" 
@@ -24,7 +27,9 @@ export default function EaterProviderScreen({ navigation }) {
       text="...à manger" 
       onPress={handleSignUpRestaurant} 
       color="pingouin" 
+     
       /> 
+      </View>
     </View>
   );
 }
@@ -34,5 +39,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    
+  },
+  page:{
+    justifyContent: 'space-between',
+    justifyContent: 'space-between',
   },
 });

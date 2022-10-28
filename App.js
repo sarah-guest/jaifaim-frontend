@@ -25,6 +25,8 @@ import PdjFormScreen from './screens/PdjFormScreen';
 import ScanQrCodeScreen from './screens/ScanQrCodeScreen';
 import InfoUserScreen from './screens/InfoUserScreen';
 import InfoRestaurantScreen from './screens/InfoRestaurantScreen'
+import RestaurantPrefScreen from './screens/RestaurantPrefScreen'
+import UserPrefScreen from './screens/UserPrefScreen'
 // // SCREENS POUR TAB
 import ProfileScreen from './screens/ProfileScreen';
 import SnapScreen from './screens/SnapScreen';
@@ -118,7 +120,14 @@ export default function App() {
           <Stack.Screen name="EaterProvider" component={EaterProviderScreen} />
           <Stack.Screen name ='InfoUser' component={InfoUserScreen}/>
           <Stack.Screen name= 'InfoRestaurant'component={InfoRestaurantScreen}/>
-          <Stack.Screen name="HomePage" component={HomePageScreen} options={{ animation: 'fade' }} />
+          <Stack.Screen name ='RestaurantPref'component={RestaurantPrefScreen}/>
+          <Stack.Screen name ='UserPref'component={UserPrefScreen}/>
+        
+          <Stack.Screen
+            name="HomePage"
+            component={HomePageScreen}
+            options={{ animation: 'fade' }}
+          />
           <Stack.Screen name="Map" component={MapScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />

@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, TextInput } from 'react-native';
-import { useState,useSelector } from 'react';
+import { useState, useSelector } from 'react';
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../reducers/user';
 import { signInRestaurant } from '../reducers/restaurant';
@@ -39,56 +39,54 @@ export default function SignInScreen({ navigation, route }) {
       whichPassword = password;
     }
 
-  
-            if (type === 'user') {
-              dispatch(signInUser({ username: whichUser, email: whichEmail, password:whichPassword }));
-              navigation.navigate('AskName',{ type: 'user' });
-            } else if (type === 'restaurant') {
-              dispatch(signInRestaurant({ username: whichUser, email: whichEmail, password:whichPassword }));
-              navigation.navigate('AskName',{ type: 'restaurant' });
-            }
-        
-        
-   
+
+    if (type === 'user') {
+      dispatch(signInUser({ username: whichUser, email: whichEmail, password: whichPassword }));
+      navigation.navigate('AskName', { type: 'user' });
+    } else if (type === 'restaurant') {
+      dispatch(signInRestaurant({ username: whichUser, email: whichEmail, password: whichPassword }));
+      navigation.navigate('AskName', { type: 'restaurant' });
+    }
+
   };
-//Si on s'incrit en tant qu'utilisateur
-if(type==='user'){
-  return (
-    <View style={styles.container}>
-      <Text>J'ai faim</Text>
-      <OurTextInput
-        placeholder="New name"
-        onChangeText={(value) => SetUser(value)}
-        value={user}
-      />
-      <OurTextInput
-        placeholder="New email"
-        onChangeText={(value) => setEmail(value)}
-        value={email}
-      />
-      
-      <OurTextInput
-        placeholder="New password"
-        onChangeText={(value) => setPassword(value)}
-        value={password}
-      />
-      
+  //Si on s'incrit en tant qu'utilisateur
+  if (type === 'user') {
+    return (
+      <View style={styles.container}>
+        <Text>J'ai faim</Text>
+        <OurTextInput
+          placeholder="New name"
+          onChangeText={(value) => SetUser(value)}
+          value={user}
+        />
+        <OurTextInput
+          placeholder="New email"
+          onChangeText={(value) => setEmail(value)}
+          value={email}
+        />
 
-      <OurButton
-        text="Je m'inscris"
-        color="caféaulaitchaud"
-        onPress={handleRegister}
-      />
+        <OurTextInput
+          placeholder="New password"
+          onChangeText={(value) => setPassword(value)}
+          value={password}
+        />
 
-    </View>
-  );
-}
-else if(type==='restaurant'){
-  
+
+        <OurButton
+          text="Je m'inscris"
+          color="caféaulaitchaud"
+          onPress={handleRegister}
+        />
+
+      </View>
+    );
+  }
+  else if (type === 'restaurant') {
+
     return (
       <View style={styles.container}>
         <Text>J'ai à manger</Text>
-         <OurTextInput
+        <OurTextInput
           placeholder="New name"
           onChangeText={(value) => setName(value)}
           value={name}
@@ -108,10 +106,11 @@ else if(type==='restaurant'){
           color="caféaulaitchaud"
           onPress={handleRegister}
         />
-  
+
       </View>
     );
-  }}
+  }
+}
 
 
 

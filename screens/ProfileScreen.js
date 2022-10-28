@@ -47,8 +47,8 @@ export default function ProfileScreen( {route} ) {
     return <RestaurantProfileScreen />;
   };
 
-  return <RestaurantProfileScreen/>;
 
+//}
 
 const styles = StyleSheet.create({
   container: {

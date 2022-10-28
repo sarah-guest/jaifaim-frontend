@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
     },
   image: {
     flex: 1,
-    width: '40%',
-    height: '40%',
+    width: 300,
+    height: 250,
     alignItems: 'center',
     justifyContent: 'center',
   },
