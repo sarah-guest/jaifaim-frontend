@@ -10,17 +10,17 @@ import Title from '../components/Title';
 import { useSelector } from 'react-redux';
 
 export default function PdjFormScreen({ navigation }) {
-  const [selectedDiets, setSelectedDiets] = useState([]);
-  const [name, setName] = useState(null);
-  const [description, setDescription] = useState(null);
-  const [diets, setDiets] = useState([]);
-  const temporary = useSelector((state) => state.temporary.value);
-  const monAdresseIP = ''; // Todo supprimer
-  const monTokenRestaurant = ''; // Todo reducer
+  const IP_ADDRESS = '';
+  const [diets, setDiets] = useState([]); // tous les diets possibles
+  const [name, setName] = useState(null); // nom pdj
+  const [selectedDiets, setSelectedDiets] = useState([]); // diets pdj
+  const [description, setDescription] = useState(null); // description pdj
+  const temporary = useSelector((state) => state.temporary.value); // photo pdj dans .platdujourPhoto
+  const restaurant = useSelector((state) => state.restaurant.value); // token restaurant dans .token
 
   // Lorsque le composant est initialisé, récupère les régimes dans le backend
   useEffect(() => {
-    fetch(`http://${monAdresseIP}:3000/diets`)
+    fetch(`http://${IP_ADDRESS}:3000/diets`)
       .then((response) => response.json())
       .then((json) => {
         setDiets(json.diets); // Stocke-les dans l'état "diets"
@@ -58,7 +58,7 @@ export default function PdjFormScreen({ navigation }) {
       type: 'image/jpeg',
     });
 
-    fetch(`http://${monAdresseIP}:3000/restaurants/platdujour/photo/create`, {
+    fetch(`http://${IP_ADDRESS}:3000/restaurants/platdujour/photo/create`, {
       method: 'POST',
       body: formData,
     })
@@ -70,10 +70,10 @@ export default function PdjFormScreen({ navigation }) {
             diets: selectedDiets,
             name,
             src: json.url,
-            token: monTokenRestaurant,
+            token: restaurant.token, // Todo : vérifier !
           };
 
-          fetch(`http://${monAdresseIP}:3000/restaurants/platdujour/create`, {
+          fetch(`http://${IP_ADDRESS}:3000/restaurants/platdujour/create`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data),
