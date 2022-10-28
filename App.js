@@ -15,22 +15,15 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import LandingScreen from './screens/LandingScreen';
 import DemoScreen from './screens/DemoScreen';
 import SignUpScreen from './screens/SignUpScreen';
-import AskNameScreen from './screens/AskNameScreen';
 import SignInScreen from './screens/SignInScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import EaterProviderScreen from './screens/EaterProviderScreen';
 import MapScreen from './screens/MapScreen';
-import HomePageScreen from './screens/HomePageScreen';
+import HomeScreen from './screens/HomeScreen';
 import PdjFormScreen from './screens/PdjFormScreen';
-import ScanQrCodeScreen from './screens/ScanQrCodeScreen';
-import InfoUserScreen from './screens/InfoUserScreen';
-import InfoRestaurantScreen from './screens/InfoRestaurantScreen'
-import RestaurantPrefScreen from './screens/RestaurantPrefScreen'
-import UserPrefScreen from './screens/UserPrefScreen'
-// // SCREENS POUR TAB
 import ProfileScreen from './screens/ProfileScreen';
 import SnapScreen from './screens/SnapScreen';
-// REDUX
+
 const store = configureStore({
   reducer: { user, restaurant, likedMeals, temporary },
 });
@@ -54,7 +47,9 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 // Ce composant renvoie la TabNavigation pour restaurant OU user selon le reducer
-const TabNavigation = () => {
+const TabNavigation = ({ route }) => {
+  const type = route.params;
+
   // RESTAURANT NAVIGATION
   const RestaurantNavigation = (
     <Tab.Navigator
@@ -75,7 +70,7 @@ const TabNavigation = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Home" component={LandingScreen} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Snap" component={SnapScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
@@ -99,13 +94,17 @@ const TabNavigation = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Home" component={LandingScreen} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Map" component={MapScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 
-  return UserNavigation; // Todo: mettre condition ici pour renvoyer navigation user ou resto !
+  if (type === 'restaurant') {
+    return RestaurantNavigation;
+  } else {
+    return UserNavigation;
+  }
 };
 
 export default function App() {
@@ -113,19 +112,13 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="TabNavigation" component={TabNavigation} />
-          <Stack.Screen name= 'AskName' component={AskNameScreen}/>
           <Stack.Screen name="Landing" component={LandingScreen} />
+          <Stack.Screen name="TabNavigation" component={TabNavigation} />
           <Stack.Screen name="Demo" component={DemoScreen} />
           <Stack.Screen name="EaterProvider" component={EaterProviderScreen} />
-          <Stack.Screen name ='InfoUser' component={InfoUserScreen}/>
-          <Stack.Screen name= 'InfoRestaurant'component={InfoRestaurantScreen}/>
-          <Stack.Screen name ='RestaurantPref'component={RestaurantPrefScreen}/>
-          <Stack.Screen name ='UserPref'component={UserPrefScreen}/>
-        
           <Stack.Screen
-            name="HomePage"
-            component={HomePageScreen}
+            name="Home"
+            component={HomeScreen}
             options={{ animation: 'fade' }}
           />
           <Stack.Screen name="Map" component={MapScreen} />
@@ -134,7 +127,6 @@ export default function App() {
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Snap" component={SnapScreen} />
           <Stack.Screen name="PdjForm" component={PdjFormScreen} />
-          <Stack.Screen name = "ScanQrCode" component={ScanQrCodeScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
