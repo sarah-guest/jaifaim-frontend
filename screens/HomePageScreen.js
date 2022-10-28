@@ -5,6 +5,7 @@ import {
     ScrollView,
     StyleSheet
 } from 'react-native';
+import { useSelector } from 'react-redux';
 //imports de nos composants
 import SearchBar from '../components/SearchBar';
 import Meal from '../components/Meal';
@@ -14,8 +15,11 @@ export default function HomePageScreen({ navigation }) {
     const IP_ADDRESS = '192.168.10.136';
     //const IP_ADDRESS = '172.20.10.11';
 
-    const [mealsData, setMealsData] = useState([]);
+    //on récupère les éléments likés
+    const liked = useSelector(state => state.likedMeals.value)
 
+    //on crée un état dans lequel stocker les plats à afficher
+    const [mealsData, setMealsData] = useState([]);
     //on récupère les plats du jour
     useEffect(() => {
         fetch(`http://${IP_ADDRESS}:3000/users/getplatsdujour`)
@@ -26,7 +30,11 @@ export default function HomePageScreen({ navigation }) {
             })
     }, []);
 
-    const meals = mealsData.map((data, i) => (<Meal key={i} {...data} />));
+    //on affiche les plats du jour
+    const meals = mealsData.map((data, i) => {
+        const isLiked = liked.some(e => e.meal === data.meal);
+        return <Meal key={i} isLiked={isLiked} {...data} />
+    });
 
     return (
 

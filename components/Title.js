@@ -13,10 +13,11 @@ const fetchFonts = () => {
 
 export default function Title(props) {
     //On détermine les tailles de typo
-    const { h1, h2, h3, h4, h5, h6, isLight } = props;
+    const { h1, h2, h3, h4, h5, h6, isLight, isCentered } = props;
 
     //condition pour que le texte s'affiche en blanc (si le fond est sombre)
     const color = isLight && { color: 'white' }
+    const textAlign = isCentered && { textAlign: 'center' }
 
     //On crée un état chargé de vérifier si la font est chargée ou non
     const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -37,7 +38,7 @@ export default function Title(props) {
     return (
         <Text
             style={[color,
-                //center,
+                textAlign,
                 h1 && { fontSize: 48, fontFamily: 'Lissain' },
                 h2 && { fontSize: 32, fontFamily: 'LatoReg' },
                 h3 && { fontSize: 28, fontFamily: 'LatoBold' },

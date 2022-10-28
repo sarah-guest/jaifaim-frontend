@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import user from './reducers/user';
 import restaurant from './reducers/restaurant';
+import likedMeals from './reducers/likedMeals';
 import temporary from './reducers/temporary';
 // NAVIGATION
 import { NavigationContainer } from '@react-navigation/native';
@@ -29,7 +30,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import SnapScreen from './screens/SnapScreen';
 // REDUX
 const store = configureStore({
-  reducer: { user, restaurant, temporary },
+  reducer: { user, restaurant, likedMeals, temporary },
 });
 
 const getIconName = (routeName) => {
@@ -117,11 +118,7 @@ export default function App() {
           <Stack.Screen name="EaterProvider" component={EaterProviderScreen} />
           <Stack.Screen name ='InfoUser' component={InfoUserScreen}/>
           <Stack.Screen name= 'InfoRestaurant'component={InfoRestaurantScreen}/>
-          <Stack.Screen
-            name="HomePage"
-            component={HomePageScreen}
-            options={{ animation: 'fade' }}
-          />
+          <Stack.Screen name="HomePage" component={HomePageScreen} options={{ animation: 'fade' }} />
           <Stack.Screen name="Map" component={MapScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />

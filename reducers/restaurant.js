@@ -4,7 +4,7 @@ const initialState = {
     value: { username: null, password: null, email: null, token: null, name: null },
 };
 
-export const userSlice = createSlice({
+export const restaurantSlice = createSlice({
     name: 'restaurant',
     initialState,
     reducers: {
@@ -14,11 +14,11 @@ export const userSlice = createSlice({
             state.value.email = action.payload.email;
             state.value.password = action.payload.password;
         },
-    
-    getName: (state, action) => {
-        state.value.name = action.payload.name;
+
+        getName: (state, action) => {
+            state.value.name = action.payload.name;
+        }
     }
-}
 });
-export const { signInRestaurant, getName } = userSlice.actions;
-export default userSlice.reducer;
+export const { signInRestaurant, getName } = restaurantSlice.actions;
+export default restaurantSlice.reducer;

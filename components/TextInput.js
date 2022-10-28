@@ -41,5 +41,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
     elevation: 1,
     textAlignVertical: 'top',
+    minWidth: '50%',
   },
 });
