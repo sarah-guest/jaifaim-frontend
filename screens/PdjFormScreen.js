@@ -7,7 +7,8 @@ import OurTag from '../components/Tag';
 import OurTextInput from '../components/TextInput';
 import Title from '../components/Title';
 // IMPORTS REDUCER
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearPlatdujourPhoto } from '../reducers/temporary';
 
 export default function PdjFormScreen({ navigation }) {
   const IP_ADDRESS = '';
@@ -17,6 +18,7 @@ export default function PdjFormScreen({ navigation }) {
   const [description, setDescription] = useState(null); // description pdj
   const temporary = useSelector((state) => state.temporary.value); // photo pdj dans .platdujourPhoto
   const restaurant = useSelector((state) => state.restaurant.value); // token restaurant dans .token
+  const dispatch = useDispatch();
 
   // Lorsque le composant est initialisé, récupère les régimes dans le backend
   useEffect(() => {
@@ -64,6 +66,7 @@ export default function PdjFormScreen({ navigation }) {
     })
       .then((response) => response.json())
       .then((json) => {
+        console.log(json.log);
         if (json.result) {
           const data = {
             description,
@@ -79,7 +82,11 @@ export default function PdjFormScreen({ navigation }) {
             body: JSON.stringify(data),
           })
             .then((response) => response.json())
-            .then((json) => console.log(json));
+            .then((json) => {
+              console.log(json.log);
+              navigation.navigate('Profile', { type: 'restaurant' });
+              dispatch(clearPlatdujourPhoto());
+            });
         }
       });
   };
