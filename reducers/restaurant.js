@@ -4,7 +4,7 @@ const initialState = {
     value: { username: null, password: null, email: null, token: null },
 };
 
-export const userSlice = createSlice({
+export const restaurantSlice = createSlice({
     name: 'restaurant',
     initialState,
     reducers: {
@@ -14,5 +14,5 @@ export const userSlice = createSlice({
         },
     },
 });
-export const { signInRestaurant } = userSlice.actions;
-export default userSlice.reducer;
+export const { signInRestaurant } = restaurantSlice.actions;
+export default restaurantSlice.reducer;

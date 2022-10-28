@@ -4,20 +4,34 @@ import {
     Image,
     StyleSheet
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 //import FontAwesome
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-// import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-// import { faMugSaucer } from '@fortawesome/free-solid-svg-icons/faMugSaucer'
 //imports de nos composants
 import convertColor from '../modules/convertColor';
 import OurText from '../components/OurText';
 import Title from '../components/Title';
+//imports du reducer
+import { likeMeal, unLikeMeal } from '../reducers/likedMeals';
 
 export default function Meal(props) {
-    const [likedMeal, setLikedMeal] = useState(false);
+    //Import du reducer
+    const dispatch = useDispatch();
 
-    const handleLike = () => {
-        setLikedMeal(!likedMeal)
+    //on récupère le tableau des like pour les tests : vérification de son contenu
+    const liked = useSelector(state => state.user.value.liked)
+
+    //const [isLiked, setIsLiked] = useState(false);
+
+
+    const handleLikeClick = () => {
+        if (props.isLiked) {
+            //si l'élément est dans le reducer, isLiked === true ; donc on l'enlève au clic
+            dispatch(unLikeMeal(props.meal))
+        } else {
+            //sinon isLiked === false ; donc on l'ajoute au clic
+            dispatch(likeMeal(props))
+        }
     }
 
     return (
@@ -33,8 +47,7 @@ export default function Meal(props) {
                     </OurText>
                 </View>
                 <View style={styles.like}>
-                    <FontAwesomeIcon style={styles.heart} name={likedMeal ? "heart" : "heart-o"} onPress={() => handleLike()} />
-                    {/* <FontAwesomeIcon icon={faMugSaucer} /> */}
+                    <FontAwesomeIcon style={styles.heart} name={props.isLiked ? "heart" : "heart-o"} onPress={() => handleLikeClick()} />
                 </View>
             </View>
         </View>
