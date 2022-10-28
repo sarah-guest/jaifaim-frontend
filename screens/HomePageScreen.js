@@ -5,66 +5,41 @@ import {
     ScrollView,
     StyleSheet
 } from 'react-native';
+//imports de nos composants
+import SearchBar from '../components/SearchBar';
 import Meal from '../components/Meal';
-
+import Title from '../components/Title';
 
 export default function HomePageScreen({ navigation }) {
-    //const IP_ADDRESS = '192.168.10.130';
-    const IP_ADDRESS = '192.168.1.36';
+    const IP_ADDRESS = '192.168.10.136';
+    //const IP_ADDRESS = '172.20.10.11';
 
     const [mealsData, setMealsData] = useState([]);
 
     //on récupère les plats du jour
     useEffect(() => {
-        //on crée un tableau dans lequel push les données
-        const updatedMealsData = mealsData;
-
         fetch(`http://${IP_ADDRESS}:3000/users/getplatsdujour`)
             .then(res => res.json())
             .then(data => {
-                //on vérifie s'il y a des données
-                if (data !== null) {
-                    data = data.restaurants;
-                    for (const restaurant of data) {
-                        for (const dailyMeal of restaurant.platsdujour) {
-                            //on crée des objets comprenant les éléments requis
-                            let pdj = {
-                                restaurant: restaurant.name,
-                                meal: dailyMeal.name,
-                                src: dailyMeal.src,
-                                date: dailyMeal.date,
-                            }
-                            //on les push dans le tableau s'ils n'y sont pas encore
-                            updatedMealsData.push(pdj)
-                            if (!mealsData.includes(pdj)) {
-                            }
-                        }
-                    }
-                }
+                //on set dans mealsData les données récoltées
+                data !== null && setMealsData(data.platsdujour)
             })
-        //on set dans mealsData les données récoltées
-        setMealsData(updatedMealsData)
-    }, [mealsData]);
+    }, []);
 
-    //                         PROBLÈME 1 : DEVRAIT SE REMPLIR MAIS RESTE VIDE JUSQU'À CE QU'ON ACTUALISE
-    //                         PROBLÈME 2 : charge en double les éléments à chaque actualisation
-    console.log(mealsData)
-
-    const meals = mealsData.map((data, i) => {
-        return (
-            <Meal key={i} {...data} />
-        )
-    })
+    const meals = mealsData.map((data, i) => (<Meal key={i} {...data} />));
 
     return (
+
         <ImageBackground
             source={require('../assets/images/background.jpg')}
             style={styles.background}
-            blurRadius={0}
+            blurRadius={60}
         >
             <SafeAreaView style={styles.container}>
+                <SearchBar />
                 <ScrollView>
                     {/* Populaires */}
+                    <Title h2 isLight={true}>Populaires</Title>
                     <ScrollView
                         style={styles.scroll}
                         horizontal={true}
@@ -74,7 +49,8 @@ export default function HomePageScreen({ navigation }) {
                         {meals}
                     </ScrollView>
 
-                    {/* Consultés récemment */}
+                    {/* Derniers consultés */}
+                    <Title h4 isLight={true}>Vus récemment 👀</Title>
 
                     {/* Coups de coeur de l'équipe */}
 
@@ -91,9 +67,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     container: {
-        margin: 30,
+        marginTop: 50,
+        marginBottom: 50,
+        marginLeft: 30,
+        marginRight: 30,
     },
     scroll: {
-        marginTop: 30,
+        marginTop: 10,
+        marginBottom: 30,
     },
 });
