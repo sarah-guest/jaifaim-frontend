@@ -12,8 +12,8 @@ import Meal from '../components/Meal';
 import Title from '../components/Title';
 
 export default function HomeScreen({ navigation }) {
-  const IP_ADDRESS = '192.168.10.136';
-  //const IP_ADDRESS = '172.20.10.11';
+  //const IP_ADDRESS = '192.168.10.136';
+  const IP_ADDRESS = '192.168.1.36';
 
   //on récupère les éléments likés
   const liked = useSelector((state) => state.likedMeals.value);
