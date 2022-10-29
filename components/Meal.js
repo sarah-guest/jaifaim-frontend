@@ -57,18 +57,20 @@ export default function Meal(props) {
 const styles = StyleSheet.create({
     background: {
         width: 300,
-        minHeight: 210,
         marginRight: 30,
-        padding: 18,
+        padding: 10,
         backgroundColor: '#rgba(60, 35 ,18, .75)',
-        borderTopLeftRadius: 30,
-        borderBottomRightRadius: 30,
+        // borderTopLeftRadius: 30,
+        // borderBottomRightRadius: 30,
+        borderRadius: 20,
     },
     images: {
         width: '100%',
         height: 120,
-        borderTopLeftRadius: 30,
-        borderBottomRightRadius: 30,
+        // borderTopLeftRadius: 30,
+        // borderBottomRightRadius: 30,
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
         marginBottom: 10,
     },
     mealName: {
