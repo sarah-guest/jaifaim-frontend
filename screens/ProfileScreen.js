@@ -4,61 +4,52 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import convertColor from '../modules/convertColor';
 import OurButton from '../components/Button';
 
-
 import { useState, useEffect } from 'react';
 import { useSelector, } from 'react-redux';
- 
 
 
-
-export default function ProfileScreen( {route} ) {
+export default function ProfileScreen({ route }) {
   //const RestaurantProfileScreen = () => {
 
-    const name = useSelector((state) => state.restaurant.value.username)
-    //let { type } = route.params;
-    const IP_ADDRESS = '192.168.1.36';
-    const [restaurantName, setRestaurantName] = useState('');
-    
+  const name = useSelector((state) => state.restaurant.value.username)
+  //let { type } = route.params;
+  const IP_ADDRESS = '192.168.1.36';
+  const [restaurantName, setRestaurantName] = useState('');
 
-    useEffect(() => {
+
+  useEffect(() => {
     fetch(`http://${IP_ADDRESS}:3000/restaurants/restaurant`, {
-        
+
     }).then(response => response.json())
-        .then(data => {
-            
-                data.result !== null ? setRestaurantName(data.data.name) : setRestaurantName(restaurantName)
-        });
-      }, []);
+      .then(data => {
+
+        data.result !== null ? setRestaurantName(data.data.name) : setRestaurantName(restaurantName)
+      });
+  }, []);
 
 
-    return (
-      <View style={styles.container}>
-        <View style={styles.view}> 
-         <Image source={require('../assets/images/avatarRestaurant.png')} />
-         <Text style={styles.name}> restaurant Name </Text>
-         <FontAwesome name={'utensils'} size={52} color={convertColor('caféaulaitchaud')}/>
-         <FontAwesome name={'circle-info'} size={52} color={convertColor('caféaulaitchaud')}/>
-         <FontAwesome name={''} size={52} color={convertColor('caféaulaitchaud')}/>
-        <View style={styles.bloc}> 
-         <Text style={styles.emoji}>🍽️</Text>
+  return (
+    <View style={styles.container}>
+      <View style={styles.view}>
+        <Image source={require('../assets/images/avatarRestaurant.png')} />
+        <Text style={styles.name}> restaurant Name </Text>
+        <FontAwesome name={'utensils'} size={52} color={convertColor('caféaulaitchaud')} />
+        <FontAwesome name={'circle-info'} size={52} color={convertColor('caféaulaitchaud')} />
+        <FontAwesome name={''} size={52} color={convertColor('caféaulaitchaud')} />
+        <View style={styles.bloc}>
+          <Text style={styles.emoji}>🍽️</Text>
         </View>
         <View style={styles.bloc}>
           <Text style={styles.emoji}>✉️</Text>
-         </View>
-         <View style={styles.bloc}>
+        </View>
+        <View style={styles.bloc}>
           <Text style={styles.emoji}>ℹ️</Text>
-         </View>
-
-        
-
-        
-
         </View>
       </View>
-    );
-    // return <RestaurantProfileScreen />;
-  };
-
+    </View>
+  );
+  // return <RestaurantProfileScreen />;
+};
 
 //}
 
@@ -78,7 +69,6 @@ const styles = StyleSheet.create({
     fontSize: 32,
     marginTop: 42,
     textAlign: "center"
-
 
   },
   bioShort: {
@@ -108,7 +98,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
 
-    
   },
   bloc2: {
     backgroundColor: 'blue',

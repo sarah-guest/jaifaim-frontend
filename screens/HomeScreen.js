@@ -3,6 +3,7 @@ import {
   ImageBackground,
   SafeAreaView,
   ScrollView,
+  View,
   StyleSheet,
 } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -12,8 +13,8 @@ import Meal from '../components/Meal';
 import Title from '../components/Title';
 
 export default function HomeScreen({ navigation }) {
-  const IP_ADDRESS = '192.168.10.136';
-  //const IP_ADDRESS = '172.20.10.11';
+  //const IP_ADDRESS = '192.168.10.136';
+  const IP_ADDRESS = '192.168.1.36';
 
   //on récupère les éléments likés
   const liked = useSelector((state) => state.likedMeals.value);
@@ -36,6 +37,11 @@ export default function HomeScreen({ navigation }) {
     return <Meal key={i} isLiked={isLiked} {...data} />;
   });
 
+  const likedMeals = liked.map((data, i) => {
+    console.log(likedMeals)
+    return <Meal key={i} {...data} isLiked={true} />;
+  });
+
   return (
     <ImageBackground
       source={require('../assets/images/background.jpg')}
@@ -47,7 +53,7 @@ export default function HomeScreen({ navigation }) {
         <ScrollView>
           {/* Populaires */}
           <Title h2 isLight={true}>
-            Populaires
+            Menus du jour
           </Title>
           <ScrollView
             style={styles.scroll}
@@ -59,9 +65,21 @@ export default function HomeScreen({ navigation }) {
           </ScrollView>
 
           {/* Derniers consultés */}
-          <Title h4 isLight={true}>
-            Vus récemment 👀
-          </Title>
+          {likedMeals.length > 0 && (
+            <View>
+              <Title h4 isLight={true}>
+                Aimés récemment 👀
+              </Title>
+              <ScrollView
+                style={styles.scroll}
+                horizontal={true}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+              >
+                {likedMeals}
+              </ScrollView>
+            </View>
+          )}
 
           {/* Coups de coeur de l'équipe */}
         </ScrollView>

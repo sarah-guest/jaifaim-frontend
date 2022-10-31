@@ -10,7 +10,7 @@ const fetchFonts = () => {
 };
 
 export default function OurText(props) {
-    const { subtitle, body1, body2, isLight } = props;
+    const { subtitle, body1, body2, isLight, onPress } = props;
 
     //condition pour que le texte s'affiche en blanc (si le fond est sombre)
     const color = isLight && {
@@ -33,11 +33,14 @@ export default function OurText(props) {
     }
 
     return (
-        <Text style={[color,
-            subtitle && { fontFamily: 'LatoBold', fontSize: 20, },
-            body1 && { fontFamily: 'LatoReg', fontSize: 20, },
-            body2 && { fontFamily: 'LatoReg', fontSize: 16, },
-        ]}>
+        <Text
+            style={[color,
+                subtitle && { fontFamily: 'LatoBold', fontSize: 20, },
+                body1 && { fontFamily: 'LatoReg', fontSize: 20, },
+                body2 && { fontFamily: 'LatoReg', fontSize: 16, },
+            ]}
+            onPress={onPress}
+        >
             {props.children}
         </Text>
     );
