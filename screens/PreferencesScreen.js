@@ -54,39 +54,49 @@ export default function PreferencesScreen({ navigation }) {
       miscellaneous,
     } = restaurant;
 
-    fetch(`http://${IP_ADDRESS}:3000/restaurants/signup`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username,
-        email,
-        password,
-        address: {
-          streetName,
-          streetNumber,
-          streetType,
-          postCode,
-          city,
-        },
-        siren,
-        website,
-        phone,
-        cuisine,
-        atmosphere,
-        bookings,
-        miscellaneous,
-        bioShort: '',
-        bioLong: '',
-        socials: {},
-        goals: [],
-        qrcode: {},
-      }),
-    })
+    fetch(
+      `https://api-adresse.data.gouv.fr/search/?q=${streetNumber}+${streetType}+${streetName}+${postCode}`
+    )
       .then((response) => response.json())
-      .then((data) => {
-        if (data.result) {
-          console.log(data.result);
-        }
+      .then((json) => {
+        fetch(`http://${IP_ADDRESS}:3000/restaurants/signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username,
+            email,
+            password,
+            address: {
+              streetName,
+              streetNumber,
+              streetType,
+              postCode,
+              city,
+            },
+            coordinates: {
+              latitude: json.features[0].geometry.coordinates[0],
+              longitude: json.features[0].geometry.coordinates[1],
+            },
+            siren,
+            website,
+            phone,
+            cuisine,
+            atmosphere,
+            bookings,
+            miscellaneous,
+            bioShort: '',
+            bioLong: '',
+            socials: {},
+            goals: [],
+            qrcode: {},
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.result) {
+              console.log(data.result);
+            }
+          });
       });
   };
 
@@ -222,12 +232,6 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-  },
-  buttonSuivant: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-end',
-    backgroundColor: 'red',
   },
   button: {
     marginright: 10,
