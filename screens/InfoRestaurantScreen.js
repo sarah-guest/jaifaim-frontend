@@ -1,16 +1,15 @@
-//Imports habituels
-import { StyleSheet, Text, View } from 'react-native';
+// IMPORTS REACT
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-//Import de nos composants
-import OurText from '../components/OurText';
+// IMPORTS COMPOSANTS
+import { StyleSheet, View } from 'react-native';
 import OurButton from '../components/Button';
 import OurTextInput from '../components/TextInput';
-//Import de la fonction du reducer
+// IMPORTS REDUCER
+import { useDispatch } from 'react-redux';
 import { getInfoAdress } from '../reducers/restaurant';
+
 export default function InfoRestaurant({ navigation, route }) {
   //On set les états des inputs
-
   const [siren, setSiren] = useState('');
   const [website, setWebsite] = useState('');
   const [telephone, setTelephone] = useState('');
@@ -21,22 +20,24 @@ export default function InfoRestaurant({ navigation, route }) {
   const [postCode, setPostCOde] = useState('');
   const [city, SetCity] = useState('');
   const dispatch = useDispatch();
-  const handleValider = () => {
+
+  const handleSuivantPress = () => {
     dispatch(
       getInfoAdress({
-        siren: siren,
-        website: website,
-        telephone: telephone,
-        //           emailPublic: emailPublic,
-        streetNumber: streetNumber,
-        streetType: streetType,
-        streetName: streetName,
-        postCode: postCode,
-        city: city,
+        siren,
+        website,
+        telephone,
+        // emailPublic: emailPublic,
+        streetNumber,
+        streetType,
+        streetName,
+        postCode,
+        city,
       })
     );
     navigation.navigate('Preferences');
   };
+
   return (
     <View style={styles.container}>
       <OurTextInput
@@ -79,15 +80,15 @@ export default function InfoRestaurant({ navigation, route }) {
         onChangeText={(value) => SetCity(value)}
         value={city}
       />
-
       <OurButton
         text="Valider"
         color="caféaulaitchaud"
-        onPress={handleValider}
+        onPress={handleSuivantPress}
       />
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
