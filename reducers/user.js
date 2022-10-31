@@ -23,7 +23,6 @@ export const userSlice = createSlice({
     },
     addUserInfo: (state, action) => {
       state.value.pref = action.payload.pref;
-
     }
   }
 });
