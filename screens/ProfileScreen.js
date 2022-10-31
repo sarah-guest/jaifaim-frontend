@@ -36,9 +36,9 @@ export default function ProfileScreen( {route} ) {
         <View style={styles.view}> 
          <Image source={require('../assets/images/avatarRestaurant.png')} />
          <Text style={styles.name}> restaurant Name </Text>
-         <TouchableOpacity style={styles.button} onPress={() => onPress()}>
-         {OurButton}
-       </TouchableOpacity>
+         <FontAwesome name={'utensils'} size={52} color={convertColor('caféaulaitchaud')}/>
+         <FontAwesome name={'circle-info'} size={52} color={convertColor('caféaulaitchaud')}/>
+         <FontAwesome name={''} size={52} color={convertColor('caféaulaitchaud')}/>
         <View style={styles.bloc}> 
          <Text style={styles.emoji}>🍽️</Text>
         </View>
@@ -49,9 +49,9 @@ export default function ProfileScreen( {route} ) {
           <Text style={styles.emoji}>ℹ️</Text>
          </View>
 
-       
+        
 
-      
+        
 
         </View>
       </View>
