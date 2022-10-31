@@ -1,12 +1,29 @@
-import { StyleSheet, View, Image } from 'react-native';
+import { useState, useEffect } from 'react';
+import { StyleSheet, View, Image, LayoutAnimation } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import OurButton from '../components/Button';
+
 export default function LandingScreen({ navigation }) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  //On set un délai d'affichage : 3 secondes avant le passage au screen suivant
+  // setTimeout(() => {
+  //   setIsVisible(true)
+  // }, 2000);
+
+  useEffect(() => {
+    setTimeout(() => {
+      LayoutAnimation.spring();
+      setIsVisible(true);
+    }, 1500);
+  }, [])
 
   const handleSignUp = () => {
     navigation.navigate('Demo');
   };
 
   const handleSignInRestaurant = () => {
+
     navigation.navigate('SignIn', { type: 'restaurant' });
   };
   const handleSignInUser = () => {
@@ -14,44 +31,48 @@ export default function LandingScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image
         style={styles.image}
         source={require('../assets/logo.jpg')}
       />
 
-      <OurButton
-        text="je m'inscris"
-        color="caféaulaitchaud"
-        onPress={handleSignUp}
-      ></OurButton>
+      {isVisible && <View style={styles.animated}>
+        <OurButton
+          text="je m'inscris"
+          color="caféaulaitchaud"
+          onPress={handleSignUp}
+        ></OurButton>
 
-      <OurButton
-        text="j'ai un compte restaurateur"
-        color="caféaulaitchaud"
-        onPress={handleSignInRestaurant}
-      ></OurButton>
+        <OurButton
+          text="j'ai un compte restaurateur"
+          color="caféaulaitchaud"
+          onPress={handleSignInRestaurant}
+        ></OurButton>
 
-      <OurButton
-        text="j'ai un compte utilisateur"
-        color="caféaulaitchaud"
-        onPress={handleSignInUser}
-      ></OurButton>
-    </View>
+        <OurButton
+          text="j'ai un compte utilisateur"
+          color="caféaulaitchaud"
+          onPress={handleSignInUser}
+        ></OurButton>
+      </View>}
+    </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingBottom: 60,
     alignItems: 'center',
     justifyContent: 'center',
-    },
+  },
   image: {
-    flex: 1,
-    width: 300,
+    marginTop: '50%',
+    marginBottom: '25%',
+    width: 250,
     height: 250,
-    alignItems: 'center',
-    justifyContent: 'center',
+    resizeMode: 'contain',
   },
 });

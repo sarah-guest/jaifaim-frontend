@@ -3,6 +3,7 @@ import {
   ImageBackground,
   SafeAreaView,
   ScrollView,
+  View,
   StyleSheet,
 } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -34,6 +35,11 @@ export default function HomeScreen({ navigation }) {
     return <Meal key={i} isLiked={isLiked} {...data} />;
   });
 
+  const likedMeals = liked.map((data, i) => {
+    console.log(likedMeals);
+    return <Meal key={i} {...data} isLiked={true} />;
+  });
+
   return (
     <ImageBackground
       source={require('../assets/images/background.jpg')}
@@ -45,7 +51,7 @@ export default function HomeScreen({ navigation }) {
         <ScrollView>
           {/* Populaires */}
           <Title h2 isLight={true}>
-            Populaires
+            Menus du jour
           </Title>
           <ScrollView
             style={styles.scroll}
@@ -57,9 +63,21 @@ export default function HomeScreen({ navigation }) {
           </ScrollView>
 
           {/* Derniers consultés */}
-          <Title h4 isLight={true}>
-            Vus récemment 👀
-          </Title>
+          {likedMeals.length > 0 && (
+            <View>
+              <Title h4 isLight={true}>
+                Aimés récemment 👀
+              </Title>
+              <ScrollView
+                style={styles.scroll}
+                horizontal={true}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+              >
+                {likedMeals}
+              </ScrollView>
+            </View>
+          )}
 
           {/* Coups de coeur de l'équipe */}
         </ScrollView>

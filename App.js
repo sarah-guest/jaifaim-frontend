@@ -23,6 +23,7 @@ import HomeScreen from './screens/HomeScreen';
 import PdjFormScreen from './screens/PdjFormScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SnapScreen from './screens/SnapScreen';
+import { View, Image, StyleSheet } from 'react-native';
 
 const store = configureStore({
   reducer: { user, restaurant, likedMeals, temporary },
@@ -61,6 +62,10 @@ const TabNavigation = ({ route }) => {
             color={color}
           />
         ),
+        tabBarStyle: styles.tab,
+        tabBarItemStyle: {
+          padding: 5,
+        },
         // INACTIVE TABS COLORS
         tabBarInactiveBackgroundColor: '#7F5539',
         tabBarInactiveTintColor: '#DDB892',
@@ -87,6 +92,10 @@ const TabNavigation = ({ route }) => {
             color={color}
           />
         ),
+        tabBarStyle: styles.tab,
+        tabBarItemStyle: {
+          padding: 5,
+        },
         tabBarInactiveBackgroundColor: '#7F5539',
         tabBarInactiveTintColor: '#DDB892',
         tabBarActiveBackgroundColor: '#DDB892',
@@ -132,3 +141,22 @@ export default function App() {
     </Provider>
   );
 }
+
+const styles = StyleSheet.create({
+  tab: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    elevation: 0,
+    height: 50,
+    paddingBottom: 0,
+    bottom: 30,
+    left: 30,
+    right: 30,
+    borderColor: 'transparent',
+    borderTopWidth: 0,
+    overflow: 'hidden',
+    borderRadius: 30,
+  }
+})

@@ -9,18 +9,24 @@ import {
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //imports de nos composants
 import convertColor from '../modules/convertColor';
+import MenuMore from './MenuMore';
 
 export default function SearchBar() {
-    const handleMenu = () => { }
+    const [menu, setMenu] = useState(false);
+
+    const handleMenu = () => {
+        setMenu(!menu)
+    }
     const handleSearch = () => { }
 
     return (
         <View style={styles.background}>
-            <FontAwesome style={styles.icons} name={'bars'} onPress={() => handleMenu()} />
+            <FontAwesome style={[styles.icons, { zIndex: 2 }]} name={menu ? 'times' : 'bars'} onPress={() => handleMenu()} />
             <View placeholder='Rechercher' style={styles.searchBar}>
                 <FontAwesome style={[styles.icons, styles.searchIcon]} name={'search'} onPress={() => handleSearch()} />
-                <TextInput placeholder='Rechercher' style={styles.search} />
+                <TextInput placeholder='Rechercher' style={styles.searchInput} />
             </View>
+            {menu && <MenuMore />}
         </View>
     );
 }
@@ -34,11 +40,12 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: convertColor('sucreroux'),
         borderRadius: 30,
+        zIndex: 1,
     },
     icons: {
         color: 'white',
+        width: '10%',
         marginLeft: 10,
-        marginRight: 15,
         fontSize: 20,
     },
     searchBar: {
@@ -62,7 +69,7 @@ const styles = StyleSheet.create({
     searchIcon: {
         margin: 5,
     },
-    search: {
+    searchInput: {
         color: 'white',
         marginTop: 5,
         marginBottom: 5,

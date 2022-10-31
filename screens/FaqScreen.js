@@ -16,11 +16,7 @@ export default function FaqScreen({ navigation, route }) {
   const [question, setQuestion] = useState('');
 
   useEffect(() => {
-    fetch(`http://${IP_ADDRESS}:3000/restaurants/question`, {
-      // method: 'GET',
-      // headers: { 'Content-Type': 'application/json' },
-      // body: JSON.stringify({ name: whatUser }),
-    })
+    fetch(`http://${IP_ADDRESS}:3000/restaurants/question`, {})
       .then((response) => response.json())
       .then((data) => {
         if (type === 'restaurant') {
