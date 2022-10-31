@@ -12,9 +12,9 @@ export default function InfoRestaurant({ navigation, route }) {
     //On set les états des inputs
 
     const [siren, setSiren] = useState('');
-    const [webSite, setWebSite] = useState('');
+    const [website, setWebsite] = useState('');
     const [telephone, setTelephone] = useState('');
-    const [emailPublic, SetEmailPublic] = useState('');
+  //  const [emailPublic, SetEmailPublic] = useState('');
     const [streetNumber, setStreetNumber] = useState('');
     const [streetType, setStreetType] = useState('');
     const [streetName, setStreetName] = useState('');
@@ -24,9 +24,9 @@ export default function InfoRestaurant({ navigation, route }) {
     const handleValider = () => {
         dispatch(getInfoAdress({
             siren: siren,
-            webSite: webSite,
+            website: website,
             telephone: telephone,
-            emailPublic: emailPublic,
+ //           emailPublic: emailPublic,
             streetNumber: streetNumber,
             streetType: streetType, 
             streetName: streetName,
@@ -48,9 +48,9 @@ export default function InfoRestaurant({ navigation, route }) {
                 value={telephone}
             />
             <OurTextInput
-                placeholder="E-mail public"
-                onChangeText={(value) => SetEmailPublic(value)}
-                value={emailPublic}
+                placeholder="Site Web"
+                onChangeText={(value) => setWebsite(value)}
+                value={website}
             />
             <OurTextInput
                 placeholder="Numéro de voie"

@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, Button } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { getFirstName } from '../reducers/user';
 import { getName } from '../reducers/restaurant';
@@ -34,7 +34,7 @@ export default function AskNameScreen({ navigation, route }) {
 
     //Si utilisateur, on enregistre son firstname et l'envoie dans le Store
     if (type === 'user') {
-      dispatch(getFirstName({ firstname: whatUser }));
+      dispatch(getFirstName(whatUser));
       navigation.navigate("InfoUser", { type: 'user' });
 
       //Si restaurateur, on enregistre son nom de restaurant et l'envoie dans le Store
@@ -42,9 +42,7 @@ export default function AskNameScreen({ navigation, route }) {
       dispatch(getName({ name: whatUser }));
       navigation.navigate('InfoRestaurant', { type: 'restaurant' });
     }
-  }
-    ;
-
+  };
 
   if (type === 'user') {
     return (
@@ -72,7 +70,7 @@ export default function AskNameScreen({ navigation, route }) {
           onChangeText={(value) => setRestaurantName(value)}
           value={restaurantName}
         />
-         <OurButton
+        <OurButton
           text="Je m'inscris"
           color="caféaulaitchaud"
           onPress={myNameIs} />
