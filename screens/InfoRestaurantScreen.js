@@ -1,7 +1,7 @@
 // IMPORTS REACT
 import { useState } from 'react';
 // IMPORTS COMPOSANTS
-import { Label, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import OurButton from '../components/Button';
 import OurTextInput from '../components/TextInput';
 import OurText from '../components/OurText';
@@ -13,7 +13,7 @@ export default function InfoRestaurant({ navigation, route }) {
   // On set les états des inputs
   const [siren, setSiren] = useState('');
   const [website, setWebsite] = useState('');
-  const [telephone, setTelephone] = useState('');
+  const [phone, setPhone] = useState('');
   // const [emailPublic, SetEmailPublic] = useState('');
   const [streetNumber, setStreetNumber] = useState('');
   const [streetType, setStreetType] = useState('');
@@ -27,7 +27,7 @@ export default function InfoRestaurant({ navigation, route }) {
       getInfoAdress({
         siren,
         website,
-        telephone,
+        phone,
         // emailPublic: emailPublic,
         streetNumber,
         streetType,
@@ -53,8 +53,8 @@ export default function InfoRestaurant({ navigation, route }) {
         <OurText body2>Téléphone</OurText>
         <OurTextInput
           placeholder="06 44 64 03 66"
-          onChangeText={(value) => setTelephone(value)}
-          value={telephone}
+          onChangeText={(value) => setPhone(value)}
+          value={phone}
         />
       </View>
       <View style={styles.listItem}>
