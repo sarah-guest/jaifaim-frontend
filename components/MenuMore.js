@@ -1,25 +1,38 @@
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
 import { View, StyleSheet } from 'react-native';
+//import reducer
+import { signOutUser } from '../reducers/user';
+//import navigation
+import { useNavigation } from '@react-navigation/native';
 //import FontAwesome
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 //imports de nos composants
 import convertColor from '../modules/convertColor';
 import OurText from './OurText';
+import OurButton from './Button';
 
-export default function MenuMore({ navigation }) {
+export default function MenuMore() {
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
+
+    const handleSignout = () => {
+        dispatch(signOutUser());
+        navigation.navigate('Landing');
+    }
 
     return (
         <View style={styles.menu}>
             <View style={[styles.link, styles.notLastLink]}>
                 <OurText body2
-                    onPress={() => navigation.navigate('TabNavigation')}>
+                    onPress={() => navigation.navigate('UserParameters')}>
                     Paramètres
                 </OurText>
                 <FontAwesomeIcon name={'cog'} style={styles.icon} />
             </View>
             <View style={styles.link}>
                 <OurText body2
-                    onPress={() => navigation.navigate('TabNavigation')}>
+                    onPress={() => handleSignout()}>
                     Se déconnecter
                 </OurText>
                 <FontAwesomeIcon name={'sign-out'} style={styles.icon} />
