@@ -38,21 +38,7 @@ export default function ProfileScreen( {route} ) {
          <Text style={styles.name}> restaurant Name </Text>
          <FontAwesome name={'utensils'} size={52} color={convertColor('caféaulaitchaud')}/>
          <FontAwesome name={'circle-info'} size={52} color={convertColor('caféaulaitchaud')}/>
-         <FontAwesome name={''} size={52} color={convertColor('caféaulaitchaud')}/>
-        <View style={styles.bloc}> 
-         <Text style={styles.emoji}>🍽️</Text>
-        </View>
-        <View style={styles.bloc}>
-          <Text style={styles.emoji}>✉️</Text>
-         </View>
-         <View style={styles.bloc}>
-          <Text style={styles.emoji}>ℹ️</Text>
-         </View>
-
-        
-
-        
-
+         <FontAwesome name={'messages-question'} size={52} color={convertColor('caféaulaitchaud')}/>
         </View>
       </View>
     );
@@ -100,21 +86,6 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
     // alignItems: "center"
   },
-  bloc: {
-    height: 50,
-    backgroundColor: 'red',
-    display: 'flex',
-    flexDirection: 'column-reverse',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-
-    
-  },
-  bloc2: {
-    backgroundColor: 'blue',
-  },
-  bloc3: {
-    backgroundColor: 'yellow',
-  }
+ 
 
 });
