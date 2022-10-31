@@ -25,7 +25,7 @@ import AskNameScreen from './screens/AskNameScreen';
 import InfoRestaurantScreen from './screens/InfoRestaurantScreen';
 import InfoUserScreen from './screens/InfoUserScreen';
 import UserPrefScreen from './screens/UserPrefScreen';
-import Preferences from './screens/PreferencesScreen';
+import PreferencesScreen from './screens/PreferencesScreen';
 import SnapScreen from './screens/SnapScreen';
 import UserParametersScreen from './screens/UserParametersScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
