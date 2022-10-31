@@ -4,7 +4,7 @@ import OurTitle from './Title';
 import OurText from './OurText';
 import convertColor from '../modules/convertColor';
 // IMPORTS AUTRES
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 const MealCard = (props) => {
   const { restaurant } = props;
@@ -12,22 +12,26 @@ const MealCard = (props) => {
 
   return (
     <View style={styles.mealCard}>
-      <View style={styles.icons}>
-        <FontAwesome
-          style={styles.icon}
-          name="heart"
-          size={25}
-          color={convertColor('cannelle')}
-        />
-        <FontAwesome
-          style={styles.icon}
-          name="bookmark"
-          size={25}
-          color={convertColor('cannelle')}
-        />
+      <View style={styles.top}>
+        <View>
+          <OurTitle h3={true}>{pdjName}</OurTitle>
+          <OurTitle h5={true}>{name} (500m)</OurTitle>
+        </View>
+        <View style={styles.icons}>
+          <FontAwesomeIcon
+            style={styles.icon}
+            name="heart"
+            size={25}
+            color={convertColor('cannelle')}
+          />
+          <FontAwesomeIcon
+            style={styles.icon}
+            name="bookmark-o"
+            size={25}
+            color={convertColor('cannelle')}
+          />
+        </View>
       </View>
-      <OurTitle h3={true}>{pdjName}</OurTitle>
-      <OurTitle h5={true}>{name} (500m)</OurTitle>
       <OurText>{address}</OurText>
       <OurText>{pdjDescription}</OurText>
       <View style={styles.mealPictureContainer}>
@@ -45,9 +49,9 @@ const MealCard = (props) => {
 const styles = StyleSheet.create({
   mealCard: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'stretch',
-    height: 300,
+    height: 388,
     padding: 16,
     position: 'absolute',
     bottom: 0,
@@ -67,17 +71,20 @@ const styles = StyleSheet.create({
   },
   icons: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
   },
   icon: {
     marginLeft: 16,
   },
   mealPictureContainer: {
-    flex: 1,
+    height: 150,
   },
   image: {
     flex: 1,
     borderRadius: 10,
+  },
+  top: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 
