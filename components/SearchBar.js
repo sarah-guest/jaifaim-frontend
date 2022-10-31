@@ -12,7 +12,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //imports de nos composants
 import convertColor from '../modules/convertColor';
 import MenuMore from './MenuMore';
-import OurText from './OurText';
 
 export default function SearchBar(props) {
     const [menu, setMenu] = useState(false);
@@ -23,13 +22,18 @@ export default function SearchBar(props) {
     }
     const handleSearch = () => {
         props.searchMeal(search);
-        setSearch('');
+    }
+    const handleDeleteSearch = () => {
+        props.searchMeal('');
     }
 
     return (
         <View style={styles.background}>
             <FontAwesome style={[styles.icons, { zIndex: 2 }]} name={menu ? 'times' : 'bars'} onPress={() => handleMenu()} />
             <View placeholder='Rechercher' style={styles.searchBar}>
+                {search !== '' &&
+                    <FontAwesome style={[styles.icons]} name={'times'} onPress={() => handleDeleteSearch()} />
+                }
                 <TextInput placeholder='Rechercher' style={styles.searchInput} onChangeText={(value) => setSearch(value)} value={search} />
                 <FontAwesome style={[styles.icons, styles.searchIcon]} name={'search'} onPress={() => handleSearch()} />
             </View>
@@ -57,8 +61,7 @@ const styles = StyleSheet.create({
     },
     searchBar: {
         flexDirection: 'row',
-        textAlign: 'center',
-        justifyContent: 'space-between',
+        alignItems: 'center',
         width: '85%',
         paddingTop: 3,
         paddingBottom: 3,
@@ -75,7 +78,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
     },
     searchIcon: {
-        margin: 5,
+        marginLeft: 'auto',
     },
     searchInput: {
         color: 'white',
