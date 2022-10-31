@@ -25,7 +25,7 @@ import AskNameScreen from './screens/AskNameScreen';
 import InfoRestaurantScreen from './screens/InfoRestaurantScreen';
 import InfoUserScreen from './screens/InfoUserScreen';
 import UserPrefScreen from './screens/UserPrefScreen';
-import RestaurantPrefScreen from './screens/restaurantPrefScreen'
+import PreferencesScreen from './screens/PreferencesScreen';
 import SnapScreen from './screens/SnapScreen';
 import UserParametersScreen from './screens/UserParametersScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
@@ -138,14 +138,20 @@ export default function App() {
           <Stack.Screen name="Map" component={MapScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name= 'AskName' component={AskNameScreen}/>
-          <Stack.Screen name ='InfoUser' component={InfoUserScreen}/>
-          <Stack.Screen name= 'InfoRestaurant'component={InfoRestaurantScreen}/>
-          <Stack.Screen name = 'UserPref' component={UserPrefScreen}/>
-          <Stack.Screen name = 'RestaurantPref' component={RestaurantPrefScreen}/>
+          <Stack.Screen name="AskName" component={AskNameScreen} />
+          <Stack.Screen name="InfoUser" component={InfoUserScreen} />
+          <Stack.Screen
+            name="InfoRestaurant"
+            component={InfoRestaurantScreen}
+          />
+          <Stack.Screen name="UserPref" component={UserPrefScreen} />
+          <Stack.Screen name="Preferences" component={PreferencesScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Snap" component={SnapScreen} />
-          <Stack.Screen name="UserParameters" component={UserParametersScreen} />
+          <Stack.Screen
+            name="UserParameters"
+            component={UserParametersScreen}
+          />
           <Stack.Screen name="PdjForm" component={PdjFormScreen} />
         </Stack.Navigator>
       </NavigationContainer>
@@ -169,5 +175,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
     overflow: 'hidden',
     borderRadius: 30,
-  }
-})
+  },
+});
