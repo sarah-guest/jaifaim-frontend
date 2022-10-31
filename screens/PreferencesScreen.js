@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPrefRestauCuisine, getPrefRestauAtmos, getPrefRestauBook, getPrefRestauMisce } from '../reducers/restaurant';
 
 
-export default function RestaurantPrefScreen({ navigation }) {
-
+export default function PreferencesScreen({ navigation }) {
+ 
     const IP_ADDRESS = '192.168.10.158';
     const dispatch = useDispatch();
     const restaurant = useSelector((state) => state.restaurant.value);
