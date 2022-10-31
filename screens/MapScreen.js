@@ -59,6 +59,17 @@ export default function MapScreen() {
       pdjSrc:
         'https://lh5.googleusercontent.com/p/AF1QipO9dp3NAy2IiV_BaMI88bkoIipIznR10_SSnuRv=s609-k-no',
     },
+    {
+      address: '24 Rue Linné, 75005 Paris',
+      latitude: 48.84557,
+      longitude: 2.354779,
+      name: 'Café Jussieu',
+      pdjDescription:
+        'Dos de cabillaud dans sa robe de panure et frites de pomme de terre maison',
+      pdjName: 'Fish and Chips',
+      pdjSrc:
+        'https://media-cdn.tripadvisor.com/media/photo-w/1c/21/0b/ce/photo3jpg.jpg',
+    },
   ]);
 
   const [selectedRestaurant, setSelectedRestaurant] = useState(null);
