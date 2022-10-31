@@ -12,17 +12,18 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // STYLE NAVIGATION BAR
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // SCREENS
-import LandingScreen from './screens/LandingScreen';
 import DemoScreen from './screens/DemoScreen';
-import SignUpScreen from './screens/SignUpScreen';
-import SignInScreen from './screens/SignInScreen';
-import WelcomeScreen from './screens/WelcomeScreen';
 import EaterProviderScreen from './screens/EaterProviderScreen';
-import MapScreen from './screens/MapScreen';
 import HomeScreen from './screens/HomeScreen';
+import LandingScreen from './screens/LandingScreen';
+import MapScreen from './screens/MapScreen';
 import PdjFormScreen from './screens/PdjFormScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import SignUpScreen from './screens/SignUpScreen';
+import SignInScreen from './screens/SignInScreen';
 import SnapScreen from './screens/SnapScreen';
+import UserParametersScreen from './screens/UserParametersScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
 import { View, Image, StyleSheet } from 'react-native';
 
 const store = configureStore({
@@ -135,6 +136,7 @@ export default function App() {
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Snap" component={SnapScreen} />
+          <Stack.Screen name="UserParameters" component={UserParametersScreen} />
           <Stack.Screen name="PdjForm" component={PdjFormScreen} />
         </Stack.Navigator>
       </NavigationContainer>

@@ -9,21 +9,23 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     signInUser: (state, action) => {
-     // state.value.token = action.payload.token;
+      // state.value.token = action.payload.token;
       state.value.username = action.payload.username;
       state.value.email = action.payload.email;
       state.value.password = action.payload.password;
-      
-    
-  },
-   getFirstName:(state,action)=>{
-    state.value.firstName=action.payload.firstName;
-   },
-   addUserInfo:(state,action)=>{
-    state.value.pref= action.payload.pref;
+    },
+    signOutUser: (state) => {
+      state.value.token = null;
+      state.value.username = null;
+    },
+    getFirstName: (state, action) => {
+      state.value.firstName = action.payload.firstName;
+    },
+    addUserInfo: (state, action) => {
+      state.value.pref = action.payload.pref;
 
-   }
+    }
   }
 });
-export const { signInUser, getFirstName,addUserInfo } = userSlice.actions;
+export const { signInUser, getFirstName, addUserInfo, signOutUser } = userSlice.actions;
 export default userSlice.reducer;
