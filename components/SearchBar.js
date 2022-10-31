@@ -21,10 +21,11 @@ export default function SearchBar(props) {
         setMenu(!menu)
     }
     const handleSearch = () => {
-        props.searchMeal(search);
+        props.searchMeal(search)
     }
     const handleDeleteSearch = () => {
-        props.searchMeal('');
+        props.searchMeal('')
+        setSearch('')
     }
 
     return (
