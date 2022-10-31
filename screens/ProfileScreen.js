@@ -36,7 +36,7 @@ return (
      <Text style={styles.name}> restaurant Name </Text>
      <FontAwesome name={'utensils'} size={52} color={convertColor('caféaulaitchaud')}/>
      <FontAwesome name={'circle-info'} size={52} color={convertColor('caféaulaitchaud')}/>
-     <FontAwesome name={''} size={52} color={convertColor('caféaulaitchaud')}/>
+     <FontAwesome name={'messages-question'} size={52} color={convertColor('caféaulaitchaud')}/>
     <View style={styles.bloc}> 
      <Text style={styles.emoji}>🍽️</Text>
     </View>

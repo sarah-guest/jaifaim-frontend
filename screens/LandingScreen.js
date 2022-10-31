@@ -34,7 +34,7 @@ export default function LandingScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       <Image
         style={styles.image}
-        source={require('../assets/logo.jpg')}
+        source={require('../assets/images/LOGO_BREF.png')}
       />
 
       {isVisible && <View style={styles.animated}>
@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
   image: {
     marginTop: '50%',
     marginBottom: '25%',
-    width: 250,
-    height: 250,
+    width: 290,
+    height: 290,
     resizeMode: 'contain',
   },
 });
