@@ -32,11 +32,11 @@ export default function SearchBar(props) {
         <View style={styles.background}>
             <FontAwesome style={[styles.icons, { zIndex: 2 }]} name={menu ? 'times' : 'bars'} onPress={() => handleMenu()} />
             <View placeholder='Rechercher' style={styles.searchBar}>
-                {search !== '' &&
-                    <FontAwesome style={[styles.icons]} name={'times'} onPress={() => handleDeleteSearch()} />
-                }
                 <TextInput placeholder='Rechercher' style={styles.searchInput} onChangeText={(value) => setSearch(value)} value={search} />
-                <FontAwesome style={[styles.icons, styles.searchIcon]} name={'search'} onPress={() => handleSearch()} />
+                {search !== '' &&
+                    <FontAwesome style={[styles.icons, styles.searchIcon]} name={'times'} onPress={() => handleDeleteSearch()} />
+                }
+                <FontAwesome style={styles.icons} name={'search'} onPress={() => handleSearch()} />
             </View>
             {menu && <MenuMore />}
         </View>
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
         color: 'white',
         marginTop: 5,
         marginBottom: 5,
+        marginRight: 'auto',
         fontSize: 18,
     },
 });
