@@ -69,7 +69,9 @@ export default function SnapScreen({ navigation }) {
   }
   return (
     <Camera style={styles.camera} ref={(ref) => (cameraRef = ref)}>
-      <OurButton icon="camera" color="cannelle" onPress={takePicture} />
+      <View style={styles.snapButton}>
+        <OurButton icon="camera" color="cannelle" onPress={takePicture} />
+      </View>
     </Camera>
   );
 }
@@ -91,10 +93,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     position: 'absolute',
-    bottom: 16,
+    bottom: 100,
   },
   image: {
     height: 800,
     width: 400,
+  },
+  snapButton: {
+    position: 'absolute',
+    bottom: 100,
+    zIndex: 2,
   },
 });
