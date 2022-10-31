@@ -6,19 +6,18 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import TextInput from '../components/TextInput';
 import OurButton from '../components/Button';
 import OurText from '../components/OurText';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signInUser } from '../reducers/user';
 import { signInRestaurant } from '../reducers/restaurant';
 
 export default function SignInScreen({ navigation, route }) {
   //Import du reducer
   const dispatch = useDispatch();
-
   //On détermine le type d'utilisateur pour savoir quoi afficher dans l'écran
   let { type } = route.params;
 
-  //const IP_ADDRESS = '192.168.10.130';
-  const IP_ADDRESS = '192.168.1.36';
+  const IP_ADDRESS = '192.168.10.136';
+  //const IP_ADDRESS = '192.168.1.36';
 
   //on crée des inputs pour surveiller :
   const [user, setUser] = useState(''); //nom de l'utilisateur
@@ -81,19 +80,22 @@ export default function SignInScreen({ navigation, route }) {
     return (
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
         <OurText body1>Utilisateur</OurText>
-        <TextInput
-          placeholder="Username"
-          onChangeText={(value) => setUser(value)}
-          value={user}
-        />
-        <View style={styles.password}>
+        <View style={styles.inputs}>
           <TextInput
-            placeholder="Mot de passe"
-            onChangeText={(value) => setPassword(value)}
-            value={password}
-            secureTextEntry={passwordVisible}
+            placeholder="Username"
+            onChangeText={(value) => setUser(value)}
+            value={user}
           />
-          <FontAwesome style={styles.showHide} name={passwordVisible ? "eye" : "eye-slash"} onPress={() => setPasswordVisible(!passwordVisible)} />
+          <View style={styles.password}>
+            <TextInput
+              placeholder="Mot de passe"
+              onChangeText={(value) => setPassword(value)}
+              value={password}
+              secureTextEntry={passwordVisible}
+              width={true}
+            />
+            <FontAwesome style={styles.showHide} name={passwordVisible ? "eye" : "eye-slash"} onPress={() => setPasswordVisible(!passwordVisible)} />
+          </View>
         </View>
         {error && <OurText body2>Ce compte n'existe pas</OurText>}
         <OurButton
@@ -112,19 +114,23 @@ export default function SignInScreen({ navigation, route }) {
         <OurText body1>
           Restaurant
         </OurText>
-        <TextInput
-          placeholder="Nom du restaurant"
-          onChangeText={(value) => setName(value)}
-          value={name}
-        />
-        <View style={styles.password}>
+        <View style={styles.inputs}>
           <TextInput
-            placeholder="Mot de passe"
-            onChangeText={(value) => setPassword(value)}
-            value={password}
-            secureTextEntry={passwordVisible}
+            width={true}
+            placeholder="Nom du restaurant"
+            onChangeText={(value) => setName(value)}
+            value={name}
           />
-          <FontAwesome style={styles.showHide} name={passwordVisible ? "eye" : "eye-slash"} onPress={() => setPasswordVisible(!passwordVisible)} />
+          <View style={styles.password}>
+            <TextInput
+              width={true}
+              placeholder="Mot de passe"
+              onChangeText={(value) => setPassword(value)}
+              value={password}
+              secureTextEntry={passwordVisible}
+            />
+            <FontAwesome style={styles.showHide} name={passwordVisible ? "eye" : "eye-slash"} onPress={() => setPasswordVisible(!passwordVisible)} />
+          </View>
         </View>
         {error && <OurText body2>Ce compte n'existe pas</OurText>}
         <OurButton
@@ -142,12 +148,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  inputs: {
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 20,
+  },
   password: {
+    marginTop: 10,
+    marginBottom: 20,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'space-between',
   },
   showHide: {
-    margin: 10,
-    fontSize: 15,
-  }
+    marginLeft: 15,
+    marginBottom: 10,
+    fontSize: 20,
+  },
 });
