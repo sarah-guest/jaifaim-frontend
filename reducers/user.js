@@ -14,6 +14,10 @@ export const userSlice = createSlice({
       state.value.email = action.payload.email;
       state.value.password = action.payload.password;
     },
+    signOutUser: (state) => {
+      state.value.token = null;
+      state.value.username = null;
+    },
     getFirstName: (state, action) => {
       state.value.firstName = action.payload;
     },
@@ -28,5 +32,5 @@ export const userSlice = createSlice({
     }
   }
 });
-export const { signInUser, getFirstName, setProfilGourmand, getDiet, getIntolerences } = userSlice.actions;
+export const { signInUser, signOutUser, getFirstName, setProfilGourmand, getDiet, getIntolerences } = userSlice.actions;
 export default userSlice.reducer;
