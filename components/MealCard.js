@@ -8,13 +8,15 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 const MealCard = (props) => {
   const { restaurant } = props;
-  const { address, name, pdjDescription, pdjName, pdjSrc } = restaurant;
+  const { address, name, dernierPlat } = restaurant;
+  const { streetNumber, streetName, streetType, postCode, city } = address;
+  const { description, src } = dernierPlat;
 
   return (
     <View style={styles.mealCard}>
       <View style={styles.top}>
         <View>
-          <OurTitle h3={true}>{pdjName}</OurTitle>
+          <OurTitle h3={true}>{dernierPlat.name}</OurTitle>
           <OurTitle h5={true}>{name} (500m)</OurTitle>
         </View>
         <View style={styles.icons}>
@@ -32,13 +34,13 @@ const MealCard = (props) => {
           />
         </View>
       </View>
-      <OurText>{address}</OurText>
-      <OurText>{pdjDescription}</OurText>
+      <OurText>{`${streetNumber} ${streetType} ${streetName}, ${postCode} ${city}`}</OurText>
+      <OurText>{description}</OurText>
       <View style={styles.mealPictureContainer}>
         <Image
           style={styles.image}
           source={{
-            uri: pdjSrc,
+            uri: src,
           }}
         />
       </View>
@@ -48,7 +50,7 @@ const MealCard = (props) => {
 
 const styles = StyleSheet.create({
   mealCard: {
-    flex: 1,
+    width: '100%',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     height: 388,
