@@ -11,11 +11,9 @@ import { useSelector } from 'react-redux';
 import SearchBar from '../components/SearchBar';
 import Meal from '../components/Meal';
 import Title from '../components/Title';
+import IP_ADDRESS from '../modules/ipAddress';
 
 export default function HomeScreen({ navigation }) {
-  //const IP_ADDRESS = '192.168.10.136';
-  const IP_ADDRESS = '192.168.1.36';
-
   //on récupère les éléments likés
   const liked = useSelector((state) => state.likedMeals.value);
 
@@ -38,7 +36,7 @@ export default function HomeScreen({ navigation }) {
   });
 
   const likedMeals = liked.map((data, i) => {
-    console.log(likedMeals)
+    console.log(likedMeals);
     return <Meal key={i} {...data} isLiked={true} />;
   });
 

@@ -7,11 +7,10 @@ import OurTag from '../components/Tag';
 import OurTextInput from '../components/TextInput';
 import Title from '../components/Title';
 // IMPORTS REDUCER
+import IP_ADDRESS from '../modules/ipAddress';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearPlatdujourPhoto } from '../reducers/temporary';
-
 export default function PdjFormScreen({ navigation }) {
-  const IP_ADDRESS = '';
   const [diets, setDiets] = useState([]); // tous les diets possibles
   const [name, setName] = useState(null); // nom pdj
   const [selectedDiets, setSelectedDiets] = useState([]); // diets pdj

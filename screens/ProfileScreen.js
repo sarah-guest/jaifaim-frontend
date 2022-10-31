@@ -1,81 +1,84 @@
-
-// IMPORTS HABITUELS
-import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import convertColor from '../modules/convertColor';
-import OurButton from '../components/Button';
-
+// IMPORTS REACT
 import { useState, useEffect } from 'react';
-import { useSelector, } from 'react-redux';
- 
+// IMPORTS COMPOSANTS
+import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import OurButton from '../components/Button';
+// IMPORTS REDUCER
+import { useSelector } from 'react-redux';
+// IMPORTS AUTRES
+import IP_ADDRESS from '../modules/ipAddress';
+import convertColor from '../modules/convertColor';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-export default function ProfileScreen( {route} ) {
+export default function ProfileScreen({ route }) {
   //const RestaurantProfileScreen = () => {
 
-const name = useSelector((state) => state.restaurant.value.username)
-//let { type } = route.params;
-const IP_ADDRESS = '192.168.1.36';
-const [restaurantName, setRestaurantName] = useState('');
+  const name = useSelector((state) => state.restaurant.value.username);
+  //let { type } = route.params;
+  const [restaurantName, setRestaurantName] = useState('');
 
-
-useEffect(() => {
-fetch(`http://${IP_ADDRESS}:3000/restaurants/restaurant`, {
-    
-}).then(response => response.json())
-    .then(data => {
-        
-            data.result !== null ? setRestaurantName(data.data.name) : setRestaurantName(restaurantName)
-    });
+  useEffect(() => {
+    fetch(`http://${IP_ADDRESS}:3000/restaurants/restaurant`, {})
+      .then((response) => response.json())
+      .then((data) => {
+        data.result !== null
+          ? setRestaurantName(data.data.name)
+          : setRestaurantName(restaurantName);
+      });
   }, []);
 
-
-return (
-  <View style={styles.container}>
-    <View style={styles.view}> 
-     <Image source={require('../assets/images/avatarRestaurant.png')} />
-     <Text style={styles.name}> restaurant Name </Text>
-     <FontAwesome name={'utensils'} size={52} color={convertColor('caféaulaitchaud')}/>
-     <FontAwesome name={'circle-info'} size={52} color={convertColor('caféaulaitchaud')}/>
-     <FontAwesome name={'messages-question'} size={52} color={convertColor('caféaulaitchaud')}/>
-    <View style={styles.bloc}> 
-     <Text style={styles.emoji}>🍽️</Text>
+  return (
+    <View style={styles.container}>
+      <View style={styles.view}>
+        <Image source={require('../assets/images/avatarRestaurant.png')} />
+        <Text style={styles.name}> restaurant Name </Text>
+        <FontAwesome
+          name={'utensils'}
+          size={52}
+          color={convertColor('caféaulaitchaud')}
+        />
+        <FontAwesome
+          name={'circle-info'}
+          size={52}
+          color={convertColor('caféaulaitchaud')}
+        />
+        <FontAwesome
+          name={''}
+          size={52}
+          color={convertColor('caféaulaitchaud')}
+        />
+        <View style={styles.bloc}>
+          <Text style={styles.emoji}>🍽️</Text>
+        </View>
+        <View style={styles.bloc}>
+          <Text style={styles.emoji}>✉️</Text>
+        </View>
+        <View style={styles.bloc}>
+          <Text style={styles.emoji}>ℹ️</Text>
+        </View>
+      </View>
     </View>
-    <View style={styles.bloc}>
-      <Text style={styles.emoji}>✉️</Text>
-     </View>
-     <View style={styles.bloc}>
-      <Text style={styles.emoji}>ℹ️</Text>
-     </View>
-
-    
-
-    
-
-    </View>
-  </View>
-);
-// return <RestaurantProfileScreen />;
-  };
+  );
+  // return <RestaurantProfileScreen />;
+}
 
 //}
 
 const styles = StyleSheet.create({
   container: {
-
-// padding: 50,
-// paddingleft: 20,
-flex: 1,
-justifyContent: 'left',
-alignItems: 'center',
-backgroundColor: '#E6CCB3',
-alignItems: 'center',
-justifyContent: 'center',
+    // padding: 50,
+    // paddingleft: 20,
+    flex: 1,
+    justifyContent: 'left',
+    alignItems: 'center',
+    backgroundColor: '#E6CCB3',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   name: {
     fontSize: 32,
     marginTop: 42,
-    textAlign: "center"
-
+    textAlign: 'center',
   },
   bioShort: {
     fontSize: 18,
@@ -103,13 +106,11 @@ justifyContent: 'center',
     flexDirection: 'column-reverse',
     justifyContent: 'space-around',
     alignItems: 'center',
-
   },
   bloc2: {
     backgroundColor: 'blue',
   },
   bloc3: {
     backgroundColor: 'yellow',
-  }
-
+  },
 });
