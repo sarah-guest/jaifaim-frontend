@@ -32,7 +32,7 @@ export default function SignInScreen({ navigation, route }) {
       whichUser = user;
       whichPassword = password;
     } else if (
-      type === 'rastaurant') {
+      type === 'restaurant') {
       path = 'restaurants';
       whichEmail = email;
       whichUser = name;

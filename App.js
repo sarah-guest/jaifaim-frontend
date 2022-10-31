@@ -21,6 +21,11 @@ import PdjFormScreen from './screens/PdjFormScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import SignInScreen from './screens/SignInScreen';
+import AskNameScreen from './screens/AskNameScreen';
+import InfoRestaurantScreen from './screens/InfoRestaurantScreen';
+import InfoUserScreen from './screens/InfoUserScreen';
+import UserPrefScreen from './screens/UserPrefScreen';
+import RestaurantPrefScreen from './screens/restaurantPrefScreen'
 import SnapScreen from './screens/SnapScreen';
 import UserParametersScreen from './screens/UserParametersScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
@@ -51,7 +56,6 @@ const Tab = createBottomTabNavigator();
 // Ce composant renvoie la TabNavigation pour restaurant OU user selon le reducer
 const TabNavigation = ({ route }) => {
   const type = route.params;
-
   // RESTAURANT NAVIGATION
   const RestaurantNavigation = (
     <Tab.Navigator
@@ -134,6 +138,11 @@ export default function App() {
           <Stack.Screen name="Map" component={MapScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name= 'AskName' component={AskNameScreen}/>
+          <Stack.Screen name ='InfoUser' component={InfoUserScreen}/>
+          <Stack.Screen name= 'InfoRestaurant'component={InfoRestaurantScreen}/>
+          <Stack.Screen name = 'UserPref' component={UserPrefScreen}/>
+          <Stack.Screen name = 'RestaurantPref' component={RestaurantPrefScreen}/>
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Snap" component={SnapScreen} />
           <Stack.Screen name="UserParameters" component={UserParametersScreen} />
