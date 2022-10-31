@@ -94,7 +94,7 @@ export default function MapScreen() {
   }, []);
 
   useEffect(() => {
-    fetch(`http://${IP_ADDRESS}:3000/users/platsdujour/read/sauvegarde2`)
+    fetch(`http://${IP_ADDRESS}:3000/users/platsdujour/read/`)
       .then((response) => response.json())
       .then((json) => {
         json.result && setRestaurants(json.restaurants);
