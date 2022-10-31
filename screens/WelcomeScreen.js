@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import Title from '../components/Title';
+import IP_ADDRESS from '../modules/ipAddress';
 
 export default function WelcomeScreen({ navigation, route }) {
   //On récupère l'utilisateur dans le reducer
@@ -11,9 +12,6 @@ export default function WelcomeScreen({ navigation, route }) {
 
   //On détermine le type d'utilisateur pour savoir quoi afficher dans l'écran
   let { type } = route.params;
-
-  const IP_ADDRESS = '192.168.10.136';
-  //const IP_ADDRESS = '192.168.1.36';
 
   //On initialise des variables pour le nom à afficher
   const [userFirstname, setUserFirstname] = useState('');
