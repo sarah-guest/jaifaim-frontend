@@ -2,6 +2,7 @@
 import { View, StyleSheet, ScrollView } from 'react-native';
 import OurButton from '../components/Button';
 import Title from '../components/Title';
+import OurTag from '../components/Tag';
 // IMPORTS REDUCER
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -98,27 +99,27 @@ export default function PreferencesScreen({ navigation }) {
             Votre cuisine est plutôt...
           </Title>
           <View style={styles.buttons}>
-            <OurButton
+            <OurTag
               style={styles.button}
               text="Gourmet"
               onPress={() => checkPrefCuisine('Gourmet')}
             />
-            <OurButton
+            <OurTag
               style={styles.button}
               text="Franchouillarde"
               onPress={() => checkPrefCuisine('Frachouillarde')}
             />
-            <OurButton
+            <OurTag
               style={styles.button}
               text="Bistronome"
               onPress={() => checkPrefCuisine('Bistronomie')}
             />
-            <OurButton
+            <OurTag
               style={styles.button}
               text="Café cosy"
               onPress={() => checkPrefCuisine('Café cosy')}
             />
-            <OurButton
+            <OurTag
               style={styles.button}
               text="Petite Bourse"
               onPress={() => checkPrefCuisine('Petite Bourse')}
@@ -130,17 +131,17 @@ export default function PreferencesScreen({ navigation }) {
             L'atmosphère du lieu
           </Title>
           <View style={styles.buttons}>
-            <OurButton
+            <OurTag
               style={styles.button}
               text="Groupe d'amis"
               onPress={() => checkPrefAtmos("Groupe d'amis")}
             />
-            <OurButton
+            <OurTag
               style={styles.button}
               text="Famille"
               onPress={() => checkPrefAtmos('Famille')}
             />
-            <OurButton
+            <OurTag
               style={styles.button}
               text="Tête à tête"
               onPress={() => checkPrefAtmos('Tête à tête')}
@@ -152,18 +153,18 @@ export default function PreferencesScreen({ navigation }) {
             Les réservations
           </Title>
           <View style={styles.buttons}>
-            <OurButton text="Oui" onPress={() => checkPrefBook('Oui')} />
-            <OurButton text="Non" onPress={() => checkPrefBook('Non')} />
+            <OurTag text="Oui" onPress={() => checkPrefBook('Oui')} />
+            <OurTag text="Non" onPress={() => checkPrefBook('Non')} />
           </View>
           <Title style={styles.titre} h5>
             Autres
           </Title>
           <View style={styles.buttons}>
-            <OurButton
+            <OurTag
               text="Accueil PMR"
               onPress={() => checkPreMesce('Accueil PMR')}
             />
-            <OurButton
+            <OurTag
               text="Animaux acceptés"
               onPress={() => checkPreMesce('Animaux acceptés')}
             />
