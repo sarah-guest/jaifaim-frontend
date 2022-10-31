@@ -12,7 +12,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //imports de nos composants
 import convertColor from '../modules/convertColor';
 import MenuMore from './MenuMore';
-import OurText from './OurText';
 
 export default function SearchBar(props) {
     const [menu, setMenu] = useState(false);
@@ -22,8 +21,11 @@ export default function SearchBar(props) {
         setMenu(!menu)
     }
     const handleSearch = () => {
-        props.searchMeal(search);
-        setSearch('');
+        props.searchMeal(search)
+    }
+    const handleDeleteSearch = () => {
+        props.searchMeal('')
+        setSearch('')
     }
 
     return (
@@ -31,7 +33,10 @@ export default function SearchBar(props) {
             <FontAwesome style={[styles.icons, { zIndex: 2 }]} name={menu ? 'times' : 'bars'} onPress={() => handleMenu()} />
             <View placeholder='Rechercher' style={styles.searchBar}>
                 <TextInput placeholder='Rechercher' style={styles.searchInput} onChangeText={(value) => setSearch(value)} value={search} />
-                <FontAwesome style={[styles.icons, styles.searchIcon]} name={'search'} onPress={() => handleSearch()} />
+                {search !== '' &&
+                    <FontAwesome style={[styles.icons, styles.searchIcon]} name={'times'} onPress={() => handleDeleteSearch()} />
+                }
+                <FontAwesome style={styles.icons} name={'search'} onPress={() => handleSearch()} />
             </View>
             {menu && <MenuMore />}
         </View>
@@ -57,8 +62,7 @@ const styles = StyleSheet.create({
     },
     searchBar: {
         flexDirection: 'row',
-        textAlign: 'center',
-        justifyContent: 'space-between',
+        alignItems: 'center',
         width: '85%',
         paddingTop: 3,
         paddingBottom: 3,
@@ -75,12 +79,13 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
     },
     searchIcon: {
-        margin: 5,
+        marginLeft: 'auto',
     },
     searchInput: {
         color: 'white',
         marginTop: 5,
         marginBottom: 5,
+        marginRight: 'auto',
         fontSize: 18,
     },
 });
