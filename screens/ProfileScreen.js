@@ -1,8 +1,9 @@
 // IMPORTS REACT
 import { useState, useEffect } from 'react';
 // IMPORTS COMPOSANTS
-import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Modal, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import OurButton from '../components/Button';
+import { SafeAreaView } from 'react-native-safe-area-context';
 // IMPORTS REDUCER
 import { useSelector } from 'react-redux';
 // IMPORTS AUTRES
@@ -10,12 +11,14 @@ import IP_ADDRESS from '../modules/ipAddress';
 import convertColor from '../modules/convertColor';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-export default function ProfileScreen({ route }) {
-  //const RestaurantProfileScreen = () => {
-
+export default function ProfileScreen({ route, navigation }) {
+  
   const name = useSelector((state) => state.restaurant.value.username);
-  //let { type } = route.params;
+  
   const [restaurantName, setRestaurantName] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisibletwo, setModalVisibletwo] = useState(false);
+  const [modalVisibletree, setModalVisibletree] = useState(false);
 
   useEffect(() => {
     fetch(`http://${IP_ADDRESS}:3000/restaurants/restaurant`, {})
@@ -27,47 +30,63 @@ export default function ProfileScreen({ route }) {
       });
   }, []);
 
+  // const onPress = (e) => {
+  //   setModalVisible(true);
+  // };
+
   return (
-    <View style={styles.container}>
+    
+    <SafeAreaView style={styles.container}>
+      
       <View style={styles.view}>
-        <Image source={require('../assets/images/avatarRestaurant.png')} />
-        <Text style={styles.name}> restaurant Name </Text>
-        <FontAwesome
-          name={'utensils'}
-          size={52}
+
+        <Image style={styles.image} source={require('../assets/images/avatarRestaurant.png')} />
+        <Text style={styles.name}> restaurantName </Text>
+        <Modal visible={modalVisible} animationType="slide" transparent > 
+
+         <View style={styles.modalView}>
+          <Text style={styles.carbo}> Plat du Jour: Carbonara </Text>
+          <Image
+          style={styles.image2}
+          source={require('../assets/images/carbo.jpg')}
+      />
+          </View>
+          </Modal>
+       
+        <View style={styles.icons} backgroundColor={convertColor('poudrelibre')}>
+        <FontAwesome 
+        
+
+          name={'cutlery'}
+          size={50}
           color={convertColor('caféaulaitchaud')}
+          style={styles.couteau}
+          onPress={() => setModalVisible(true)}
         />
         <FontAwesome
-          name={'circle-info'}
-          size={52}
+          name={'info-circle'}
+          size={50}
           color={convertColor('caféaulaitchaud')}
+          style={styles.info}
         />
         <FontAwesome
-          name={''}
-          size={52}
+          name={'comments'}
+          size={50}
           color={convertColor('caféaulaitchaud')}
+          style={styles.message}
         />
-        <View style={styles.bloc}>
-          <Text style={styles.emoji}>🍽️</Text>
         </View>
-        <View style={styles.bloc}>
-          <Text style={styles.emoji}>✉️</Text>
-        </View>
-        <View style={styles.bloc}>
-          <Text style={styles.emoji}>ℹ️</Text>
-        </View>
+        
       </View>
-    </View>
+    </SafeAreaView>
   );
-  // return <RestaurantProfileScreen />;
+ 
 }
 
 //}
 
 const styles = StyleSheet.create({
   container: {
-    // padding: 50,
-    // paddingleft: 20,
     flex: 1,
     justifyContent: 'left',
     alignItems: 'center',
@@ -84,33 +103,71 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
   },
-  view: {
-    flex: 1,
-    backgroundColor: 'white',
-    padding: 122,
-    borderradius: 50,
+ 
+ image: {
+  marginLeft: 90,
+ },
+  
+  icons: {
+    flex: 2,
+    flexDirection: 'row',
+    marginTop: 40,
+    //height: 300,
+    borderRadius: 30
+
+    
   },
-  emoji: {
-    marginTop: 50,
-    textAlign: 'center',
-    fontSize: 34,
-    // display: "flex",
-    // flexDirection: "column",
-    // justifyContent: "center",
-    // alignItems: "center"
+  couteau: {
+    marginRight: 80,
+    marginTop: 20,
+
   },
-  bloc: {
-    height: 50,
+  info: {
+    marginRight: 80,
+    marginTop: 20,
+  },
+  message: {
+    marginRight: 10,
+    marginTop: 20,
+
+  },
+
+  modalView: {
     backgroundColor: 'red',
-    display: 'flex',
-    flexDirection: 'column-reverse',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
+    // backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 130,
+    width: 300,
+    marginTop: 400,
+    marginLeft: 45.5,
+    textAlign: 'start',
+    // fontSize: 59,
+    
+   
+    // alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    backgroundColor: '#DDB892'
   },
-  bloc2: {
-    backgroundColor: 'blue',
+  image2 : {
+    height: 160,
+    width: 200,
+    borderRadius: 15,
   },
-  bloc3: {
-    backgroundColor: 'yellow',
+  carbo : {
+    fontSize: 25,
+    marginBottom: 30,
+    width: 290,
+    color: "white"
+
+    
   },
 });
