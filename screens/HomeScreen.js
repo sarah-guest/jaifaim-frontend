@@ -12,8 +12,17 @@ import SearchBar from '../components/SearchBar';
 import Meal from '../components/Meal';
 import Title from '../components/Title';
 import IP_ADDRESS from '../modules/ipAddress';
+import OurText from '../components/OurText';
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
+  //SI RECHERCHE récupérer le texte
+  const [isSearched, setIsSearched] = useState('');
+  const searchMeal = (search) => {
+    if (search) {
+      setIsSearched(search)
+    }
+  }
+
   //on récupère les éléments likés
   const liked = useSelector((state) => state.likedMeals.value);
 
@@ -35,8 +44,14 @@ export default function HomeScreen({ navigation }) {
     return <Meal key={i} isLiked={isLiked} {...data} />;
   });
 
+  //on affiche les plats recherchés
+  const searchedMealsData = mealsData.filter((e) => e.meal === isSearched);
+  const searchedMeals = searchedMealsData.map((data, i) => {
+    return <Meal key={i} {...data} isLiked={true} />;
+  });
+
+  //on affiche les plats likés
   const likedMeals = liked.map((data, i) => {
-    console.log(likedMeals);
     return <Meal key={i} {...data} isLiked={true} />;
   });
 
@@ -47,8 +62,25 @@ export default function HomeScreen({ navigation }) {
       blurRadius={60}
     >
       <SafeAreaView style={styles.container}>
-        <SearchBar />
+        <SearchBar searchMeal={searchMeal} />
         <ScrollView>
+          {/* RECHERCHE */}
+          {searchedMeals.length > 0 && (
+            <View>
+              <Title h4 isLight={true}>
+                Dernière recherche 👀
+              </Title>
+              <ScrollView
+                style={styles.scroll}
+                horizontal={true}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+              >
+                {searchedMeals}
+              </ScrollView>
+            </View>
+          )}
+
           {/* Populaires */}
           <Title h2 isLight={true}>
             Menus du jour
@@ -78,11 +110,9 @@ export default function HomeScreen({ navigation }) {
               </ScrollView>
             </View>
           )}
-
-          {/* Coups de coeur de l'équipe */}
         </ScrollView>
-      </SafeAreaView>
-    </ImageBackground>
+      </SafeAreaView >
+    </ImageBackground >
   );
 }
 
