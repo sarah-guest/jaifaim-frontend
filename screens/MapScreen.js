@@ -1,22 +1,44 @@
 // IMPORTS REACT
 import { useEffect, useState } from 'react';
 // IMPORTS COMPOSANTS
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import OurButton from '../components/Button';
-import OurText from '../components/OurText';
-import OurTitle from '../components/Title';
+import MealCard from '../components/MealCard';
 // IMPORTS MAP
 import MapView from 'react-native-maps'; // composant MapView
 import { Marker } from 'react-native-maps'; // composant Marker
 import * as Location from 'expo-location'; // permet la géolocalisation
 import style from '../styles/customMapStyle.json'; // style de la map généré sur Google Maps
-import convertColor from '../modules/convertColor';
-// IMPORTS AUTRES
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default function MapScreen() {
   const [latitude, setLatitude] = useState(48.8566);
   const [longitude, setLongitude] = useState(2.3522);
+  const [showCard, setShowCard] = useState(false);
+  const [restaurants, setRestaurants] = useState([
+    {
+      address: '40 Rue Jean-Pierre Timbaud',
+      latitude: 48.866153,
+      longitude: 2.371771,
+      name: 'BMK Folie-Bamako',
+      pdjDescription:
+        'Our Smoky Mafe (smoked chicken) with additional delicious vegetables - Gluten-free',
+      pdjName: 'Smoky Mafé from Dakar',
+      pdjSrc:
+        'https://images.squarespace-cdn.com/content/v1/5988374246c3c4bd445e0f31/1635431938985-FUVA09T5J34L0FM5XKUR/BMKFolie_Hero.jpg',
+    },
+    {
+      address: '75 Rue des Gravilliers 75003 Paris',
+      latitude: 48.86463,
+      longitude: 2.353801,
+      name: 'ORTO',
+      pdjDescription:
+        "Parmigiana d'aubergines, pesto de basilic DOP, straciatella de burrata, tomates séchées marinées, roquette, basilic frais, pistaches",
+      pdjName: 'Veggi',
+      pdjSrc:
+        'https://lh5.googleusercontent.com/p/AF1QipOGigeytxDyQsNF34S3c0RNUHmqXFgxfcPCuQ-8=w740-h420-k-no',
+    },
+  ]);
+  const [selectedRestaurant, setSelectedRestaurant] = useState(null);
 
   const updateLocation = async () => {
     const location = await Location.getCurrentPositionAsync({});
@@ -35,6 +57,24 @@ export default function MapScreen() {
     })();
   }, []);
 
+  const handleRestaurantIconPress = (restaurant) => {
+    setSelectedRestaurant(restaurant);
+    setShowCard(true);
+  };
+
+  const restaurantsDom = restaurants.map((restaurant, key) => (
+    <Marker
+      key={key}
+      coordinate={{
+        latitude: restaurant.latitude,
+        longitude: restaurant.longitude,
+      }}
+      onPress={() => handleRestaurantIconPress(restaurant)}
+    >
+      <OurButton icon="heart" color="sable" />
+    </Marker>
+  ));
+
   return (
     <>
       <MapView
@@ -46,54 +86,16 @@ export default function MapScreen() {
         }}
         style={styles.map}
         customMapStyle={style}
+        onPanDrag={() => {
+          showCard && setShowCard(false);
+        }}
       >
         <Marker coordinate={{ latitude: latitude, longitude: longitude }}>
           <OurButton icon="heart" color="pingouin" />
         </Marker>
+        {restaurantsDom}
       </MapView>
-      <View style={styles.mealCard}>
-        <View style={styles.icons}>
-          <FontAwesome
-            style={styles.icon}
-            name="heart"
-            size={25}
-            color={convertColor('cannelle')}
-          />
-          <FontAwesome
-            style={styles.icon}
-            name="bookmark"
-            size={25}
-            color={convertColor('cannelle')}
-          />
-        </View>
-        <OurTitle h3={true}>Smoky Mafé from Dakar</OurTitle>
-        <OurTitle h5={true}>BMK Folie-Bamako (500m)</OurTitle>
-        <OurText>40 Rue Jean-Pierre Timbaud</OurText>
-        <OurText>
-          Our Smoky Mafe (smoked chicken) with additional delicious vegetables -
-          Gluten-free
-        </OurText>
-        <View style={styles.mealPictureContainer}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: 'https://images.squarespace-cdn.com/content/v1/5988374246c3c4bd445e0f31/1635431938985-FUVA09T5J34L0FM5XKUR/BMKFolie_Hero.jpg',
-            }}
-          />
-        </View>
-      </View>
-      {/* Bouton pour mettre à jour la localisation et éventuellement recentrer la map */}
-      {/* <TouchableOpacity
-        style={styles.touchable}
-        onPress={() => updateLocation()}
-      >
-        <FontAwesome
-          style={styles.icon}
-          name="star"
-          size={25}
-          color={convertColor('cannelle')}
-        />
-      </TouchableOpacity> */}
+      {showCard && <MealCard restaurant={selectedRestaurant} />}
     </>
   );
 }
@@ -101,58 +103,5 @@ export default function MapScreen() {
 const styles = StyleSheet.create({
   map: {
     flex: 1,
-  },
-  touchable: {
-    height: 50,
-    width: 50,
-    position: 'absolute',
-    bottom: 30,
-    right: 30,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 50,
-    backgroundColor: convertColor('caféaulaitchaud'),
-  },
-  mealCard: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    height: 300,
-    padding: 16,
-    position: 'absolute',
-    bottom: 0,
-    backgroundColor: convertColor('poudrelibre'),
-    borderTopStartRadius: 20,
-    borderTopEndRadius: 20,
-    borderColor: convertColor('sable'),
-    borderWidth: 2,
-    shadowColor: convertColor('marronfoncé'),
-    shadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 5,
-    elevation: 10,
-  },
-  icons: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  mealPictureContainer: {
-    flex: 1,
-  },
-  image: {
-    flex: 1,
-    borderRadius: 10,
-  },
-  buttonContainer: {
-    position: 'absolute',
-    bottom: 5,
-    left: 10,
-  },
-  icon: {
-    marginLeft: 16,
   },
 });

@@ -5,26 +5,38 @@ import {
     StyleSheet,
     TextInput
 } from 'react-native';
+//import reducer
+import { useSelector } from 'react-redux';
 //import FontAwesome
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 //imports de nos composants
 import convertColor from '../modules/convertColor';
 import MenuMore from './MenuMore';
 
-export default function SearchBar() {
+export default function SearchBar(props) {
     const [menu, setMenu] = useState(false);
+    const [search, setSearch] = useState('');
 
     const handleMenu = () => {
         setMenu(!menu)
     }
-    const handleSearch = () => { }
+    const handleSearch = () => {
+        props.searchMeal(search)
+    }
+    const handleDeleteSearch = () => {
+        props.searchMeal('')
+        setSearch('')
+    }
 
     return (
         <View style={styles.background}>
             <FontAwesome style={[styles.icons, { zIndex: 2 }]} name={menu ? 'times' : 'bars'} onPress={() => handleMenu()} />
             <View placeholder='Rechercher' style={styles.searchBar}>
-                <FontAwesome style={[styles.icons, styles.searchIcon]} name={'search'} onPress={() => handleSearch()} />
-                <TextInput placeholder='Rechercher' style={styles.searchInput} />
+                <TextInput placeholder='Rechercher' style={styles.searchInput} onChangeText={(value) => setSearch(value)} value={search} />
+                {search !== '' &&
+                    <FontAwesome style={[styles.icons, styles.searchIcon]} name={'times'} onPress={() => handleDeleteSearch()} />
+                }
+                <FontAwesome style={styles.icons} name={'search'} onPress={() => handleSearch()} />
             </View>
             {menu && <MenuMore />}
         </View>
@@ -49,15 +61,15 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     searchBar: {
+        flexDirection: 'row',
+        alignItems: 'center',
         width: '85%',
         paddingTop: 3,
         paddingBottom: 3,
         paddingLeft: 10,
         paddingRight: 10,
         borderRadius: 30,
-        flexDirection: 'row',
         backgroundColor: convertColor('sable'),
-        textAlign: 'center',
         shadowColor: 'black',
         shadowOffset: {
             width: 0,
@@ -67,12 +79,13 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
     },
     searchIcon: {
-        margin: 5,
+        marginLeft: 'auto',
     },
     searchInput: {
         color: 'white',
         marginTop: 5,
         marginBottom: 5,
+        marginRight: 'auto',
         fontSize: 18,
     },
 });

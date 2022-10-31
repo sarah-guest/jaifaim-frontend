@@ -7,13 +7,26 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useSelector } from 'react-redux';
+//import fontAwesome
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 //imports de nos composants
 import SearchBar from '../components/SearchBar';
 import Meal from '../components/Meal';
 import Title from '../components/Title';
 import IP_ADDRESS from '../modules/ipAddress';
+import convertColor from '../modules/convertColor';
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
+  //SI RECHERCHE récupérer le texte
+  const [isSearched, setIsSearched] = useState('');
+  const searchMeal = (search) => {
+    if (search !== '') {
+      setIsSearched(search)
+    } else {
+      setIsSearched('')
+    }
+  }
+
   //on récupère les éléments likés
   const liked = useSelector((state) => state.likedMeals.value);
 
@@ -35,9 +48,16 @@ export default function HomeScreen({ navigation }) {
     return <Meal key={i} isLiked={isLiked} {...data} />;
   });
 
-  const likedMeals = liked.map((data, i) => {
-    console.log(likedMeals);
-    return <Meal key={i} {...data} isLiked={true} />;
+  //on affiche les plats likés
+  // const likedMeals = liked.map((data, i) => {
+  //   return <Meal key={i} {...data} isLiked={true} />;
+  // });
+
+  //on affiche les plats recherchés
+  const searchedMealsData = mealsData.filter((e) => e.meal === isSearched);
+  const searchedMeals = searchedMealsData.map((data, i) => {
+    const isLiked = liked.some((e) => e.meal === data.meal);
+    return <Meal key={i} isLiked={isLiked} {...data} />;
   });
 
   return (
@@ -47,26 +67,14 @@ export default function HomeScreen({ navigation }) {
       blurRadius={60}
     >
       <SafeAreaView style={styles.container}>
-        <SearchBar />
-        <ScrollView>
-          {/* Populaires */}
-          <Title h2 isLight={true}>
-            Menus du jour
-          </Title>
-          <ScrollView
-            style={styles.scroll}
-            horizontal={true}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-          >
-            {meals}
-          </ScrollView>
+        <SearchBar searchMeal={searchMeal} />
+        <ScrollView showsVerticalScrollIndicator={false}>
 
-          {/* Derniers consultés */}
-          {likedMeals.length > 0 && (
+          {isSearched !== '' ? (
             <View>
+              {/* RECHERCHE */}
               <Title h4 isLight={true}>
-                Aimés récemment 👀
+                Résultats pour "{isSearched}" 👀
               </Title>
               <ScrollView
                 style={styles.scroll}
@@ -74,15 +82,30 @@ export default function HomeScreen({ navigation }) {
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
               >
-                {likedMeals}
+                {searchedMeals}
               </ScrollView>
             </View>
-          )}
+          )
+            : (
+              <View>
+                {/* MENUS DU JOUR */}
+                <Title h2 isLight={true}>
+                  Menus du jour
+                </Title>
+                <ScrollView
+                  style={styles.scroll}
+                  horizontal={true}
+                  showsVerticalScrollIndicator={false}
+                  showsHorizontalScrollIndicator={false}
+                >
+                  {meals}
+                </ScrollView>
+              </View>
+            )}
 
-          {/* Coups de coeur de l'équipe */}
         </ScrollView>
-      </SafeAreaView>
-    </ImageBackground>
+      </SafeAreaView >
+    </ImageBackground >
   );
 }
 
@@ -102,4 +125,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 30,
   },
+  deleteButton: {
+    fontSize: 20,
+    color: convertColor('sable'),
+  }
 });

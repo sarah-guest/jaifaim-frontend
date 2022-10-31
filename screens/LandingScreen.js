@@ -42,19 +42,19 @@ export default function LandingScreen({ navigation }) {
           text="je m'inscris"
           color="caféaulaitchaud"
           onPress={handleSignUp}
-        ></OurButton>
+        />
 
         <OurButton
           text="j'ai un compte restaurateur"
           color="caféaulaitchaud"
           onPress={handleSignInRestaurant}
-        ></OurButton>
+        />
 
         <OurButton
           text="j'ai un compte utilisateur"
           color="caféaulaitchaud"
           onPress={handleSignInUser}
-        ></OurButton>
+        />
       </View>}
     </SafeAreaView>
   );
