@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { getFirstName } from '../reducers/user';
 import { getName } from '../reducers/restaurant';
-
+//Import de nos composants
 import OurButton from '../components/Button';
 import OurTextInput from '../components/TextInput';
-
+import Title from '../components/Title';
 
 export default function AskNameScreen({ navigation, route }) {
   //On détermine le type d'utilisateur pour savoir quoi afficher dans l'écran
@@ -64,7 +64,8 @@ export default function AskNameScreen({ navigation, route }) {
     return (
 
       <View style={styles.container}>
-        <Text>Comment s'appelle votre commerce?</Text>
+        <Title style={styles.titre} h2>Quel est le nom de votre commerce?</Title>
+   
         <OurTextInput
           placeholder="Nom du restaurant"
           onChangeText={(value) => setRestaurantName(value)}
@@ -84,4 +85,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  titre:{
+  justifyContent:'center',
+  alignItems: 'center',
+  paddingBottom:'20%'
+},
 });
