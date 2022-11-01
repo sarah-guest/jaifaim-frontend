@@ -17,7 +17,7 @@ const MealCard = (props) => {
       <View style={styles.top}>
         <View>
           <OurTitle h3={true}>{dernierPlat.name}</OurTitle>
-          <OurTitle h5={true}>{name} (500m)</OurTitle>
+          <OurTitle h5={true}>{name}</OurTitle>
         </View>
         <View style={styles.icons}>
           <FontAwesomeIcon
