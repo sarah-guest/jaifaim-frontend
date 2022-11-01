@@ -11,64 +11,6 @@ import * as Location from 'expo-location'; // permet la géolocalisation
 import style from '../styles/customMapStyle.json'; // style de la map généré sur Google Maps
 import IP_ADDRESS from '../modules/ipAddress';
 
-// const restos = [
-//   {
-//     address: '40 Rue Jean-Pierre Timbaud',
-//     latitude: 48.866153,
-//     longitude: 2.371771,
-//     name: 'BMK Folie-Bamako',
-//     pdjDescription:
-//       'Notre Smoky Mafé (poulet braisé) avec de délicieux légumes en plus. Sans gluten.',
-//     pdjName: 'Smoky Mafé de Dakar',
-//     pdjSrc:
-//       'https://images.squarespace-cdn.com/content/v1/5988374246c3c4bd445e0f31/1635431938985-FUVA09T5J34L0FM5XKUR/BMKFolie_Hero.jpg',
-//   },
-//   {
-//     address: '75 Rue des Gravilliers 75003 Paris',
-//     latitude: 48.86463,
-//     longitude: 2.353801,
-//     name: 'ORTO',
-//     pdjDescription:
-//       "Parmigiana d'aubergines, pesto de basilic DOP, straciatella de burrata, tomates séchées marinées, roquette, basilic frais, pistaches",
-//     pdjName: 'Veggi',
-//     pdjSrc:
-//       'https://lh5.googleusercontent.com/p/AF1QipOGigeytxDyQsNF34S3c0RNUHmqXFgxfcPCuQ-8=w740-h420-k-no',
-//   },
-//   {
-//     address: '22 Rue Saint-Augustin, 75002 Paris',
-//     latitude: 48.868934,
-//     longitude: 2.335161,
-//     name: 'Dochilak Opéra',
-//     pdjDescription:
-//       'Riz couvert de légumes variés, d’œuf et de lamelles de boeuf à mélanger avec la sauce soja ou épicée selon vos envies. Servi dans un bol en pierre brûlant.',
-//     pdjName: 'Bibimbap au Bœuf',
-//     pdjSrc:
-//       'https://res.cloudinary.com/tf-lab/image/upload/customer/d1cf427c-4be2-4785-aa59-74305852b3b5/36b5dcc9-6822-433f-ac9b-c728a5400570.jpg',
-//   },
-//   {
-//     address: '145 Quai de Valmy, 75010 Paris',
-//     latitude: 48.877513,
-//     longitude: 2.365125,
-//     name: 'Le Valmy',
-//     pdjDescription:
-//       "Cuisse de canard confite à l'orange, pommes de terre grenailles et purée de patates douces",
-//     pdjName: 'Canard confit et purée de patates douces',
-//     pdjSrc:
-//       'https://lh5.googleusercontent.com/p/AF1QipO9dp3NAy2IiV_BaMI88bkoIipIznR10_SSnuRv=s609-k-no',
-//   },
-//   {
-//     address: '24 Rue Linné, 75005 Paris',
-//     latitude: 48.84557,
-//     longitude: 2.354779,
-//     name: 'Café Jussieu',
-//     pdjDescription:
-//       'Dos de cabillaud dans sa robe de panure et frites de pomme de terre maison',
-//     pdjName: 'Fish and Chips',
-//     pdjSrc:
-//       'https://media-cdn.tripadvisor.com/media/photo-w/1c/21/0b/ce/photo3jpg.jpg',
-//   },
-// ];
-
 export default function MapScreen({ navigation, route }) {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
