@@ -2,13 +2,17 @@ import {
   StyleSheet,
   SafeAreaView,
   View,
+  Text,
   Image,
 } from 'react-native';
 //import swiper
 import Swiper from 'react-native-swiper';
-import OurButton from '../components/Button';
+//import FontAwesome
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 //nos imports
+import OurButton from '../components/Button';
 import Title from '../components/Title';
+import convertColor from '../modules/convertColor';
 
 export default function DemoScreen({ navigation }) {
   return (
@@ -16,7 +20,13 @@ export default function DemoScreen({ navigation }) {
       <View style={styles.title}>
         <Title h1 isCentered={true}>Tutoriel</Title>
       </View>
-      <Swiper style={styles.wrapper} showsButtons={true}>
+
+      <Swiper style={styles.wrapper} showsButtons={true}
+        prevButton={<Text style={styles.arrows}>‹</Text>}
+        nextButton={<Text style={styles.arrows}>›</Text>}
+        dot={<View style={[styles.dots, { backgroundColor: convertColor('sable') }]} />}
+        activeDot={<View style={[styles.dots, { backgroundColor: convertColor('marronglacé') }]} />}
+      >
         <View style={styles.slide1}>
           <Image source={require('../assets/images/DEMO_screen1.png')} style={styles.image} />
         </View>
@@ -48,6 +58,19 @@ const styles = StyleSheet.create({
   slide1: {
     flex: 1,
     alignItems: 'center',
+  },
+  dots: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginLeft: 3,
+    marginRight: 3,
+    marginTop: 3,
+    marginBottom: 3,
+  },
+  arrows: {
+    color: convertColor('marronglacé'),
+    fontSize: 60,
   },
   slide2: {
     flex: 1,
