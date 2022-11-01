@@ -114,7 +114,7 @@ const TabNavigation = ({ route }) => {
     </Tab.Navigator>
   );
 
-  if (type === 'restaurant') {
+  if (type.type === 'restaurant') {
     return RestaurantNavigation;
   } else {
     return UserNavigation;

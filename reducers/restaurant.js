@@ -28,7 +28,7 @@ export const restaurantSlice = createSlice({
   initialState,
   reducers: {
     signInRestaurant: (state, action) => {
-      // state.value.token = action.payload.token;
+      state.value.token = action.payload.token;
       state.value.username = action.payload.username;
       state.value.email = action.payload.email;
       state.value.password = action.payload.password;
