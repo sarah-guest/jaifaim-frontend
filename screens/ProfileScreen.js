@@ -18,7 +18,7 @@ export default function ProfileScreen({ route, navigation }) {
   const [restaurantName, setRestaurantName] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisibletwo, setModalVisibletwo] = useState(false);
-  const [modalVisibletree, setModalVisibletree] = useState(false);
+  
 
   useEffect(() => {
     fetch(`http://${IP_ADDRESS}:3000/restaurants/restaurant`, {})
@@ -30,9 +30,7 @@ export default function ProfileScreen({ route, navigation }) {
       });
   }, []);
 
-  // const onPress = (e) => {
-  //   setModalVisible(true);
-  // };
+  
 
   return (
     
@@ -52,6 +50,13 @@ export default function ProfileScreen({ route, navigation }) {
       />
           </View>
           </Modal>
+          <Modal visible={modalVisibletwo} animationType="slide" transparent > 
+
+         <View style={styles.modalViewtwo}>
+          <Text style={styles.carbo}> Plat du Jour: Carbonara </Text>
+         
+          </View>
+          </Modal>
        
         <View style={styles.icons} backgroundColor={convertColor('poudrelibre')}>
         <FontAwesome 
@@ -61,19 +66,21 @@ export default function ProfileScreen({ route, navigation }) {
           size={50}
           color={convertColor('caféaulaitchaud')}
           style={styles.couteau}
-          onPress={() => setModalVisible(true)}
+          
         />
         <FontAwesome
           name={'info-circle'}
           size={50}
           color={convertColor('caféaulaitchaud')}
           style={styles.info}
+          onPress={() => setModalVisible(true)}
         />
         <FontAwesome
           name={'comments'}
           size={50}
           color={convertColor('caféaulaitchaud')}
           style={styles.message}
+          onPress={() => setModalVisibletwo(true)}
         />
         </View>
         
@@ -138,7 +145,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // backgroundColor: 'white',
     borderRadius: 20,
-    padding: 130,
+    padding: 50,
     width: 300,
     marginTop: 400,
     marginLeft: 45.5,
@@ -166,8 +173,9 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginBottom: 30,
     width: 290,
-    color: "white"
-
-    
+    color: "white",
   },
+  modalViewtwo : {
+    
+  }
 });

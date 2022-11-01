@@ -25,9 +25,6 @@ const convertColor = (name) => {
     case 'transparent':
       return 'transparent';
     default:
-      console.log(
-        '🤡 Tu as utilisé un composant <OurButton /> mais as oublié ou mal orthographié la valeur de sa props "color" alors je t\'ai mis "cannelle" par défaut 🤡'
-      );
       return '#7F5539';
   }
 };
