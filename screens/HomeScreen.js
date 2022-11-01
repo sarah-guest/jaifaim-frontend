@@ -17,34 +17,49 @@ import IP_ADDRESS from '../modules/ipAddress';
 import convertColor from '../modules/convertColor';
 
 export default function HomeScreen() {
-  //SI RECHERCHE récupérer le texte
+  //SI RECHERCHE on récupère le texte
   const [isSearched, setIsSearched] = useState('');
-  const searchMeal = (search) => {
-    if (search !== '') {
-      setIsSearched(search)
-    } else {
-      setIsSearched('')
-    }
-  }
+  const searchMeal = search => search !== '' ? setIsSearched(search) : setIsSearched('')
 
   //on récupère les éléments likés
   const liked = useSelector((state) => state.likedMeals.value);
 
   //on crée un état dans lequel stocker les plats à afficher
+  //puis on récupère les plats du jour
   const [mealsData, setMealsData] = useState([]);
-  //on récupère les plats du jour
+  const [mealsOfTheDayData, setMealsOfTheDayData] = useState([]);
   useEffect(() => {
     fetch(`http://${IP_ADDRESS}:3000/users/getplatsdujour`)
       .then((res) => res.json())
       .then((data) => {
         //on set dans mealsData les données récoltées
         data !== null && setMealsData(data.platsdujour);
+
+        //on set dans mealsOfTheDayData les données datant d'aujourd'hui
+        const today = new Date().toJSON().slice(0, 10)
+        const mealDate = data.platsdujour.date
+        if (data !== null && mealDate !== undefined) {
+          mealDate.slice(0, 10) === today && setMealsOfTheDayData(data.platsdujour)
+        }
       });
   }, []);
 
-  //on affiche les plats du jour
+  //on affiche les plats
   const meals = mealsData.map((data, i) => {
-    const isLiked = liked.some((e) => e.meal === data.meal);
+    const isLiked = liked.some((e) => e.meal === data.meal)
+    return <Meal key={i} isLiked={isLiked} {...data} />;
+  });
+
+  //on affiche les plats du jour
+  const mealsOfTheDay = mealsOfTheDayData.map((data, i) => {
+    const isLiked = liked.some((e) => e.meal === data.meal)
+    return <Meal key={i} isLiked={isLiked} {...data} />;
+  });
+
+  //on affiche les plats recherchés
+  const searchedMealsData = mealsData.filter((e) => e.meal === isSearched);
+  const searchedMeals = searchedMealsData.map((data, i) => {
+    const isLiked = liked.some((e) => e.meal === data.meal)
     return <Meal key={i} isLiked={isLiked} {...data} />;
   });
 
@@ -52,13 +67,6 @@ export default function HomeScreen() {
   // const likedMeals = liked.map((data, i) => {
   //   return <Meal key={i} {...data} isLiked={true} />;
   // });
-
-  //on affiche les plats recherchés
-  const searchedMealsData = mealsData.filter((e) => e.meal === isSearched);
-  const searchedMeals = searchedMealsData.map((data, i) => {
-    const isLiked = liked.some((e) => e.meal === data.meal);
-    return <Meal key={i} isLiked={isLiked} {...data} />;
-  });
 
   return (
     <ImageBackground
@@ -91,6 +99,20 @@ export default function HomeScreen() {
                 {/* MENUS DU JOUR */}
                 <Title h2 isLight={true}>
                   Menus du jour
+                </Title>
+                <ScrollView
+                  style={styles.scroll}
+                  horizontal={true}
+                  showsVerticalScrollIndicator={false}
+                  showsHorizontalScrollIndicator={false}
+                >
+                  {mealsOfTheDay}
+                </ScrollView>
+
+
+                {/* MENUS RÉCENTS */}
+                <Title h4 isLight={true}>
+                  Menus récents
                 </Title>
                 <ScrollView
                   style={styles.scroll}
