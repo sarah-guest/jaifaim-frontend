@@ -1,8 +1,9 @@
 // IMPORTS REACT
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 // IMPORTS COMPOSANTS
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import OurTitle from '../components/Title';
+import OurText from '../components/OurText';
 // IMPORTS REDUCER
 import { useDispatch, useSelector } from 'react-redux';
 import { setPlatdujour } from '../reducers/restaurant';
@@ -10,10 +11,10 @@ import { setPlatdujour } from '../reducers/restaurant';
 import convertColor from '../modules/convertColor';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import IP_ADDRESS from '../modules/ipAddress';
-import OurText from '../components/OurText';
 
 const DashboardScreen = ({ navigation }) => {
   const restaurant = useSelector((state) => state.restaurant.value);
+  const temporary = useSelector((state) => state.temporary.value);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,13 +29,15 @@ const DashboardScreen = ({ navigation }) => {
     })
       .then((response) => response.json())
       .then((json) => {
-        const { platsdujour } = json.data;
-        const lastPlat = platsdujour[platsdujour.length - 1];
-        const itsDate = new Date(lastPlat.date).toDateString();
-        const today = new Date().toDateString();
-        itsDate === today && dispatch(setPlatdujour(lastPlat));
+        if (json.result) {
+          const { platsdujour } = json.data;
+          const lastPlat = platsdujour[platsdujour.length - 1];
+          const itsDate = new Date(lastPlat.date).toDateString();
+          const today = new Date().toDateString();
+          itsDate === today && dispatch(setPlatdujour(lastPlat));
+        }
       });
-  }, []);
+  }, [temporary.platdujourPhoto]);
 
   const actions = [
     { text: 'Télécharger mon code QR', icon: 'qrcode' },
@@ -74,7 +77,7 @@ const DashboardScreen = ({ navigation }) => {
         </OurTitle>
         <View style={styles.mealPreviewContent}>
           <View style={styles.mealInfo}>
-            <OurTitle isLight h3>
+            <OurTitle isLight h4>
               {name}
             </OurTitle>
             <OurText isLight body2>
@@ -240,11 +243,11 @@ const styles = StyleSheet.create({
   },
   mealInfo: {
     marginVertical: 16,
-    flex: 1,
+    flex: 60,
     justifyContent: 'space-around',
     marginRight: 16,
   },
   image: {
-    flex: 1,
+    flex: 40,
   },
 });
