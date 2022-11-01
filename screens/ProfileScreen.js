@@ -20,14 +20,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default function ProfileScreen({ route, navigation }) {
   const restaurant = useSelector((state) => state.restaurant.value);
-  //const [restaurantUsername, setRestaurantUsername] = useState('');
-  const [restaurantInfo, setRestaurantInfo] = useState({}
-    
-    );
+
+  const [restaurantInfo, setRestaurantInfo] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisibletwo, setModalVisibletwo] = useState(false);
-
-  let info = [];
 
   useEffect(() => {
     fetch(`http://${IP_ADDRESS}:3000/restaurants/restaurant`, {
@@ -36,20 +32,13 @@ export default function ProfileScreen({ route, navigation }) {
       body: JSON.stringify({ username: restaurant.username }),
     })
       .then((response) => response.json())
-      .then((json) => {
-        // info = {
-        //   address: data.address,
-        //   platsdujour: data.platsdujour,
-        // };
-        if (json.result) {
-          setRestaurantInfo(json.data);
-        }
-        console.log(json.data.address);
-        // ? setRestaurantName(data.data.name)
-        // : setRestaurantName(restaurantUserName)
-        // console.log(restaurantInfo);
-      }, []);
-  });
+      .then((rest) => {
+        setRestaurantInfo(rest.data);
+
+        console.log(rest.data);
+        
+      });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -58,43 +47,35 @@ export default function ProfileScreen({ route, navigation }) {
           style={styles.image}
           source={require('../assets/images/avatarRestaurant.png')}
         />
-        <Text style={styles.name} >{restaurantInfo.username} </Text>
+        <Text style={styles.name}>{restaurantInfo.username} </Text>
         <Modal visible={modalVisible} animationType="slide" transparent>
           <View style={styles.modalView}>
             <Text style={styles.restinfo}>
-              
-
-               
               <FontAwesome
-              name={'location-arrow'}
-              size={30}
-              color={convertColor('caféaulaitchaud')}
-              style={styles.icon}
-            /> {restaurantInfo.address.streetNumber} {restaurantInfo.address.streetType} {restaurantInfo.address.streetName} {restaurantInfo.address.postCode} {restaurantInfo.address.city}
+                name={'location-arrow'}
+                size={30}
+                color={convertColor('caféaulaitchaud')}
+                style={styles.icon}
+              /> {restaurantInfo.address.streetNumber} {restaurantInfo.address.streetType} {restaurantInfo.address.streetName} {restaurantInfo.address.postCode} {restaurantInfo.address.city}
+            </Text>
 
-                
-               </Text>
-    
             <Text style={styles.restinfo}>
               <FontAwesome
-              name={'envelope'}
-              size={30}
-              color={convertColor('caféaulaitchaud')}
-              style={styles.icon}
-            />  {restaurantInfo.email} 
-             
-              </Text>
-              <Text style={styles.restinfo}>
+                name={'envelope'}
+                size={30}
+                color={convertColor('caféaulaitchaud')}
+                style={styles.icon}
+              />  {restaurantInfo.email}
+            </Text>
+            <Text style={styles.restinfo}>
               <FontAwesome
-              name={'phone'}
-              size={30}
-              color={convertColor('caféaulaitchaud')}
-              style={styles.icon}
-            />   {restaurantInfo.phone}
-              
-              </Text>
+                name={'phone'}
+                size={30}
+                color={convertColor('caféaulaitchaud')}
+                style={styles.icon}
+              /> {restaurantInfo.phone}
+            </Text>
 
-              
             <FontAwesome
               name={'ban'}
               size={50}
@@ -164,8 +145,7 @@ const styles = StyleSheet.create({
     marginTop: 42,
     textAlign: 'center',
     color: '#BB8557',
-    fontWeight: 'bold'
-    
+    fontWeight: 'bold',
   },
   bioShort: {
     fontSize: 18,
@@ -257,8 +237,8 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: 'red',
   },
- 
-icon: {
-  // paddingLeft: ,
-}
+
+  icon: {
+    // paddingLeft: ,
+  },
 });
