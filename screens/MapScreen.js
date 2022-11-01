@@ -22,7 +22,6 @@ export default function MapScreen({ navigation, route }) {
     const location = await Location.getCurrentPositionAsync({});
     setLatitude(location.coords.latitude);
     setLongitude(location.coords.longitude);
-    console.log('location updated !', latitude, longitude);
   };
 
   useEffect(() => {
@@ -47,7 +46,7 @@ export default function MapScreen({ navigation, route }) {
     setSelectedRestaurant(restaurant);
     setShowCard(true);
   };
-  const { type } = route.params;
+
   const ButtonNavigateToDashboard = (
     <View style={styles.buttonWrapper}>
       <TouchableOpacity style={styles.buttonNavigateToDashboard}>
@@ -92,14 +91,16 @@ export default function MapScreen({ navigation, route }) {
         }}
       >
         {longitude && latitude && (
-          <Marker coordinate={{ latitude: latitude, longitude: longitude }}>
+          <Marker coordinate={{ latitude, longitude }}>
             <OurButton icon="heart" color="pingouin" />
           </Marker>
         )}
         {restaurantsDom}
       </MapView>
       {showCard && <MealCard restaurant={selectedRestaurant} />}
-      {type === 'restaurant' && ButtonNavigateToDashboard}
+      {route.params &&
+        route.params.type === 'restaurant' &&
+        ButtonNavigateToDashboard}
     </>
   );
 }
