@@ -6,6 +6,8 @@ import OurButton from '../components/Button';
 
 export default function InfoScreen({ navigation, route }) {
     const dispatch = useDispatch();
+    
+    type='user'
     const user = useSelector(state => state.user.value);
 //fonction qui récuppère les infos des boutons et le mets dans le reducer
     const addInfo = (profilGourmand) => {
