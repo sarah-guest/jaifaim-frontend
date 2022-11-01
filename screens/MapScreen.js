@@ -1,7 +1,7 @@
 // IMPORTS REACT
 import { useEffect, useState } from 'react';
 // IMPORTS COMPOSANTS
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import OurButton from '../components/Button';
 import MealCard from '../components/MealCard';
 // IMPORTS MAP
@@ -69,7 +69,7 @@ import IP_ADDRESS from '../modules/ipAddress';
 //   },
 // ];
 
-export default function MapScreen() {
+export default function MapScreen({ navigation, route }) {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [showCard, setShowCard] = useState(false);
@@ -105,6 +105,19 @@ export default function MapScreen() {
     setSelectedRestaurant(restaurant);
     setShowCard(true);
   };
+  const { type } = route.params;
+  const ButtonNavigateToDashboard = (
+    <View style={styles.buttonWrapper}>
+      <TouchableOpacity style={styles.buttonNavigateToDashboard}>
+        <OurButton
+          text="Go back to dashboard"
+          onPress={() =>
+            navigation.navigate('TabNavigation', { type: 'restaurant' })
+          }
+        />
+      </TouchableOpacity>
+    </View>
+  );
 
   const restaurantsDom = restaurants.map((restaurant, key) => {
     return (
@@ -144,6 +157,7 @@ export default function MapScreen() {
         {restaurantsDom}
       </MapView>
       {showCard && <MealCard restaurant={selectedRestaurant} />}
+      {type === 'restaurant' && ButtonNavigateToDashboard}
     </>
   );
 }
@@ -151,5 +165,15 @@ export default function MapScreen() {
 const styles = StyleSheet.create({
   map: {
     flex: 1,
+  },
+  buttonWrapper: {
+    width: '100%',
+    alignItems: 'center',
+    backgroundColor: 'red',
+  },
+  buttonNavigateToDashboard: {
+    width: '80%',
+    position: 'absolute',
+    bottom: 30,
   },
 });
