@@ -53,7 +53,7 @@ export default function PreferencesScreen({ navigation, route }) {
       bookings,
       miscellaneous,
     } = restaurant;
-
+  console.log(restaurant.miscellaneous)
     fetch(
       `https://api-adresse.data.gouv.fr/search/?q=${streetNumber}+${streetType}+${streetName}+${postCode}`
     )

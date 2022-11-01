@@ -58,7 +58,7 @@ export const restaurantSlice = createSlice({
       state.value.bookings = action.payload;
     },
     getPrefRestauMisce: (state, action) => {
-      state.value.miscellaneous.push(action.payload.miscellaneous);
+      state.value.miscellaneous.push(action.payload);
     },
   },
 });
