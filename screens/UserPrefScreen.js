@@ -4,7 +4,7 @@ import OurButton from '../components/Button';
 import OurTextInput from '../components/TextInput';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDiet, getIntolerences } from '../reducers/user';
+import { getDiet, getIntolerances } from '../reducers/user';
 import IP_ADDRESS from '../modules/ipAddress';
 
 export default function UserPrefScreen({ navigation, route }) {
@@ -12,8 +12,8 @@ export default function UserPrefScreen({ navigation, route }) {
   const dispatch = useDispatch();
   const [allergie, setAllergie] = useState('');
   const type = route.params;
-  const getUserIntolerences = () => {
-    dispatch(getIntolerences(allergie));
+  const getUserIntolerances = () => {
+    dispatch(getIntolerances(allergie));
   };
   const getUserDiet = (newDiet) => {
     dispatch(getDiet(newDiet));
@@ -27,7 +27,7 @@ export default function UserPrefScreen({ navigation, route }) {
       firstname: user.firstName,
       password: user.password,
       diets: user.diet,
-      intolerences: user.intolerences,
+      intolerances: user.intolerances,
       profilGourmand: user.pref,
     };
     console.log(myData, 'hello');
@@ -71,7 +71,7 @@ export default function UserPrefScreen({ navigation, route }) {
       <OurButton
         style={styles.button}
         text="OK"
-        onPress={getUserIntolerences}
+        onPress={getUserIntolerances}
       ></OurButton>
       <View style={styles.valider}>
         <OurButton
