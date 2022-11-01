@@ -17,8 +17,10 @@ import convertColor from '../modules/convertColor';
 import IP_ADDRESS from '../modules/ipAddress';
 
 export default function PreferencesScreen({ navigation }) {
-  const dispatch = useDispatch();
-  const restaurant = useSelector((state) => state.restaurant.value);
+ 
+    const IP_ADDRESS = '192.168.10.158';
+    const dispatch = useDispatch();
+    const restaurant = useSelector((state) => state.restaurant.value);
 
   // Fonctions qui récupèrent les infos des inputs et les mettent dans le store
   const checkPrefCuisine = (newCuisine) => {
