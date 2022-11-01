@@ -16,7 +16,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import convertColor from '../modules/convertColor';
 import IP_ADDRESS from '../modules/ipAddress';
 
-export default function PreferencesScreen({ navigation }) {
+export default function PreferencesScreen({ navigation, route }) {
   const dispatch = useDispatch();
   const restaurant = useSelector((state) => state.restaurant.value);
 
@@ -54,7 +54,7 @@ export default function PreferencesScreen({ navigation }) {
       bookings,
       miscellaneous,
     } = restaurant;
-
+    console.log(restaurant.miscellaneous);
     fetch(
       `https://api-adresse.data.gouv.fr/search/?q=${streetNumber}+${streetType}+${streetName}+${postCode}`
     )
@@ -96,6 +96,7 @@ export default function PreferencesScreen({ navigation }) {
           .then((response) => response.json())
           .then((data) => {
             if (data.result) {
+              navigation.navigate('TabNavigation', { type: 'restaurant' });
               console.log(data.result);
             }
           });

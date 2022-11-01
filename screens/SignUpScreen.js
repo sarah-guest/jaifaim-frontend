@@ -5,7 +5,7 @@ import { signInUser } from '../reducers/user';
 import { signInRestaurant } from '../reducers/restaurant';
 import OurButton from '../components/Button';
 import OurTextInput from '../components/TextInput';
-
+import Title from '../components/Title';
 
 export default function SignInScreen({ navigation, route }) {
   //Import du reducer
@@ -53,7 +53,10 @@ export default function SignInScreen({ navigation, route }) {
   if (type === 'user') {
     return (
       <View style={styles.container}>
-        <Text>J'ai faim</Text>
+         <View style={styles.Inputs} width={'70%'}>
+         <Title style={styles.titre} h2>
+           J'ai faim
+          </Title>
         <OurTextInput
           placeholder="New name"
           onChangeText={(value) => SetUser(value)}
@@ -77,7 +80,7 @@ export default function SignInScreen({ navigation, route }) {
           color="caféaulaitchaud"
           onPress={handleRegister}
         />
-
+        </View>
       </View>
     );
   }
@@ -85,7 +88,11 @@ export default function SignInScreen({ navigation, route }) {
 
     return (
       <View style={styles.container}>
-        <Text>J'ai à manger</Text>
+       <View style={styles.Inputs} width={'70%'}> 
+         <Title style={styles.titre} h2>
+           J'ai à manger
+          </Title>
+          
         <OurTextInput
           placeholder="New name"
           onChangeText={(value) => setName(value)}
@@ -101,12 +108,13 @@ export default function SignInScreen({ navigation, route }) {
           onChangeText={(value) => setPassword(value)}
           value={password}
         />
+       
         <OurButton
           text="Je m'inscris"
           color="caféaulaitchaud"
           onPress={handleRegister}
         />
-
+ </View>
       </View>
     );
   }
@@ -120,6 +128,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center', 
   },
+  titre:{
+    flex:1,
+  paddingLeft:'20%'
+  },
+ Inputs: {
+  flex:1,
+  paddingTop:'20%',
+  justifyContent: 'space-evenly',
+   marginBottom:'20%',
+  
+ },
 });
