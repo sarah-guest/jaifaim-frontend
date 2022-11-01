@@ -36,7 +36,7 @@ export default function UserPrefScreen({ navigation }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          //  navigation.navigate('Profile');
+            navigation.navigate('TabNavigation');
           console.log(data.result, 'hello');
         }
       });
