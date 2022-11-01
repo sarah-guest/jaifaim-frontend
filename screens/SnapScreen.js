@@ -11,6 +11,7 @@ import {
   clearPlatdujourPhoto,
   setPlatdujourPhoto,
 } from '../reducers/temporary';
+import convertColor from '../modules/convertColor';
 
 export default function SnapScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(false);
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
+    backgroundColor: convertColor('marronfoncé'),
   },
   camera: {
     padding: 16,
