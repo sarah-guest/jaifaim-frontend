@@ -29,6 +29,7 @@ import PreferencesScreen from './screens/PreferencesScreen';
 import SnapScreen from './screens/SnapScreen';
 import UserParametersScreen from './screens/UserParametersScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
+import DashboardScreen from './screens/DashboardScreen';
 import { View, Image, StyleSheet } from 'react-native';
 
 const store = configureStore({
@@ -80,7 +81,7 @@ const TabNavigation = ({ route }) => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home" component={DashboardScreen} />
       <Tab.Screen name="Snap" component={SnapScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
@@ -153,6 +154,7 @@ export default function App() {
             component={UserParametersScreen}
           />
           <Stack.Screen name="PdjForm" component={PdjFormScreen} />
+          <Stack.Screen name="Dashboard" component={DashboardScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
