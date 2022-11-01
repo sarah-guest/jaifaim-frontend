@@ -20,6 +20,7 @@ const initialState = {
     atmosphere: [],
     bookings: null,
     miscellaneous: [],
+    platdujour: null,
   },
 };
 
@@ -60,6 +61,9 @@ export const restaurantSlice = createSlice({
     getPrefRestauMisce: (state, action) => {
       state.value.miscellaneous.push(action.payload.miscellaneous);
     },
+    setPlatdujour: (state, action) => {
+      state.value.platdujour = action.payload;
+    },
   },
 });
 export const {
@@ -70,5 +74,6 @@ export const {
   getPrefRestauAtmos,
   getPrefRestauBook,
   getPrefRestauMisce,
+  setPlatdujour,
 } = restaurantSlice.actions;
 export default restaurantSlice.reducer;
