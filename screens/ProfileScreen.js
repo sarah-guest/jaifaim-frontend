@@ -22,6 +22,7 @@ export default function ProfileScreen({ route, navigation }) {
   const restaurant = useSelector((state) => state.restaurant.value);
 
   const [restaurantInfo, setRestaurantInfo] = useState('');
+  const [restaurants, setRestaurants] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisibletwo, setModalVisibletwo] = useState(false);
 
@@ -40,6 +41,15 @@ export default function ProfileScreen({ route, navigation }) {
       });
   }, []);
 
+  useEffect(() => {
+    fetch(`http://${IP_ADDRESS}:3000/users/platsdujour/read/`)
+      .then((response) => response.json())
+      .then((json) => {
+        json.result && setRestaurants(json);
+        //console.log(json)
+      });
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.view}>
@@ -48,6 +58,7 @@ export default function ProfileScreen({ route, navigation }) {
           source={require('../assets/images/avatarRestaurant.png')}
         />
         <Text style={styles.name}>{restaurantInfo.username} </Text>
+        
         <Modal visible={modalVisible} animationType="slide" transparent>
           <View style={styles.modalView}>
             <Text style={styles.restinfo}>
@@ -56,7 +67,8 @@ export default function ProfileScreen({ route, navigation }) {
                 size={30}
                 color={convertColor('caféaulaitchaud')}
                 style={styles.icon}
-              /> {restaurantInfo.address.streetNumber} {restaurantInfo.address.streetType} {restaurantInfo.address.streetName} {restaurantInfo.address.postCode} {restaurantInfo.address.city}
+              /> 
+              {/* {restaurantInfo.address.streetNumber} {restaurantInfo.address.streetType} {restaurantInfo.address.streetName} {restaurantInfo.address.postCode} {restaurantInfo.address.city} */}
             </Text>
 
             <Text style={styles.restinfo}>
@@ -103,6 +115,7 @@ export default function ProfileScreen({ route, navigation }) {
           style={styles.icons}
           backgroundColor={convertColor('poudrelibre')}
         >
+          
           <FontAwesome
             name={'cutlery'}
             size={50}
@@ -121,8 +134,9 @@ export default function ProfileScreen({ route, navigation }) {
             size={50}
             color={convertColor('caféaulaitchaud')}
             style={styles.message}
-            onPress={() => setModalVisibletwo(true)}
+            onPress={() => navigation.navigate('Faq')}
           />
+          <Text style={styles.acc}>  </Text>
         </View>
       </View>
     </SafeAreaView>

@@ -30,6 +30,7 @@ import SnapScreen from './screens/SnapScreen';
 import UserParametersScreen from './screens/UserParametersScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import DashboardScreen from './screens/DashboardScreen';
+import FaqScreen from './screens/FaqScreen';
 import { View, Image, StyleSheet } from 'react-native';
 
 const store = configureStore({
@@ -149,6 +150,7 @@ export default function App() {
           <Stack.Screen name="Preferences" component={PreferencesScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Snap" component={SnapScreen} />
+          <Stack.Screen name="Faq" component={FaqScreen} />
           <Stack.Screen
             name="UserParameters"
             component={UserParametersScreen}
