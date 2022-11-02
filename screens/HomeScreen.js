@@ -33,13 +33,13 @@ export default function HomeScreen() {
       .then((res) => res.json())
       .then((data) => {
         //on set dans mealsData les données récoltées
-        data !== null && setMealsData(data.platsdujour);
+        data !== null && setMealsData(data.platsdujour.reverse());
 
         //on set dans mealsOfTheDayData les données datant d'aujourd'hui
-        const today = new Date().toJSON().slice(0, 10)
+        const today = new Date().toDateString();
         const mealDate = data.platsdujour.date
         if (data !== null && mealDate !== undefined) {
-          mealDate.slice(0, 10) === today && setMealsOfTheDayData(data.platsdujour)
+          mealDate.toDateString() === today && setMealsOfTheDayData(data.platsdujour)
         }
       });
   }, []);
