@@ -1,11 +1,16 @@
-import { Text, StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
+import { useState } from 'react';
+//import de nos composants
 import Title from '../components/Title';
 import OurButton from '../components/Button';
 import OurTextInput from '../components/TextInput';
-import { useState } from 'react';
+//imports redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getDiet, getIntolerances } from '../reducers/user';
+//import IP adress pour le fetch du backEnd
 import IP_ADDRESS from '../modules/ipAddress';
+//Import FontAwsome
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default function UserPrefScreen({ navigation, route }) {
 
@@ -46,9 +51,15 @@ export default function UserPrefScreen({ navigation, route }) {
 
   return (
     <View>
-      <Title style={styles.titre} h1={true}>
-        Mes préférences
+      <View style={styles.titre}>
+        <Title h2 h1={true}>
+          Dernières précisions
+        </Title>
+      </View>
+      <Title h5>
+        Tu peux préciser un régime allimentaire
       </Title>
+
       <View style={styles.buttons}>
         <OurButton text='Végétarien' onPress={() => getUserDiet('Vegératien')} />
         <OurButton text='Végan' onPress={() => getUserDiet('Végan')} />
@@ -63,22 +74,29 @@ export default function UserPrefScreen({ navigation, route }) {
         <OurButton text='Casher' onPress={() => getUserDiet('Casher')} />
 
       </View>
-      <OurTextInput
-        placeholder="Arachide, gluten..."
-        onChangeText={(value) => setAllergie(value)}
-        value={allergie}
-      />
-      <OurButton
-        style={styles.button}
-        text="OK"
-        onPress={getUserIntolerances}
-      ></OurButton>
-      <View style={styles.valider}>
+      <Title h5>
+        Tu peux aussi nous indiquer tes allergies et/ou intolérances
+      </Title>
+      <View styles={styles.intolerances}>
+        <View style={styles.input}>
+          <OurTextInput
+            placeholder="Arachide, gluten..."
+            onChangeText={(value) => setAllergie(value)}
+            value={allergie}
+          />
+        </View>
+        <View style={styles.valider}></View>
         <OurButton
-          style={styles.button}
-          text="Valider"
-          onPress={sendUserInfo}
+          text="C'est tout bon"
+          onPress={getUserIntolerances}
         ></OurButton>
+      </View>
+      <View style={styles.button}>
+        <OurButton
+          onPress={sendUserInfo}
+          icon={'arrow-circle-right'}
+        >
+        </OurButton>
       </View>
     </View>
   );
@@ -88,12 +106,39 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+
+  },
+  titre: {
+    paddingLeft: '2%',
+    paddingTop: '25%',
+    paddingBottom: '5%',
   },
   buttons: {
+    paddingLeft: '2%',
+    paddingRight: '2%',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
+    marginBottom: '10%',
+  },
+  intolerances: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: '2%',
+    paddingRight: '2%',
+  },
+  valider: {
+    flexDirection: 'row',
+  },
+
+  input: {
+    marginTop: '5%',
   },
   button: {
-    marginrught: 10,
+    marginTop: '5%',
+    marginRight: '5%',
+    alignItems: 'flex-end',
+
   },
 });

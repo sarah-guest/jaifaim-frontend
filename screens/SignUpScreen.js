@@ -1,8 +1,12 @@
-import { Text, View, StyleSheet, TextInput } from 'react-native';
-import { useState, useSelector } from 'react';
+import { View, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { useState } from 'react';
+//Import FontAwsome
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+//import pour le reducer/store
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../reducers/user';
 import { signInRestaurant } from '../reducers/restaurant';
+//Import de nos composants
 import OurButton from '../components/Button';
 import OurTextInput from '../components/TextInput';
 import Title from '../components/Title';
@@ -13,12 +17,13 @@ export default function SignInScreen({ navigation, route }) {
   //On détermmine le type d'utilisateur pour afficher ce qui lui correspond
   let { type } = route.params;
 
-  //const user = useSelector((state) => state.user.value);
   //On crée les input à surveiller
   const [user, SetUser] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState(null);
+  const [passwordVisible, setPasswordVisible] = useState(true);
+
   //On crée la fonction d'inscription
   const handleRegister = () => {
     let path = '';
@@ -52,11 +57,17 @@ export default function SignInScreen({ navigation, route }) {
   //Si on s'incrit en tant qu'utilisateur
   if (type === 'user') {
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}>
+      
          <View style={styles.Inputs} width={'70%'}>
-         <Title style={styles.titre} h2>
+         <View style={styles.titre}>
+        <Title h1>Bref,</Title>
+         <Title  h2>
            J'ai faim
           </Title>
+          </View>
         <OurTextInput
           placeholder="New name"
           onChangeText={(value) => SetUser(value)}
@@ -68,12 +79,23 @@ export default function SignInScreen({ navigation, route }) {
           value={email}
         />
 
-        <OurTextInput
-          placeholder="New password"
-          onChangeText={(value) => setPassword(value)}
-          value={password}
-        />
-
+<View style={styles.password}>
+            <OurTextInput
+              placeholder="Mot de passe"
+              onChangeText={(value) => setPassword(value)}
+              value={password}
+              secureTextEntry={passwordVisible}
+              width={true}
+            />
+            <View style={styles.eyeCon}>
+            <FontAwesome
+              style={styles.showHide}
+              name={passwordVisible ? 'eye' : 'eye-slash'}
+              size={25}
+              onPress={() => setPasswordVisible(!passwordVisible)}
+            />
+            </View>
+          </View>
 
         <OurButton
           text="Je m'inscris"
@@ -81,18 +103,20 @@ export default function SignInScreen({ navigation, route }) {
           onPress={handleRegister}
         />
         </View>
-      </View>
+        </KeyboardAvoidingView> 
     );
   }
   else if (type === 'restaurant') {
-
+//si on s'incrit en tant que restaurant
     return (
       <View style={styles.container}>
        <View style={styles.Inputs} width={'70%'}> 
-         <Title style={styles.titre} h2>
+       <View style={styles.titre}>
+        <Title h1>Bref,</Title>
+         <Title  h2>
            J'ai à manger
           </Title>
-          
+          </View>
         <OurTextInput
           placeholder="New name"
           onChangeText={(value) => setName(value)}
@@ -103,11 +127,23 @@ export default function SignInScreen({ navigation, route }) {
           onChangeText={(value) => setEmail(value)}
           value={email}
         />
-        <OurTextInput
-          placeholder="New password"
-          onChangeText={(value) => setPassword(value)}
-          value={password}
-        />
+       <View style={styles.password}>
+            <OurTextInput
+              placeholder="Mot de passe"
+              onChangeText={(value) => setPassword(value)}
+              value={password}
+              secureTextEntry={passwordVisible}
+              width={true}
+            />
+            <View style={styles.eyeCon}>
+            <FontAwesome
+              style={styles.showHide}
+              name={passwordVisible ? 'eye' : 'eye-slash'}
+              size={25}
+              onPress={() => setPasswordVisible(!passwordVisible)}
+            />
+            </View>            
+          </View>
        
         <OurButton
           text="Je m'inscris"
@@ -131,8 +167,9 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
   },
   titre:{
-    flex:1,
-  paddingLeft:'20%'
+  
+  justifyContent:'center',
+  alignItems: 'center',
   },
  Inputs: {
   flex:1,
@@ -141,4 +178,13 @@ const styles = StyleSheet.create({
    marginBottom:'20%',
   
  },
+ password:{
+flexDirection: 'row',
+ alignItems: 'space-between',
+
+},
+eyeCon:{
+  paddingLeft:'25%',
+  justifyContent:'flex-end'
+},
 });

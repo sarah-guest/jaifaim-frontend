@@ -49,7 +49,7 @@ export default function AskNameScreen({ navigation, route }) {
 
       <View style={styles.container}>
     <View  style={styles.titre}>
-        <Title h2>Comment voudrais-tu que l'on t'appelle?</Title>
+        <Title h2>Comment voudrais-tu que l'on t'appelle ?</Title>
         </View>
         <View style={styles.Inputs} width={'70%'}>
         <OurTextInput
@@ -57,10 +57,13 @@ export default function AskNameScreen({ navigation, route }) {
           onChangeText={(value) => setFirstname(value)}
           value={firstname}
         />
+         </View>
+        <View styles={styles.inscription} width={'70%'}>
         <OurButton
           text="Je m'inscris"
           color="caféaulaitchaud"
           onPress={myNameIs} />
+         
           </View>
       </View>
     );
@@ -69,7 +72,7 @@ export default function AskNameScreen({ navigation, route }) {
 
       <View style={styles.container}>
         <View  style={styles.titre}>
-        <Title h2>Quel est le nom de votre commerce?</Title>
+        <Title h2>Quel est le nom de votre commerce ?</Title>
         </View>
         <View style={styles.Inputs} width={'70%'}>
         <OurTextInput
@@ -77,11 +80,14 @@ export default function AskNameScreen({ navigation, route }) {
           onChangeText={(value) => setRestaurantName(value)}
           value={restaurantName}
         />
+        </View>
+        <View styles={styles.inscription} width={'70%'}>
         <OurButton
           text="Je m'inscris"
           color="caféaulaitchaud"
           onPress={myNameIs} />
           </View>
+          
       </View>
     );
   }
@@ -95,7 +101,14 @@ const styles = StyleSheet.create({
   Inputs:{
     marginTop:'10%',
     justifyContent: 'space-evenly',
- 
+    marginBottom:'10%'
 },
-titre:{padding:'10%' ,},
+titre:{padding:'10%' ,
+justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inscription:{
+    paddingTop:'20%'
+  },
+
 });
