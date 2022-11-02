@@ -32,17 +32,17 @@ export default function HomeScreen() {
     fetch(`http://${IP_ADDRESS}:3000/users/getplatsdujour`)
       .then((res) => res.json())
       .then((data) => {
-        //on set dans mealsData les données récoltées
-        data !== null && setMealsData(data.platsdujour.reverse());
-
-        //on set dans mealsOfTheDayData les données datant d'aujourd'hui
-        const today = new Date().toDateString();
-        const mealDate = data.platsdujour.date
-        if (data !== null && mealDate !== undefined) {
-          mealDate.toDateString() === today && setMealsOfTheDayData(data.platsdujour)
+        //on set dans mealsData les données récoltées dans l'ordre du plus récent au plus ancien
+        if (data !== null) {
+          data.platsdujour = data.platsdujour.sort(function (a, b) {
+            //on transforme les date en nombres et on les soustrait
+            return new Date(b.date) - new Date(a.date);
+          })
+          setMealsData(data.platsdujour)
         }
       });
   }, []);
+
 
   //on affiche les plats
   const meals = mealsData.map((data, i) => {
@@ -52,7 +52,7 @@ export default function HomeScreen() {
 
   //on affiche les plats du jour
   const mealsOfTheDay = mealsOfTheDayData.map((data, i) => {
-    const isLiked = liked.some((e) => e.meal === data.meal)
+    //const isLiked = liked.some((e) => e.meal === data.meal)
     return <Meal key={i} isLiked={isLiked} {...data} />;
   });
 
