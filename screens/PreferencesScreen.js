@@ -16,11 +16,9 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import convertColor from '../modules/convertColor';
 import IP_ADDRESS from '../modules/ipAddress';
 
-export default function PreferencesScreen({ navigation }) {
- 
-    const IP_ADDRESS = '192.168.10.158';
-    const dispatch = useDispatch();
-    const restaurant = useSelector((state) => state.restaurant.value);
+export default function PreferencesScreen({ navigation, route }) {
+  const dispatch = useDispatch();
+  const restaurant = useSelector((state) => state.restaurant.value);
 
   // Fonctions qui récupèrent les infos des inputs et les mettent dans le store
   const checkPrefCuisine = (newCuisine) => {
@@ -40,6 +38,7 @@ export default function PreferencesScreen({ navigation }) {
   const sendInfoRestaurant = () => {
     const {
       username,
+      name,
       email,
       password,
       streetName,
@@ -55,7 +54,7 @@ export default function PreferencesScreen({ navigation }) {
       bookings,
       miscellaneous,
     } = restaurant;
-
+    console.log(restaurant.miscellaneous);
     fetch(
       `https://api-adresse.data.gouv.fr/search/?q=${streetNumber}+${streetType}+${streetName}+${postCode}`
     )
@@ -66,6 +65,7 @@ export default function PreferencesScreen({ navigation }) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             username,
+            name,
             email,
             password,
             address: {
@@ -76,8 +76,8 @@ export default function PreferencesScreen({ navigation }) {
               city,
             },
             coordinates: {
-              latitude: json.features[0].geometry.coordinates[0],
-              longitude: json.features[0].geometry.coordinates[1],
+              latitude: json.features[0].geometry.coordinates[1],
+              longitude: json.features[0].geometry.coordinates[0],
             },
             siren,
             website,
@@ -96,6 +96,7 @@ export default function PreferencesScreen({ navigation }) {
           .then((response) => response.json())
           .then((data) => {
             if (data.result) {
+              navigation.navigate('TabNavigation', { type: 'restaurant' });
               console.log(data.result);
             }
           });

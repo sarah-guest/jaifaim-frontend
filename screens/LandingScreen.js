@@ -39,19 +39,19 @@ export default function LandingScreen({ navigation }) {
 
       {isVisible && <View style={styles.animated}>
         <OurButton
-          text="je m'inscris"
+          text="Je m'inscris"
           color="caféaulaitchaud"
           onPress={handleSignUp}
         />
 
         <OurButton
-          text="j'ai un compte restaurateur"
+          text="J'ai un compte restaurateur"
           color="caféaulaitchaud"
           onPress={handleSignInRestaurant}
         />
 
         <OurButton
-          text="j'ai un compte utilisateur"
+          text="J'ai un compte utilisateur"
           color="caféaulaitchaud"
           onPress={handleSignInUser}
         />

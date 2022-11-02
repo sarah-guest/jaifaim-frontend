@@ -1,12 +1,12 @@
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { getFirstName } from '../reducers/user';
 import { getName } from '../reducers/restaurant';
-
+//Import de nos composants
 import OurButton from '../components/Button';
 import OurTextInput from '../components/TextInput';
-
+import Title from '../components/Title';
 
 export default function AskNameScreen({ navigation, route }) {
   //On détermine le type d'utilisateur pour savoir quoi afficher dans l'écran
@@ -48,7 +48,10 @@ export default function AskNameScreen({ navigation, route }) {
     return (
 
       <View style={styles.container}>
-        <Text>Comment voudrais-tu qu'on t'appelle?</Text>
+    <View  style={styles.titre}>
+        <Title h2>Comment voudrais-tu que l'on t'appelle?</Title>
+        </View>
+        <View style={styles.Inputs} width={'70%'}>
         <OurTextInput
           placeholder="Prénom"
           onChangeText={(value) => setFirstname(value)}
@@ -58,13 +61,17 @@ export default function AskNameScreen({ navigation, route }) {
           text="Je m'inscris"
           color="caféaulaitchaud"
           onPress={myNameIs} />
+          </View>
       </View>
     );
   } else if (type === 'restaurant') {
     return (
 
       <View style={styles.container}>
-        <Text>Comment s'appelle votre commerce?</Text>
+        <View  style={styles.titre}>
+        <Title h2>Quel est le nom de votre commerce?</Title>
+        </View>
+        <View style={styles.Inputs} width={'70%'}>
         <OurTextInput
           placeholder="Nom du restaurant"
           onChangeText={(value) => setRestaurantName(value)}
@@ -74,6 +81,7 @@ export default function AskNameScreen({ navigation, route }) {
           text="Je m'inscris"
           color="caféaulaitchaud"
           onPress={myNameIs} />
+          </View>
       </View>
     );
   }
@@ -84,4 +92,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  Inputs:{
+    marginTop:'10%',
+    justifyContent: 'space-evenly',
+ 
+},
+titre:{padding:'10%' ,},
 });

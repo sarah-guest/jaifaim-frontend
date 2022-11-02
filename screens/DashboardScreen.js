@@ -1,14 +1,43 @@
+// IMPORTS REACT
+import { useEffect } from 'react';
 // IMPORTS COMPOSANTS
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import OurText from '../components/OurText';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import OurTitle from '../components/Title';
+import OurText from '../components/OurText';
+// IMPORTS REDUCER
+import { useDispatch, useSelector } from 'react-redux';
+import { setPlatdujour } from '../reducers/restaurant';
 // IMPORTS AUTRES
 import convertColor from '../modules/convertColor';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import { useSelector } from 'react-redux';
+import IP_ADDRESS from '../modules/ipAddress';
 
 const DashboardScreen = ({ navigation }) => {
   const restaurant = useSelector((state) => state.restaurant.value);
+  const temporary = useSelector((state) => state.temporary.value);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const data = { username: restaurant.username };
+
+    fetch(`http://${IP_ADDRESS}:3000/restaurants/restaurant`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        if (json.result) {
+          const { platsdujour } = json.data;
+          const lastPlat = platsdujour[platsdujour.length - 1];
+          const itsDate = new Date(lastPlat.date).toDateString();
+          const today = new Date().toDateString();
+          itsDate === today && dispatch(setPlatdujour(lastPlat));
+        }
+      });
+  }, [temporary.platdujourPhoto]);
 
   const actions = [
     { text: 'Télécharger mon code QR', icon: 'qrcode' },
@@ -19,9 +48,52 @@ const DashboardScreen = ({ navigation }) => {
       optionalStyling: 'lastBottomCard',
     },
   ];
-  const actionsDom = actions.map((e) => {
+
+  const ButtonSnap = () => (
+    <TouchableOpacity
+      style={[styles.buttonSnap, styles.card]}
+      onPress={() => navigation.navigate('Snap')}
+    >
+      <FontAwesomeIcon
+        style={styles.icon}
+        name="camera"
+        size={40}
+        color={convertColor('poudrelibre')}
+      />
+      <View style={styles.textContainer}>
+        <OurTitle isLight h5>
+          Poster mon plat du jour
+        </OurTitle>
+      </View>
+    </TouchableOpacity>
+  );
+
+  const MealPreview = (plat) => {
+    const { description, name, src } = plat.platdujour;
+    return (
+      <View style={[styles.card, styles.mealPreview]}>
+        <OurTitle isLight h5>
+          Mon plat du jour
+        </OurTitle>
+        <View style={styles.mealPreviewContent}>
+          <View style={styles.mealInfo}>
+            <OurTitle isLight h4>
+              {name}
+            </OurTitle>
+            <OurText isLight body2>
+              {description}
+            </OurText>
+          </View>
+          <Image style={styles.image} source={{ uri: src }} />
+        </View>
+      </View>
+    );
+  };
+
+  const actionsDom = actions.map((e, key) => {
     return (
       <TouchableOpacity
+        key={key}
         style={[
           styles.bottomCard,
           styles.card,
@@ -53,22 +125,11 @@ const DashboardScreen = ({ navigation }) => {
         {/* Cela impliquerait de modifier signInRestaurant dans le reducer restaurant */}
         <OurTitle h4>{restaurant.username}</OurTitle>
       </View>
-      <TouchableOpacity
-        style={[styles.buttonSnap, styles.card]}
-        onPress={() => navigation.navigate('Snap')}
-      >
-        <FontAwesomeIcon
-          style={styles.icon}
-          name="camera"
-          size={40}
-          color={convertColor('poudrelibre')}
-        />
-        <View style={styles.textContainer}>
-          <OurTitle isLight h5>
-            Poster mon plat du jour
-          </OurTitle>
-        </View>
-      </TouchableOpacity>
+      {restaurant.platdujour ? (
+        <MealPreview platdujour={restaurant.platdujour} />
+      ) : (
+        <ButtonSnap />
+      )}
       <View style={styles.mid}>
         <TouchableOpacity style={[styles.midleft, styles.card]}>
           <OurTitle isLight h5>
@@ -123,6 +184,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: convertColor('caféaulaitfroid'),
   },
+  mealPreview: {
+    marginBottom: 16,
+    flex: 40,
+    backgroundColor: convertColor('caféaulaitfroid'),
+  },
+  mealPreviewContent: {
+    flex: 1,
+    flexDirection: 'row',
+  },
   textContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -170,5 +240,14 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 16,
+  },
+  mealInfo: {
+    marginVertical: 16,
+    flex: 60,
+    justifyContent: 'space-around',
+    marginRight: 16,
+  },
+  image: {
+    flex: 40,
   },
 });
