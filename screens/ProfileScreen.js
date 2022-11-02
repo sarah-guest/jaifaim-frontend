@@ -114,17 +114,17 @@ export default function ProfileScreen({ route, navigation }) {
           style={styles.icons}
           backgroundColor={convertColor('poudrelibre')}
         >
-          {restaurantInfo && (
-            <Text style={styles.restinfo}>
+          {/* {restaurantInfo && (
+            <Text style={styles.restinfo}> */}
               <FontAwesome
             name={'cutlery'}
             size={50}
             color={convertColor('caféaulaitchaud')}
             style={styles.couteau}
           /> 
-              {restaurantInfo.platsdujour[0].name}
+              {/* {restaurantInfo.platsdujour[0].name}
               </Text>
-          )}
+          )} */}
 
           <FontAwesome
             name={'info-circle'}
