@@ -17,20 +17,23 @@ export default function EaterProviderScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.question}>
-        <Title h1={true}>J'ai</Title>
+      
+        <View style={styles.jai}>
+        <Title h1={true}>Bref,</Title>
+        <Title h2>J'ai...</Title>
+        </View>
         <View style={styles.page}>
           <OurButton
             text="...faim"
             onPress={handleSignUpUser}
-            color="pingouin"
+            color="caféaulaitchaud"
           />
 
-
+<View style={styles.question}>
           <OurButton
             text="...à manger"
             onPress={handleSignUpRestaurant}
-            color="pingouin"
+            color="caféaulaitchaud"
           />
         </View>
       </View>
@@ -46,16 +49,21 @@ const styles = StyleSheet.create({
 
 
   },
+  jai:{
+   justifyContent:'center',
+   alignItems:'center',
+  marginTop:'20%', 
+  paddingTop:'40%'
+  },
   question: {
-    flex: 1,
     flexDirection:'column',
-    marginTop: '25%',
+    marginTop: '20%',
     marginBottom:'25%',
     
   },
   page: {
     flex: 1,
-    paddingTop: '40%',
+    paddingTop: '20%',
     width: '50%',
   },
 });

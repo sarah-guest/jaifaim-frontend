@@ -62,9 +62,12 @@ export default function SignInScreen({ navigation, route }) {
         style={styles.container}>
       
          <View style={styles.Inputs} width={'70%'}>
-         <Title style={styles.titre} h2>
+         <View style={styles.titre}>
+        <Title h1>Bref,</Title>
+         <Title  h2>
            J'ai faim
           </Title>
+          </View>
         <OurTextInput
           placeholder="New name"
           onChangeText={(value) => SetUser(value)}
@@ -108,10 +111,12 @@ export default function SignInScreen({ navigation, route }) {
     return (
       <View style={styles.container}>
        <View style={styles.Inputs} width={'70%'}> 
-         <Title style={styles.titre} h2>
+       <View style={styles.titre}>
+        <Title h1>Bref,</Title>
+         <Title  h2>
            J'ai à manger
           </Title>
-          
+          </View>
         <OurTextInput
           placeholder="New name"
           onChangeText={(value) => setName(value)}
@@ -162,7 +167,9 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
   },
   titre:{
-  paddingLeft:'40%'
+  
+  justifyContent:'center',
+  alignItems: 'center',
   },
  Inputs: {
   flex:1,
@@ -174,10 +181,11 @@ const styles = StyleSheet.create({
  password:{
 flexDirection: 'row',
  alignItems: 'space-between',
- size: '70'
+
+ justifyContent:'flex-start'
 },
 eyeCon:{
   paddingLeft:'10%',
- 
+  paddingRight:'10%',
 },
 });
