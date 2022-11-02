@@ -28,6 +28,7 @@ export default function HomeScreen() {
   //puis on récupère les plats du jour
   const [mealsData, setMealsData] = useState([]);
   const [mealsOfTheDayData, setMealsOfTheDayData] = useState([]);
+  const today = new Date().toDateString();
   useEffect(() => {
     fetch(`http://${IP_ADDRESS}:3000/users/getplatsdujour`)
       .then((res) => res.json())
@@ -43,23 +44,22 @@ export default function HomeScreen() {
 
           //PLATS DU JOUR UNIQUEMENT
           //on récupère uniquement les plats du jour
-          const today = new Date().toDateString();
           setMealsOfTheDayData(mealsData.filter((e) => new Date(e.date).toDateString() === today))
         }
       });
   }, []);
 
-
-  //on affiche TOUS les plats
-  const meals = mealsData.map((data, i) => {
-    const isLiked = liked.some((e) => e.meal === data.meal)
-    return <Meal key={i} isLiked={isLiked} {...data} />;
-  });
-
   //on affiche les plats DU JOUR
   const mealsOfTheDay = mealsOfTheDayData.map((data, i) => {
     const isLiked = liked.some((e) => e.meal === data.meal)
     return <Meal key={i} isLiked={isLiked} {...data} />;
+  });
+
+  //on affiche TOUS les plats
+  const mealsWithoutToday = mealsData.filter((e) => new Date(e.date).toDateString() !== today)
+  const meals = mealsWithoutToday.map((data, i) => {
+    const isLiked = liked.some((e) => e.meal === data.meal)
+    return <Meal isScaledDown={true} key={i} isLiked={isLiked} {...data} />;
   });
 
   //on affiche les plats RECHERCHÉS
