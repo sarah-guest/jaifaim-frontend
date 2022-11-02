@@ -28,45 +28,50 @@ export default function HomeScreen() {
   //puis on récupère les plats du jour
   const [mealsData, setMealsData] = useState([]);
   const [mealsOfTheDayData, setMealsOfTheDayData] = useState([]);
+  const today = new Date().toDateString();
   useEffect(() => {
     fetch(`http://${IP_ADDRESS}:3000/users/getplatsdujour`)
       .then((res) => res.json())
       .then((data) => {
-        //on set dans mealsData les données récoltées dans l'ordre du plus récent au plus ancien
         if (data !== null) {
+          //TOUS : on set dans mealsData les plats dans l'ordre du plus récent au plus ancien
           data.platsdujour = data.platsdujour.sort(function (a, b) {
             //on transforme les date en nombres et on les soustrait
             return new Date(b.date) - new Date(a.date);
           })
+          //on récupère les données triées
           setMealsData(data.platsdujour)
+
+          //PLATS DU JOUR UNIQUEMENT
+          //on récupère uniquement les plats du jour 
+          setMealsOfTheDayData(data.platsdujour.filter((e) => new Date(e.date).toDateString() === today))
         }
       });
   }, []);
 
-
-  //on affiche les plats
-  const meals = mealsData.map((data, i) => {
+  //on affiche les plats DU JOUR
+  const mealsOfTheDay = mealsOfTheDayData.map((data, i) => {
     const isLiked = liked.some((e) => e.meal === data.meal)
     return <Meal key={i} isLiked={isLiked} {...data} />;
   });
 
-  //on affiche les plats du jour
-  const mealsOfTheDay = mealsOfTheDayData.map((data, i) => {
-    //const isLiked = liked.some((e) => e.meal === data.meal)
-    return <Meal key={i} isLiked={isLiked} {...data} />;
+  //on affiche TOUS les plats
+  const mealsWithoutToday = mealsData.filter((e) => new Date(e.date).toDateString() !== today)
+  const meals = mealsWithoutToday.map((data, i) => {
+    const isLiked = liked.some((e) => e.meal === data.meal)
+    return <Meal isScaledDown={true} key={i} isLiked={isLiked} {...data} />;
   });
 
-  //on affiche les plats recherchés
-  const searchedMealsData = mealsData.filter((e) => e.meal === isSearched);
+  //on affiche les plats RECHERCHÉS
+  const searchedMealsData = mealsData.filter((e) => e.meal.includes(isSearched));
   const searchedMeals = searchedMealsData.map((data, i) => {
     const isLiked = liked.some((e) => e.meal === data.meal)
     return <Meal key={i} isLiked={isLiked} {...data} />;
   });
 
-  //on affiche les plats likés
-  // const likedMeals = liked.map((data, i) => {
-  //   return <Meal key={i} {...data} isLiked={true} />;
-  // });
+  //on affiche les plats VÉGÉTARIENS
+  const vegeMeals = mealsData.filter((e) => e.diets.includes('végétarien'));
+  console.log(vegeMeals);
 
   return (
     <ImageBackground
