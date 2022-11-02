@@ -22,7 +22,7 @@ export default function ProfileScreen({ route, navigation }) {
   const restaurant = useSelector((state) => state.restaurant.value);
 
   const [restaurantInfo, setRestaurantInfo] = useState('');
-  const [restaurants, setRestaurants] = useState([]);
+  const [platdujour, setPlatdujour] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisibletwo, setModalVisibletwo] = useState(false);
 
@@ -40,14 +40,21 @@ export default function ProfileScreen({ route, navigation }) {
       });
   }, []);
 
-  useEffect(() => {
-    fetch(`http://${IP_ADDRESS}:3000/users/platsdujour/read/`)
-      .then((response) => response.json())
-      .then((json) => {
-        json.result && setRestaurants(json);
-        //console.log(json)
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch(`http://${IP_ADDRESS}:3000/restaurants/platdujour`, {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ username: restaurant.username }),
+  //   })
+
+
+  //   // fetch(`http://${IP_ADDRESS}:3000/users/platsdujour`)
+  //     .then((response) => response.json())
+  //     .then((pdj) => {
+  //       pdj.result && setPlatdujour(json);
+  //       console.log(pdj);
+  //     });
+  // }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -61,19 +68,26 @@ export default function ProfileScreen({ route, navigation }) {
         <Modal visible={modalVisible} animationType="slide" transparent>
           <View style={styles.modalView}>
             <View style={styles.restinfo}>
-              <FontAwesome
+              {/* <FontAwesome
                 name={'location-arrow'}
                 size={30}
                 color={convertColor('caféaulaitchaud')}
                 style={styles.icon}
-              />
+              /> */}
               {restaurantInfo && (
-                <Text>
-                  {restaurantInfo.address.streetNumber}{' '}
+                
+                <Text style={styles.restinfo}>
+                  <FontAwesome
+                name={'location-arrow'}
+                size={30}
+                color={convertColor('caféaulaitchaud')}
+                style={styles.icon}
+              />  {restaurantInfo.address.streetNumber}{' '}
                   {restaurantInfo.address.streetType}{' '}
                   {restaurantInfo.address.streetName}{' '}
                   {restaurantInfo.address.postCode}{' '}
                   {restaurantInfo.address.city}
+                 
                 </Text>
               )}
             </View>
@@ -84,8 +98,8 @@ export default function ProfileScreen({ route, navigation }) {
                 size={30}
                 color={convertColor('caféaulaitchaud')}
                 style={styles.icon}
-              />{' '}
-              {restaurantInfo.email}
+              />  {restaurantInfo.email}
+              
             </Text>
             <Text style={styles.restinfo}>
               <FontAwesome
@@ -93,8 +107,8 @@ export default function ProfileScreen({ route, navigation }) {
                 size={30}
                 color={convertColor('caféaulaitchaud')}
                 style={styles.icon}
-              />{' '}
-              {restaurantInfo.phone}
+              />  {restaurantInfo.phone}
+              
             </Text>
 
             <FontAwesome
@@ -106,20 +120,6 @@ export default function ProfileScreen({ route, navigation }) {
             />
           </View>
         </Modal>
-        <Modal visible={modalVisibletwo} animationType="slide" transparent>
-          <View style={styles.modalViewtwo}>
-            <Text style={styles.carbo}> Mène a la page FAQ</Text>
-            <FontAwesome
-              name={'ban'}
-              size={50}
-              color={convertColor('caféaulaitchaud')}
-              style={styles.ban}
-              onPress={() => setModalVisibletwo(false)}
-              // onPress={() => navigation.navigate('FaqScreen')}
-            />
-          </View>
-        </Modal>
-
         <View
           style={styles.icons}
           backgroundColor={convertColor('poudrelibre')}
@@ -152,7 +152,7 @@ export default function ProfileScreen({ route, navigation }) {
   );
 }
 
-//}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // backgroundColor: 'white',
     borderRadius: 20,
-    padding: 40,
+    padding: 30,
     width: 300,
     marginTop: 400,
     marginLeft: 45.5,
