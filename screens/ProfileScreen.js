@@ -12,19 +12,21 @@ import {
 import OurButton from '../components/Button';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // IMPORTS REDUCER
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // IMPORTS AUTRES
 import IP_ADDRESS from '../modules/ipAddress';
 import convertColor from '../modules/convertColor';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import OurTitle from '../components/Title';
+import OurText from '../components/OurText';
 
 export default function ProfileScreen({ route, navigation }) {
   const restaurant = useSelector((state) => state.restaurant.value);
 
   const [restaurantInfo, setRestaurantInfo] = useState('');
-  const [platdujour, setPlatdujour] = useState('');
+  const temporary = useSelector((state) => state.temporary.value);
+  const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalVisibletwo, setModalVisibletwo] = useState(false);
 
   useEffect(() => {
     fetch(`http://${IP_ADDRESS}:3000/restaurants/restaurant`, {
@@ -39,22 +41,6 @@ export default function ProfileScreen({ route, navigation }) {
         console.log(rest.data);
       });
   }, []);
-
-  // useEffect(() => {
-  //   fetch(`http://${IP_ADDRESS}:3000/restaurants/platdujour`, {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({ username: restaurant.username }),
-  //   })
-
-
-  //   // fetch(`http://${IP_ADDRESS}:3000/users/platsdujour`)
-  //     .then((response) => response.json())
-  //     .then((pdj) => {
-  //       pdj.result && setPlatdujour(json);
-  //       console.log(pdj);
-  //     });
-  // }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -87,6 +73,7 @@ export default function ProfileScreen({ route, navigation }) {
                   {restaurantInfo.address.streetName}{' '}
                   {restaurantInfo.address.postCode}{' '}
                   {restaurantInfo.address.city}
+
                  
                 </Text>
               )}
@@ -107,7 +94,7 @@ export default function ProfileScreen({ route, navigation }) {
                 size={30}
                 color={convertColor('caféaulaitchaud')}
                 style={styles.icon}
-              />  {restaurantInfo.phone}
+              />  {restaurantInfo.phone} 
               
             </Text>
 
@@ -124,13 +111,16 @@ export default function ProfileScreen({ route, navigation }) {
           style={styles.icons}
           backgroundColor={convertColor('poudrelibre')}
         >
-          
-          <FontAwesome
+        
+              <FontAwesome
             name={'cutlery'}
             size={50}
             color={convertColor('caféaulaitchaud')}
             style={styles.couteau}
-          />
+          /> 
+              <Text> {restaurantInfo.platsdujour.name}</Text>
+        
+
           <FontAwesome
             name={'info-circle'}
             size={50}
@@ -145,7 +135,7 @@ export default function ProfileScreen({ route, navigation }) {
             style={styles.message}
             onPress={() => navigation.navigate('Faq')}
           />
-          <Text style={styles.acc}>  </Text>
+          <Text style={styles.acc}></Text>
         </View>
       </View>
     </SafeAreaView>
