@@ -45,11 +45,14 @@ export default function HomeScreen() {
           //PLATS DU JOUR UNIQUEMENT
           //on récupère uniquement les plats du jour 
           setMealsOfTheDayData(data.platsdujour.filter((e) => new Date(e.date).toDateString() === today))
+
+          //PLATS VÉGÉ
+          console.log(data.platsdujour[0].diets)
         }
       });
   }, []);
 
-  //on affiche les plats DU JOUR: P R O B L È M E — NE S'AFFICHE QUE LA 2E FOIS !!!
+  //on affiche les plats DU JOUR
   const mealsOfTheDay = mealsOfTheDayData.map((data, i) => {
     const isLiked = liked.some((e) => e.meal === data.meal)
     return <Meal key={i} isLiked={isLiked} {...data} />;
@@ -63,11 +66,15 @@ export default function HomeScreen() {
   });
 
   //on affiche les plats RECHERCHÉS
-  const searchedMealsData = mealsData.filter((e) => e.meal === isSearched);
+  const searchedMealsData = mealsData.filter((e) => e.meal.includes(isSearched));
   const searchedMeals = searchedMealsData.map((data, i) => {
     const isLiked = liked.some((e) => e.meal === data.meal)
     return <Meal key={i} isLiked={isLiked} {...data} />;
   });
+
+  //on affiche les plats VÉGÉTARIENS
+  const vegeMeals = mealsData.filter((e) => e.diets.includes('végétarien'));
+  console.log(vegeMeals);
 
   return (
     <ImageBackground

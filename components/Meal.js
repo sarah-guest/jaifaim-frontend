@@ -34,14 +34,16 @@ export default function Meal(props) {
             dispatch(likeMeal(props))
         }
     }
-    const handlePageChangeOnClick = () => { }
+    const handlePageChangeOnClick = () => {
+        props.selectMeal('CLICK OH');
+    }
 
     return (
         <View style={[styles.background, scale]} isScaledDown>
             <Image source={{ uri: props.src }} style={styles.images} />
             <View style={styles.names}>
-                <View style={styles.mealName}>
-                    <Title h5 isLight={true} onPress={() => handlePageChangeOnClick()} >
+                <View style={styles.mealName} onPress={() => handlePageChangeOnClick()}>
+                    <Title h5 isLight={true}>
                         {props.meal}
                     </Title>
                     <OurText body2 isLight={true}>
