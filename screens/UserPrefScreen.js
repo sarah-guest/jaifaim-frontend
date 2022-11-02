@@ -77,23 +77,25 @@ export default function UserPrefScreen({ navigation, route }) {
       <Title h5>
         Tu peux aussi nous indiquer tes allergies et/ou intolérances
       </Title>
-      <View style={styles.input}>
-        <OurTextInput
-          placeholder="Arachide, gluten..."
-          onChangeText={(value) => setAllergie(value)}
-          value={allergie}
-        />
+      <View styles={styles.intolerances}>
+        <View style={styles.input}>
+          <OurTextInput
+            placeholder="Arachide, gluten..."
+            onChangeText={(value) => setAllergie(value)}
+            value={allergie}
+          />
+        </View>
+        <View style={styles.valider}></View>
+        <OurButton
+          text="C'est tout bon"
+          onPress={getUserIntolerances}
+        ></OurButton>
       </View>
-      <OurButton
-        text="C'est tout bon"
-        onPress={getUserIntolerances}
-      ></OurButton>
-
       <View style={styles.button}>
         <OurButton
-         
-         onPress={sendUserInfo}
-        icon= {'arrow-circle-right'}>
+          onPress={sendUserInfo}
+          icon={'arrow-circle-right'}
+        >
         </OurButton>
       </View>
     </View>
@@ -104,8 +106,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+
   },
   titre: {
+    paddingLeft: '2%',
     paddingTop: '25%',
     paddingBottom: '5%',
   },
@@ -117,11 +121,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     marginBottom: '10%',
   },
+  intolerances: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: '2%',
+    paddingRight: '2%',
+  },
+  valider: {
+    flexDirection: 'row',
+  },
+
   input: {
     marginTop: '5%',
   },
   button: {
-    marginLeft: '5%',
+    marginTop: '5%',
+    marginRight: '5%',
     alignItems: 'flex-end',
+
   },
 });

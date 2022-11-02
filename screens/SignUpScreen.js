@@ -182,10 +182,9 @@ const styles = StyleSheet.create({
 flexDirection: 'row',
  alignItems: 'space-between',
 
- justifyContent:'flex-start'
 },
 eyeCon:{
-  paddingLeft:'10%',
-  paddingRight:'10%',
+  paddingLeft:'25%',
+  justifyContent:'flex-end'
 },
 });
