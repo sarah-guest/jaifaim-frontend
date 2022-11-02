@@ -43,13 +43,13 @@ export default function HomeScreen() {
           setMealsData(data.platsdujour)
 
           //PLATS DU JOUR UNIQUEMENT
-          //on récupère uniquement les plats du jour
-          setMealsOfTheDayData(mealsData.filter((e) => new Date(e.date).toDateString() === today))
+          //on récupère uniquement les plats du jour 
+          setMealsOfTheDayData(data.platsdujour.filter((e) => new Date(e.date).toDateString() === today))
         }
       });
   }, []);
 
-  //on affiche les plats DU JOUR
+  //on affiche les plats DU JOUR: P R O B L È M E — NE S'AFFICHE QUE LA 2E FOIS !!!
   const mealsOfTheDay = mealsOfTheDayData.map((data, i) => {
     const isLiked = liked.some((e) => e.meal === data.meal)
     return <Meal key={i} isLiked={isLiked} {...data} />;

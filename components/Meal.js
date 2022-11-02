@@ -17,7 +17,7 @@ import { likeMeal, unLikeMeal } from '../reducers/likedMeals';
 export default function Meal(props) {
     const { isScaledDown } = props;
     const scale = isScaledDown && {
-        width: 250,
+        width: 240,
     }
 
     //Import du reducer
@@ -34,13 +34,14 @@ export default function Meal(props) {
             dispatch(likeMeal(props))
         }
     }
+    const handlePageChangeOnClick = () => { }
 
     return (
         <View style={[styles.background, scale]} isScaledDown>
             <Image source={{ uri: props.src }} style={styles.images} />
-            <View style={styles.mealName}>
-                <View>
-                    <Title h5 isLight={true}>
+            <View style={styles.names}>
+                <View style={styles.mealName}>
+                    <Title h5 isLight={true} onPress={() => handlePageChangeOnClick()} >
                         {props.meal}
                     </Title>
                     <OurText body2 isLight={true}>
@@ -74,10 +75,13 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 15,
         marginBottom: 10,
     },
-    mealName: {
+    names: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+    },
+    mealName: {
+        flex: 1,
     },
     like: {
         justifyContent: 'center',
