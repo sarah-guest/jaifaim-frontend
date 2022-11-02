@@ -98,4 +98,6 @@ const styles = StyleSheet.create({
  
 },
 titre:{padding:'10%' ,},
+justifyContent: 'center',
+    alignItems: 'center',
 });

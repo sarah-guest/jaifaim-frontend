@@ -1,6 +1,6 @@
 const clara = '182';
 const lydie = '166';
-const sarah = '158';
+const sarah = '147';
 const chloe = '122';
 
 const user = sarah;
