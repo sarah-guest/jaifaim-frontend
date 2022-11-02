@@ -12,25 +12,27 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // STYLE NAVIGATION BAR
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // SCREENS
+import AskNameScreen from './screens/AskNameScreen';
+import DashboardScreen from './screens/DashboardScreen';
 import DemoScreen from './screens/DemoScreen';
 import EaterProviderScreen from './screens/EaterProviderScreen';
+import FaqScreen from './screens/FaqScreen';
 import HomeScreen from './screens/HomeScreen';
+import InfoRestaurantScreen from './screens/InfoRestaurantScreen';
+import InfoUserScreen from './screens/InfoUserScreen';
 import LandingScreen from './screens/LandingScreen';
 import MapScreen from './screens/MapScreen';
 import PdjFormScreen from './screens/PdjFormScreen';
+import PdjScreen from './screens/PdjScreen';
+import PreferencesScreen from './screens/PreferencesScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import SignInScreen from './screens/SignInScreen';
-import AskNameScreen from './screens/AskNameScreen';
-import InfoRestaurantScreen from './screens/InfoRestaurantScreen';
-import InfoUserScreen from './screens/InfoUserScreen';
-import UserPrefScreen from './screens/UserPrefScreen';
-import PreferencesScreen from './screens/PreferencesScreen';
 import SnapScreen from './screens/SnapScreen';
 import UserParametersScreen from './screens/UserParametersScreen';
-import WelcomeScreen from './screens/WelcomeScreen';
-import DashboardScreen from './screens/DashboardScreen';
+import UserPrefScreen from './screens/UserPrefScreen';
 import UserProfileScreen from './screens/UserProfileScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
 import { View, Image, StyleSheet } from 'react-native';
 
 const store = configureStore({
@@ -155,6 +157,7 @@ export default function App() {
             name="UserParameters"
             component={UserParametersScreen}
           />
+          <Stack.Screen name="Pdj" component={PdjScreen} />
           <Stack.Screen name="PdjForm" component={PdjFormScreen} />
           <Stack.Screen name="Dashboard" component={DashboardScreen} />
         </Stack.Navigator>
