@@ -68,11 +68,14 @@ export default function ProfileScreen({ route, navigation }) {
                 size={30}
                 color={convertColor('caféaulaitchaud')}
                 style={styles.icon}
-              />  {restaurantInfo.address.streetNumber}{' '}
+              />  
+              
+              {restaurantInfo.address.streetNumber}{' '}
                   {restaurantInfo.address.streetType}{' '}
                   {restaurantInfo.address.streetName}{' '}
                   {restaurantInfo.address.postCode}{' '}
                   {restaurantInfo.address.city}
+                  
 
                  
                 </Text>
@@ -111,15 +114,17 @@ export default function ProfileScreen({ route, navigation }) {
           style={styles.icons}
           backgroundColor={convertColor('poudrelibre')}
         >
-        
+          {restaurantInfo && (
+            <Text style={styles.restinfo}>
               <FontAwesome
             name={'cutlery'}
             size={50}
             color={convertColor('caféaulaitchaud')}
             style={styles.couteau}
           /> 
-              <Text> {restaurantInfo.platsdujour.name}</Text>
-        
+              {restaurantInfo.platsdujour[0].name}
+              </Text>
+          )}
 
           <FontAwesome
             name={'info-circle'}
