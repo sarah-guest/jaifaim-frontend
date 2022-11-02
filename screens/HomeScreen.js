@@ -32,41 +32,42 @@ export default function HomeScreen() {
     fetch(`http://${IP_ADDRESS}:3000/users/getplatsdujour`)
       .then((res) => res.json())
       .then((data) => {
-        //on set dans mealsData les données récoltées dans l'ordre du plus récent au plus ancien
         if (data !== null) {
+          //TOUS : on set dans mealsData les plats dans l'ordre du plus récent au plus ancien
           data.platsdujour = data.platsdujour.sort(function (a, b) {
             //on transforme les date en nombres et on les soustrait
             return new Date(b.date) - new Date(a.date);
           })
+          //on récupère les données triées
           setMealsData(data.platsdujour)
+
+          //PLATS DU JOUR UNIQUEMENT
+          //on récupère uniquement les plats du jour
+          const today = new Date().toDateString();
+          setMealsOfTheDayData(mealsData.filter((e) => new Date(e.date).toDateString() === today))
         }
       });
   }, []);
 
 
-  //on affiche les plats
+  //on affiche TOUS les plats
   const meals = mealsData.map((data, i) => {
     const isLiked = liked.some((e) => e.meal === data.meal)
     return <Meal key={i} isLiked={isLiked} {...data} />;
   });
 
-  //on affiche les plats du jour
+  //on affiche les plats DU JOUR
   const mealsOfTheDay = mealsOfTheDayData.map((data, i) => {
-    //const isLiked = liked.some((e) => e.meal === data.meal)
+    const isLiked = liked.some((e) => e.meal === data.meal)
     return <Meal key={i} isLiked={isLiked} {...data} />;
   });
 
-  //on affiche les plats recherchés
+  //on affiche les plats RECHERCHÉS
   const searchedMealsData = mealsData.filter((e) => e.meal === isSearched);
   const searchedMeals = searchedMealsData.map((data, i) => {
     const isLiked = liked.some((e) => e.meal === data.meal)
     return <Meal key={i} isLiked={isLiked} {...data} />;
   });
-
-  //on affiche les plats likés
-  // const likedMeals = liked.map((data, i) => {
-  //   return <Meal key={i} {...data} isLiked={true} />;
-  // });
 
   return (
     <ImageBackground
