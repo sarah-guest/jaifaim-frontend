@@ -4,7 +4,11 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ImageBackground,
+  SafeAreaView,
+  ScrollView,
 } from 'react-native';
+import SearchBar from '../components/SearchBar';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -28,19 +32,30 @@ export default function FaqScreen({ navigation, route }) {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <TextInput style={styles.input}> 🔎 Recherche </TextInput>
-      <Text style={styles.text}> FAQ </Text>
-    </View>
+    <ImageBackground
+    source={require('../assets/images/background.jpg')}
+    style={styles.background}
+    blurRadius={60}
+  >
+   <SafeAreaView style={styles.container}>
+        <SearchBar  />
+        <ScrollView showsVerticalScrollIndicator={false}></ScrollView>
+        </SafeAreaView >
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red',
+  },
+  container: {
+    
+    justifyContent: 'center',
+    alignItems: 'center',
+    
   },
   text: {
     backgroundColor: 'blue',

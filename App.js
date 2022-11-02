@@ -150,6 +150,7 @@ export default function App() {
           <Stack.Screen name="Preferences" component={PreferencesScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Snap" component={SnapScreen} />
+          <Stack.Screen name="Faq" component={FaqScreen} />
           <Stack.Screen
             name="UserParameters"
             component={UserParametersScreen}
