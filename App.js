@@ -30,6 +30,8 @@ import SnapScreen from './screens/SnapScreen';
 import UserParametersScreen from './screens/UserParametersScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import DashboardScreen from './screens/DashboardScreen';
+import UserProfileScreen from './screens/UserProfileScreen';
+import FaqScreen from './screens/FaqScreen';
 import { View, Image, StyleSheet } from 'react-native';
 
 const store = configureStore({
@@ -111,7 +113,7 @@ const TabNavigation = ({ route }) => {
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Map" component={MapScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={UserProfileScreen} />
     </Tab.Navigator>
   );
 
@@ -149,6 +151,7 @@ export default function App() {
           <Stack.Screen name="Preferences" component={PreferencesScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Snap" component={SnapScreen} />
+          <Stack.Screen name="Faq" component={FaqScreen} />
           <Stack.Screen
             name="UserParameters"
             component={UserParametersScreen}
