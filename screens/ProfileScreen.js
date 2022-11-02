@@ -37,7 +37,6 @@ export default function ProfileScreen({ route, navigation }) {
         setRestaurantInfo(rest.data);
 
         console.log(rest.data);
-        
       });
   }, []);
 
@@ -61,15 +60,23 @@ export default function ProfileScreen({ route, navigation }) {
         
         <Modal visible={modalVisible} animationType="slide" transparent>
           <View style={styles.modalView}>
-            <Text style={styles.restinfo}>
+            <View style={styles.restinfo}>
               <FontAwesome
                 name={'location-arrow'}
                 size={30}
                 color={convertColor('caféaulaitchaud')}
                 style={styles.icon}
-              /> 
-              {/* {restaurantInfo.address.streetNumber} {restaurantInfo.address.streetType} {restaurantInfo.address.streetName} {restaurantInfo.address.postCode} {restaurantInfo.address.city} */}
-            </Text>
+              />
+              {restaurantInfo && (
+                <Text>
+                  {restaurantInfo.address.streetNumber}{' '}
+                  {restaurantInfo.address.streetType}{' '}
+                  {restaurantInfo.address.streetName}{' '}
+                  {restaurantInfo.address.postCode}{' '}
+                  {restaurantInfo.address.city}
+                </Text>
+              )}
+            </View>
 
             <Text style={styles.restinfo}>
               <FontAwesome
@@ -77,7 +84,8 @@ export default function ProfileScreen({ route, navigation }) {
                 size={30}
                 color={convertColor('caféaulaitchaud')}
                 style={styles.icon}
-              />  {restaurantInfo.email}
+              />{' '}
+              {restaurantInfo.email}
             </Text>
             <Text style={styles.restinfo}>
               <FontAwesome
@@ -85,7 +93,8 @@ export default function ProfileScreen({ route, navigation }) {
                 size={30}
                 color={convertColor('caféaulaitchaud')}
                 style={styles.icon}
-              /> {restaurantInfo.phone}
+              />{' '}
+              {restaurantInfo.phone}
             </Text>
 
             <FontAwesome
