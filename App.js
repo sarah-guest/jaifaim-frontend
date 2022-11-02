@@ -31,6 +31,7 @@ import UserParametersScreen from './screens/UserParametersScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import UserProfileScreen from './screens/UserProfileScreen';
+import FaqScreen from './screens/FaqScreen';
 import { View, Image, StyleSheet } from 'react-native';
 
 const store = configureStore({
