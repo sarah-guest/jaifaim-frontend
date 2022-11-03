@@ -4,7 +4,7 @@ import OurTitle from './Title';
 import OurText from './OurText';
 import convertColor from '../modules/convertColor';
 // IMPORTS REDUCER
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // IMPORTS AUTRES
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import IP_ADDRESS from '../modules/ipAddress';
@@ -15,13 +15,18 @@ const MealCard = (props) => {
   const { address, dernierPlat, name, username } = restaurant;
   const { streetNumber, streetName, streetType, postCode, city } = address;
   const { description, src } = dernierPlat;
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
   const [isLiked, setIsLiked] = useState(null);
 
+  // Lors de l'initialisation du composant, récupère les favoris du user
   useEffect(() => {
-    // lorsque map est initialisée, obtiens les likes dans la db et mets les dans le reducer likesReducer
-    // lorsque mealcard est initialisé, si likesReducer.includes restaurant, setisliked(true);
+    fetch(`http://${IP_ADDRESS}:3000/users/${user.token}/likes`)
+      .then((response) => response.json())
+      .then((json) => {
+        const liked = json.data.collections.likes.restaurants;
+        const names = liked.map((liked) => liked.name);
+        names.includes(restaurant.name) && setIsLiked(true);
+      });
   }, []);
 
   const toggleLike = () => {
