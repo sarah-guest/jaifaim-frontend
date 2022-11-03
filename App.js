@@ -4,6 +4,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import user from './reducers/user';
 import restaurant from './reducers/restaurant';
 import likedMeals from './reducers/likedMeals';
+import modals from './reducers/modals';
 import temporary from './reducers/temporary';
 // NAVIGATION
 import { NavigationContainer } from '@react-navigation/native';
@@ -35,7 +36,7 @@ import FaqScreen from './screens/FaqScreen';
 import { View, Image, StyleSheet } from 'react-native';
 
 const store = configureStore({
-  reducer: { user, restaurant, likedMeals, temporary },
+  reducer: { user, restaurant, likedMeals, modals, temporary },
 });
 
 const getIconName = (routeName) => {
