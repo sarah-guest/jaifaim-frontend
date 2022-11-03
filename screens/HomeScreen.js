@@ -69,10 +69,6 @@ export default function HomeScreen() {
     return <Meal key={i} isLiked={isLiked} {...data} />;
   });
 
-  //on affiche les plats VÉGÉTARIENS
-  const vegeMeals = mealsData.filter((e) => e.diets.includes('végétarien'));
-  console.log(vegeMeals);
-
   return (
     <ImageBackground
       source={require('../assets/images/background.jpg')}
@@ -101,19 +97,20 @@ export default function HomeScreen() {
           )
             : (
               <View>
-                {/* MENUS DU JOUR */}
-                <Title h2 isLight={true}>
-                  Menus du jour
-                </Title>
-                <ScrollView
-                  style={styles.scroll}
-                  horizontal={true}
-                  showsVerticalScrollIndicator={false}
-                  showsHorizontalScrollIndicator={false}
-                >
-                  {mealsOfTheDay}
-                </ScrollView>
-
+                {mealsOfTheDay.length > 0 && <View>
+                  {/* MENUS DU JOUR */}
+                  <Title h2 isLight={true}>
+                    Menus du jour
+                  </Title>
+                  <ScrollView
+                    style={styles.scroll}
+                    horizontal={true}
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
+                  >
+                    {mealsOfTheDay}
+                  </ScrollView>
+                </View>}
 
                 {/* MENUS RÉCENTS */}
                 <Title h4 isLight={true}>

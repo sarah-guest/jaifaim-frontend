@@ -19,14 +19,14 @@ import convertColor from '../modules/convertColor';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import OurTitle from '../components/Title';
 import OurText from '../components/OurText';
+import Swiper from 'react-native-swiper';
 
 export default function ProfileScreen({ route, navigation }) {
   const restaurant = useSelector((state) => state.restaurant.value);
 
   const [restaurantInfo, setRestaurantInfo] = useState('');
-  const temporary = useSelector((state) => state.temporary.value);
-  const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
+ 
 
   useEffect(() => {
     fetch(`http://${IP_ADDRESS}:3000/restaurants/restaurant`, {
@@ -44,115 +44,120 @@ export default function ProfileScreen({ route, navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.view}>
-        <Image
-          style={styles.image}
-          source={require('../assets/images/avatarRestaurant.png')}
-        />
-        <Text style={styles.name}>{restaurantInfo.username} </Text>
-        
-        <Modal visible={modalVisible} animationType="slide" transparent>
-          <View style={styles.modalView}>
-            <View style={styles.restinfo}>
-              {/* <FontAwesome
-                name={'location-arrow'}
-                size={30}
-                color={convertColor('caféaulaitchaud')}
-                style={styles.icon}
-              /> */}
-              {restaurantInfo && (
+      {/* <View style={styles.view}> */}
+      <Image
+        style={styles.image}
+        source={require('../assets/images/avatarRestaurant.png')}
+      />
+      <Text style={styles.name}>{restaurantInfo.username} </Text>
+
+      <Modal visible={modalVisible} animationType="slide" transparent>
+        <View style={styles.modalView}>
+          <View>
+           
+            {restaurantInfo && (
+              <Text style={styles.restinfo}>
+                <FontAwesome
+                  name={'location-arrow'}
+                  size={30}
+                  color={convertColor('caféaulaitchaud')}
+                />  {restaurantInfo.address.streetNumber}{' '}
+                {restaurantInfo.address.streetType}{' '}
+                {restaurantInfo.address.streetName}{' '}
+                {restaurantInfo.address.postCode} {restaurantInfo.address.city}
                 
-                <Text style={styles.restinfo}>
-                  <FontAwesome
-                name={'location-arrow'}
-                size={30}
-                color={convertColor('caféaulaitchaud')}
-                style={styles.icon}
-              />  
-              
-              {restaurantInfo.address.streetNumber}{' '}
-                  {restaurantInfo.address.streetType}{' '}
-                  {restaurantInfo.address.streetName}{' '}
-                  {restaurantInfo.address.postCode}{' '}
-                  {restaurantInfo.address.city}
-                  
-
-                 
-                </Text>
-              )}
-            </View>
-
-            <Text style={styles.restinfo}>
-              <FontAwesome
-                name={'envelope'}
-                size={30}
-                color={convertColor('caféaulaitchaud')}
-                style={styles.icon}
-              />  {restaurantInfo.email}
-              
-            </Text>
-            <Text style={styles.restinfo}>
-              <FontAwesome
-                name={'phone'}
-                size={30}
-                color={convertColor('caféaulaitchaud')}
-                style={styles.icon}
-              />  {restaurantInfo.phone} 
-              
-            </Text>
-
-            <FontAwesome
-              name={'ban'}
-              size={50}
-              color={convertColor('caféaulaitchaud')}
-              style={styles.ban}
-              onPress={() => setModalVisible(false)}
-            />
+              </Text>
+            )}
           </View>
-        </Modal>
-        <View
-          style={styles.icons}
-          backgroundColor={convertColor('poudrelibre')}
-        >
-          {/* {restaurantInfo && (
-            <Text style={styles.restinfo}> */}
-              <FontAwesome
-            name={'cutlery'}
+
+          <Text style={styles.restinfo}>
+            <FontAwesome
+              name={'envelope'}
+              size={30}
+              color={convertColor('caféaulaitchaud')}
+            />   {restaurantInfo.email}
+            
+          </Text>
+          <Text style={styles.restinfo}>
+            <FontAwesome
+              name={'phone'}
+              size={30}
+              color={convertColor('caféaulaitchaud')}
+
+            />   {restaurantInfo.phone}
+           
+          </Text>
+
+          <FontAwesome
+            name={'ban'}
             size={50}
             color={convertColor('caféaulaitchaud')}
+            style={styles.ban}
+            onPress={() => setModalVisible(false)}
+          />
+        </View>
+      </Modal>
+      <View
+        style={styles.description}
+       
+      >
+        <View style={styles.icons}>
+          <FontAwesome
+            name={'cutlery'}
+            size={45}
+            color={convertColor('caféaulaitchaud')}
             style={styles.couteau}
-          /> 
-              {/* {restaurantInfo.platsdujour[0].name}
-              </Text>
-          )} */}
+          />
 
           <FontAwesome
             name={'info-circle'}
-            size={50}
+            size={45}
             color={convertColor('caféaulaitchaud')}
             style={styles.info}
             onPress={() => setModalVisible(true)}
           />
           <FontAwesome
             name={'comments'}
-            size={50}
+            size={45}
             color={convertColor('caféaulaitchaud')}
             style={styles.message}
             onPress={() => navigation.navigate('Faq')}
           />
-          <Text style={styles.acc}></Text>
         </View>
+        <View style={styles.restinfo}>
+          {restaurantInfo && (
+            <View>
+              <Text style={styles.restinfo}>
+                <FontAwesome
+                  name={'ship'}
+                  size={30}
+                  color={convertColor('caféaulaitchaud')}
+                />
+                {restaurantInfo.platsdujour[0].name}
+              </Text>
+              <Text style={styles.restinfo}>
+                <FontAwesome
+                  name={'hand-o-right'}
+                  size={30}
+                  color={convertColor('caféaulaitchaud')}
+                />
+                {restaurantInfo.platsdujour[0].description}
+               
+              </Text>
+            </View>
+          )}
+          
+        </View>
+        <Text style={styles.acc}></Text>
       </View>
     </SafeAreaView>
   );
 }
 
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'left',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#E6CCB3',
     alignItems: 'center',
@@ -170,43 +175,27 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  image: {
-    marginLeft: 90,
-  },
-
-  icons: {
-    flex: 2,
-    flexDirection: 'row',
+  description: {
+    justifyContent: 'space-between',
     marginTop: 40,
-    //height: 300,
+    height: '50%',
     borderRadius: 30,
-  },
-  couteau: {
-    marginRight: 80,
-    marginTop: 20,
-  },
-  info: {
-    marginRight: 80,
-    marginTop: 20,
-  },
-  message: {
-    marginRight: 10,
-    marginTop: 20,
+    width: 300,
+    padding: 20,
+    backgroundColor: convertColor('sable'),
   },
 
   modalView: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: 'white',
+    height: 400,
     borderRadius: 20,
     padding: 30,
-    width: 300,
-    marginTop: 400,
-    marginLeft: 45.5,
-    textAlign: 'start',
-    // fontSize: 59,
-
-    // alignItems: 'center',
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    marginLeft: 30,
+    marginRight: 30,
+    // top: 0,
+    bottom: 98,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -215,7 +204,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    backgroundColor: '#DDB892',
+    backgroundColor: convertColor('sable'),
   },
   image2: {
     height: 160,
@@ -225,38 +214,19 @@ const styles = StyleSheet.create({
   restinfo: {
     fontSize: 25,
     marginBottom: 30,
-    width: 290,
+    // marginLeft: 30,
+    // marginRight: 30,
     color: 'white',
+    paddingTop: 20,
   },
-  modalViewtwo: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    // backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 50,
-    width: 300,
-    marginTop: 400,
-    marginLeft: 45.5,
-    textAlign: 'start',
-    // fontSize: 59,
-
-    // alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-    backgroundColor: '#DDB892',
+  icons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingBottom: 20,
   },
-
-  button: {
-    backgroundColor: 'red',
-  },
-
-  icon: {
-    // paddingLeft: ,
+  
+  ban: {
+    paddingLeft: 110,
+    paddingTop: 40,
   },
 });

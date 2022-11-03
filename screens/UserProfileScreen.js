@@ -11,8 +11,14 @@ import {
 import OurTitle from '../components/Title';
 import OurText from '../components/OurText';
 import OurTag from '../components/Tag';
+import Collection from '../components/Collection';
 // IMPORTS REDUCER
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setShowBookmarks,
+  setShowLikes,
+  setShowVisited,
+} from '../reducers/modals';
 // IMPORTS AUTRES
 import convertColor from '../modules/convertColor';
 import IP_ADDRESS from '../modules/ipAddress';
@@ -20,6 +26,8 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 const UserProfileScreen = () => {
   const userReducer = useSelector((state) => state.user.value);
+  const modals = useSelector((state) => state.modals.value);
+  const dispatch = useDispatch();
   const [user, setUser] = useState({});
   const {
     collections,
@@ -53,12 +61,15 @@ const UserProfileScreen = () => {
     intolerances && intolerances.map((e, key) => <OurTag key={key} text={e} />);
 
   const CollectionCard = (props) => {
-    const { hasCustomMarginRight, icon, title } = props;
+    const { hasCustomMarginRight, icon, onPress, title } = props;
     const customMarginRight = hasCustomMarginRight && { marginRight: 16 };
 
     return (
-      <TouchableOpacity style={[styles.collectionCard, customMarginRight]}>
-        <OurTitle h5 isLight>
+      <TouchableOpacity
+        style={[styles.collectionCard, customMarginRight]}
+        onPress={() => onPress()}
+      >
+        <OurTitle h6 isLight>
           {title}
         </OurTitle>
         <FontAwesomeIcon
@@ -77,57 +88,86 @@ const UserProfileScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.informationHead}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: avatars.blue,
-          }}
-        />
-        <View style={styles.informationHeadText}>
-          <OurTitle h1>{firstname || userReducer.firstname}</OurTitle>
-          <OurText subtitle>@{username || userReducer.username}</OurText>
+    <>
+      <View style={styles.container}>
+        <View style={styles.informationHead}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: avatars.blue,
+            }}
+          />
+          <View style={styles.informationHeadText}>
+            <OurTitle h1>{firstname || userReducer.firstname}</OurTitle>
+            <OurText subtitle>@{username || userReducer.username}</OurText>
+          </View>
         </View>
-      </View>
-      <ScrollView style={styles.cards}>
-        <View style={styles.card}>
-          <OurTitle h3>Informations</OurTitle>
-          <View style={styles.informationBody}>
-            <View style={styles.section}>
-              <OurTitle h5>Mon profil gourmand</OurTitle>
-              <View style={styles.cloud}>
-                <OurTag text={profilGourmand} />
+        <ScrollView style={styles.cards} showsVerticalScrollIndicator={false}>
+          <View style={styles.card}>
+            <OurTitle h3>Informations</OurTitle>
+            <View style={styles.informationBody}>
+              <View style={styles.section}>
+                <OurTitle h5>Mon profil gourmand</OurTitle>
+                <View style={styles.cloud}>
+                  <OurTag text={profilGourmand} />
+                </View>
+              </View>
+              <View style={styles.section}>
+                <OurTitle h5>Mes préférences</OurTitle>
+                <View style={styles.cloud}>{dietsDom}</View>
+              </View>
+              <View>
+                <OurTitle h5>Mes allergies et intolérances</OurTitle>
+                <View style={styles.cloud}>{intolerancesDom}</View>
               </View>
             </View>
-            <View style={styles.section}>
-              <OurTitle h5>Mes préférences</OurTitle>
-              <View style={styles.cloud}>{dietsDom}</View>
-            </View>
-            <View>
-              <OurTitle h5>Mes allergies et intolérances</OurTitle>
-              <View style={styles.cloud}>{intolerancesDom}</View>
+          </View>
+          <View style={[styles.card, styles.lastCard]}>
+            <OurTitle h3>Collections</OurTitle>
+            <View style={[styles.informationBody, styles.collections]}>
+              <View style={styles.topCollection}>
+                <CollectionCard
+                  title="Favoris"
+                  icon="heart"
+                  onPress={() => dispatch(setShowLikes(true))}
+                />
+              </View>
+              <View style={styles.bottomCollections}>
+                <CollectionCard
+                  title="Sauvegardés"
+                  icon="bookmark"
+                  hasCustomMarginRight
+                  onPress={() => dispatch(setShowBookmarks(true))}
+                />
+                <CollectionCard
+                  title="Visités"
+                  icon="building"
+                  onPress={() => dispatch(setShowVisited(true))}
+                />
+              </View>
             </View>
           </View>
-        </View>
-        <View style={[styles.card, styles.lastCard]}>
-          <OurTitle h3>Collections</OurTitle>
-          <View style={[styles.informationBody, styles.collections]}>
-            <View style={styles.topCollection}>
-              <CollectionCard title="Favoris" icon="heart" />
-            </View>
-            <View style={styles.bottomCollections}>
-              <CollectionCard
-                title="Bientôt"
-                icon="bookmark"
-                hasCustomMarginRight
-              />
-              <CollectionCard title="Visités" icon="building" />
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-    </View>
+        </ScrollView>
+      </View>
+      {user.collections && modals.showBookmarks && (
+        <Collection
+          title={user.collections.bookmarks.name}
+          restaurants={user.collections.bookmarks.restaurants}
+        />
+      )}
+      {user.collections && modals.showLikes && (
+        <Collection
+          title={user.collections.likes.name}
+          restaurants={user.collections.likes.restaurants}
+        />
+      )}
+      {user.collections && modals.showVisited && (
+        <Collection
+          title={user.collections.visited.name}
+          restaurants={user.collections.visited.restaurants}
+        />
+      )}
+    </>
   );
 };
 
