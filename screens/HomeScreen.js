@@ -69,10 +69,6 @@ export default function HomeScreen() {
     return <Meal key={i} isLiked={isLiked} {...data} />;
   });
 
-  //on affiche les plats VÉGÉTARIENS
-  const vegeMeals = mealsData.filter((e) => e.diets.includes('végétarien'));
-  console.log(vegeMeals);
-
   return (
     <ImageBackground
       source={require('../assets/images/background.jpg')}

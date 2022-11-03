@@ -25,6 +25,13 @@ export default function MenuMore() {
         <View style={styles.menu}>
             <View style={[styles.link, styles.notLastLink]}>
                 <OurText body2
+                    onPress={() => navigation.navigate('Faq')}>
+                    FAQ
+                </OurText>
+                <FontAwesomeIcon name={'cog'} style={styles.icon} />
+            </View>
+            <View style={[styles.link, styles.notLastLink]}>
+                <OurText body2
                     onPress={() => navigation.navigate('UserParameters')}>
                     Paramètres
                 </OurText>
