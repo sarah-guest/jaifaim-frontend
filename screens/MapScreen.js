@@ -61,18 +61,20 @@ export default function MapScreen({ navigation, route }) {
   );
 
   const restaurantsDom = restaurants.map((restaurant, key) => {
-    return (
-      <Marker
-        key={key}
-        coordinate={{
-          latitude: restaurant.coordinates.latitude,
-          longitude: restaurant.coordinates.longitude,
-        }}
-        onPress={() => handleRestaurantIconPress(restaurant)}
-      >
-        <OurButton icon="heart" color="sable" />
-      </Marker>
-    );
+    if (restaurant.coordinates) {
+      return (
+        <Marker
+          key={key}
+          coordinate={{
+            latitude: restaurant.coordinates.latitude,
+            longitude: restaurant.coordinates.longitude,
+          }}
+          onPress={() => handleRestaurantIconPress(restaurant)}
+        >
+          <OurButton icon="heart" color="sable" />
+        </Marker>
+      );
+    }
   });
 
   return (
