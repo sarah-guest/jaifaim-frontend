@@ -22,6 +22,7 @@ import OurButton from '../components/Button';
 import convertColor from '../modules/convertColor';
 import OurText from '../components/OurText';
 import Title from '../components/Title';
+//Import du composant question/reponse
 import Toggle from '../components/Toggle';
 //Import FontAwesome
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -29,27 +30,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 export default function FaqScreen({ navigation, route }) {
 
   //On créer un état pour chaque bouton, sinon ils s'ouvrent tous au onPress
-  const [isHidden, setIsHidden] = useState(false);
-  const [isHidden1, setIsHidden1] = useState(false);
-  const [isHidden2, setIsHidden2] = useState(false);
-  const [isHidden3, setIsHidden3] = useState(false);
-  const [isHidden4, setIsHidden4] = useState(false);
-  //fonctions qui font apparaitre ou disparaitre la réponse
-  const handleToggle = () => {
-    setIsHidden(!isHidden);
-  };
-  const handleToggle1 = () => {
-    setIsHidden1(!isHidden1);
-  };
-  const handleToggle2 = () => {
-    setIsHidden2(!isHidden2);
-  };
-  const handleToggle3 = () => {
-    setIsHidden1(!isHidden1);
-  };
-  const handleToggle4 = () => {
-    setIsHidden2(!isHidden2);
-  };
+ 
 
   return (
     <ImageBackground

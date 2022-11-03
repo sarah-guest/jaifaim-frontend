@@ -9,7 +9,9 @@ import convertColor from '../modules/convertColor';
 
 export default function Toggle(props) {
     const { question, answer } = props
+//on créer les états
     const [isHidden, setIsHidden] = useState(false);
+//fonction qui fait apparaître ou disparaître la réponse
     const handleToggle = () => {
         setIsHidden(!isHidden);
       };
