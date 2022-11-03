@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 30,
     height: 30,
-    borderRadius: '50%',
+    borderRadius: 50,
   },
   restaurant: {
     backgroundColor: convertColor('sable'),
@@ -144,5 +144,5 @@ const styles = StyleSheet.create({
   markerIcon: {
     color: 'white',
     fontSize: 15,
-  }
+  },
 });
