@@ -1,4 +1,6 @@
+// IMPORTS REACT
 import { useState, useEffect } from 'react';
+// IMPORTS COMPOSANTS
 import {
   ImageBackground,
   SafeAreaView,
@@ -6,26 +8,21 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import { useSelector } from 'react-redux';
-//import fontAwesome
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-//imports de nos composants
 import SearchBar from '../components/SearchBar';
 import Meal from '../components/Meal';
 import Title from '../components/Title';
+// IMPORTS AUTRES
 import IP_ADDRESS from '../modules/ipAddress';
 import convertColor from '../modules/convertColor';
 
 export default function HomeScreen() {
-  //SI RECHERCHE on récupère le texte
+  // SI RECHERCHE on récupère le texte
   const [isSearched, setIsSearched] = useState('');
-  const searchMeal = search => search !== '' ? setIsSearched(search) : setIsSearched('')
+  const searchMeal = (search) =>
+    search !== '' ? setIsSearched(search) : setIsSearched('');
 
-  //on récupère les éléments likés
-  const liked = useSelector((state) => state.likedMeals.value);
-
-  //on crée un état dans lequel stocker les plats à afficher
-  //puis on récupère les plats du jour
+  // On crée un état dans lequel stocker les plats à afficher
+  // Puis on récupère les plats du jour
   const [mealsData, setMealsData] = useState([]);
   const [mealsOfTheDayData, setMealsOfTheDayData] = useState([]);
   const today = new Date().toDateString();
@@ -38,35 +35,40 @@ export default function HomeScreen() {
           data.platsdujour = data.platsdujour.sort(function (a, b) {
             //on transforme les date en nombres et on les soustrait
             return new Date(b.date) - new Date(a.date);
-          })
+          });
           //on récupère les données triées
-          setMealsData(data.platsdujour)
+          setMealsData(data.platsdujour);
 
           //PLATS DU JOUR UNIQUEMENT
-          //on récupère uniquement les plats du jour 
-          setMealsOfTheDayData(data.platsdujour.filter((e) => new Date(e.date).toDateString() === today))
+          //on récupère uniquement les plats du jour
+          setMealsOfTheDayData(
+            data.platsdujour.filter(
+              (e) => new Date(e.date).toDateString() === today
+            )
+          );
         }
       });
   }, []);
 
-  //on affiche les plats DU JOUR
+  // On affiche les plats DU JOUR
   const mealsOfTheDay = mealsOfTheDayData.map((data, i) => {
-    const isLiked = liked.some((e) => e.meal === data.meal)
-    return <Meal key={i} isLiked={isLiked} {...data} />;
+    return <Meal key={i} {...data} />;
   });
 
-  //on affiche TOUS les plats
-  const mealsWithoutToday = mealsData.filter((e) => new Date(e.date).toDateString() !== today)
+  // On affiche TOUS les plats
+  const mealsWithoutToday = mealsData.filter(
+    (e) => new Date(e.date).toDateString() !== today
+  );
   const meals = mealsWithoutToday.map((data, i) => {
-    const isLiked = liked.some((e) => e.meal === data.meal)
-    return <Meal isScaledDown={true} key={i} isLiked={isLiked} {...data} />;
+    return <Meal isScaledDown={true} key={i} {...data} />;
   });
 
-  //on affiche les plats RECHERCHÉS
-  const searchedMealsData = mealsData.filter((e) => e.meal.includes(isSearched));
+  // On affiche les plats RECHERCHÉS
+  const searchedMealsData = mealsData.filter((e) =>
+    e.meal.includes(isSearched)
+  );
   const searchedMeals = searchedMealsData.map((data, i) => {
-    const isLiked = liked.some((e) => e.meal === data.meal)
-    return <Meal key={i} isLiked={isLiked} {...data} />;
+    return <Meal key={i} {...data} />;
   });
 
   return (
@@ -78,7 +80,6 @@ export default function HomeScreen() {
       <SafeAreaView style={styles.container}>
         <SearchBar searchMeal={searchMeal} />
         <ScrollView showsVerticalScrollIndicator={false}>
-
           {isSearched !== '' ? (
             <View>
               {/* RECHERCHE */}
@@ -94,10 +95,10 @@ export default function HomeScreen() {
                 {searchedMeals}
               </ScrollView>
             </View>
-          )
-            : (
-              <View>
-                {mealsOfTheDay.length > 0 && <View>
+          ) : (
+            <View>
+              {mealsOfTheDay.length > 0 && (
+                <View>
                   {/* MENUS DU JOUR */}
                   <Title h2 isLight={true}>
                     Menus du jour
@@ -110,26 +111,26 @@ export default function HomeScreen() {
                   >
                     {mealsOfTheDay}
                   </ScrollView>
-                </View>}
+                </View>
+              )}
 
-                {/* MENUS RÉCENTS */}
-                <Title h4 isLight={true}>
-                  Menus récents
-                </Title>
-                <ScrollView
-                  style={styles.scroll}
-                  horizontal={true}
-                  showsVerticalScrollIndicator={false}
-                  showsHorizontalScrollIndicator={false}
-                >
-                  {meals}
-                </ScrollView>
-              </View>
-            )}
-
+              {/* MENUS RÉCENTS */}
+              <Title h4 isLight={true}>
+                Menus récents
+              </Title>
+              <ScrollView
+                style={styles.scroll}
+                horizontal={true}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+              >
+                {meals}
+              </ScrollView>
+            </View>
+          )}
         </ScrollView>
-      </SafeAreaView >
-    </ImageBackground >
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 
@@ -152,5 +153,5 @@ const styles = StyleSheet.create({
   deleteButton: {
     fontSize: 20,
     color: convertColor('sable'),
-  }
+  },
 });
