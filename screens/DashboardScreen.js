@@ -44,7 +44,7 @@ const DashboardScreen = ({ navigation }) => {
     {
       text: "Découvrir d'autres adresses",
       icon: 'map',
-      destination: 'Map',
+      destination: 'Carte',
       optionalStyling: 'lastBottomCard',
     },
   ];

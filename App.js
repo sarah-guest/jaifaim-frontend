@@ -43,7 +43,7 @@ const getIconName = (routeName) => {
   switch (routeName) {
     case 'Accueil': // commun: feed pour users, dashboard pour restaurants
       return 'home';
-    case 'Map': // users: vue restaurants
+    case 'Carte': // users: vue restaurants
       return 'map';
     case 'Profil': // commun
       return 'user';
@@ -113,7 +113,7 @@ const TabNavigation = ({ route }) => {
       })}
     >
       <Tab.Screen name="Accueil" component={HomeScreen} />
-      <Tab.Screen name="Map" component={MapScreen} />
+      <Tab.Screen name="Carte" component={MapScreen} />
       <Tab.Screen name="Profil" component={UserProfileScreen} />
     </Tab.Navigator>
   );
@@ -139,7 +139,7 @@ export default function App() {
             component={HomeScreen}
             options={{ animation: 'fade' }}
           />
-          <Stack.Screen name="Map" component={MapScreen} />
+          <Stack.Screen name="Carte" component={MapScreen} />
           <Stack.Screen name="SignIn" component={SignInScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="AskName" component={AskNameScreen} />
