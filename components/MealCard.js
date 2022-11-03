@@ -3,14 +3,61 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import OurTitle from './Title';
 import OurText from './OurText';
 import convertColor from '../modules/convertColor';
+// IMPORTS REDUCER
+import { useDispatch, useSelector } from 'react-redux';
 // IMPORTS AUTRES
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import IP_ADDRESS from '../modules/ipAddress';
+import { useEffect, useState } from 'react';
 
 const MealCard = (props) => {
   const { restaurant } = props;
-  const { address, name, dernierPlat } = restaurant;
+  const { address, dernierPlat, name, username } = restaurant;
   const { streetNumber, streetName, streetType, postCode, city } = address;
   const { description, src } = dernierPlat;
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
+  const [isLiked, setIsLiked] = useState(null);
+
+  useEffect(() => {
+    // lorsque map est initialisée, obtiens les likes dans la db et mets les dans le reducer likesReducer
+    // lorsque mealcard est initialisé, si likesReducer.includes restaurant, setisliked(true);
+  }, []);
+
+  const toggleLike = () => {
+    const data = {
+      userToken: user.token,
+      restaurantToken: restaurant.token,
+    };
+
+    if (!isLiked) {
+      // Change l'état et lance un re-render pour appliquer le style conditionnel
+      setIsLiked(true);
+      // Fetch la route qui ajoute le restaurant à user.collections.likes.restaurants
+      fetch(`http://${IP_ADDRESS}:3000/users/like`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json.log));
+    } else {
+      // Change l'état et lance un re-render pour appliquer le style conditionnel
+      setIsLiked(false);
+      // Fetch la route qui ajoute le restaurant à user.collections.likes.restaurants
+      fetch(`http://${IP_ADDRESS}:3000/users/dislike`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json.log));
+    }
+  };
 
   return (
     <View style={styles.mealCard}>
@@ -22,9 +69,10 @@ const MealCard = (props) => {
         <View style={styles.icons}>
           <FontAwesomeIcon
             style={styles.icon}
-            name="heart"
+            name={isLiked ? 'heart' : 'heart-o'}
             size={25}
             color={convertColor('cannelle')}
+            onPress={() => toggleLike()}
           />
           <FontAwesomeIcon
             style={styles.icon}
