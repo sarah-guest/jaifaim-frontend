@@ -52,7 +52,7 @@ const DashboardScreen = ({ navigation }) => {
   const ButtonSnap = () => (
     <TouchableOpacity
       style={[styles.buttonSnap, styles.card]}
-      onPress={() => navigation.navigate('Snap')}
+      onPress={() => navigation.navigate('Photo')}
     >
       <FontAwesomeIcon
         style={styles.icon}
