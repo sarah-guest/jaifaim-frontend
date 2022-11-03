@@ -1,7 +1,13 @@
 // IMPORTS REACT
 import { useEffect, useState } from 'react';
 // IMPORTS COMPOSANTS
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import OurTitle from '../components/Title';
 import OurText from '../components/OurText';
 import OurTag from '../components/Tag';
@@ -10,11 +16,19 @@ import { useSelector } from 'react-redux';
 // IMPORTS AUTRES
 import convertColor from '../modules/convertColor';
 import IP_ADDRESS from '../modules/ipAddress';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 const UserProfileScreen = () => {
   const userReducer = useSelector((state) => state.user.value);
   const [user, setUser] = useState({});
-  const { firstname, diets, intolerances, profilGourmand, username } = user;
+  const {
+    collections,
+    firstname,
+    diets,
+    intolerances,
+    profilGourmand,
+    username,
+  } = user;
 
   useEffect(() => {
     fetch(`http://${IP_ADDRESS}:3000/users/user`, {
@@ -38,11 +52,30 @@ const UserProfileScreen = () => {
   const intolerancesDom =
     intolerances && intolerances.map((e, key) => <OurTag key={key} text={e} />);
 
+  const CollectionCard = (props) => {
+    const { hasCustomMarginRight, icon, title } = props;
+    const customMarginRight = hasCustomMarginRight && { marginRight: 16 };
+
+    return (
+      <TouchableOpacity style={[styles.collectionCard, customMarginRight]}>
+        <OurTitle h5 isLight>
+          {title}
+        </OurTitle>
+        <FontAwesomeIcon
+          name={icon}
+          size={50}
+          color={convertColor('poudrelibre')}
+        />
+      </TouchableOpacity>
+    );
+  };
+
   const avatars = {
     purple: 'https://cdn-icons-png.flaticon.com/512/8583/8583723.png',
     blue: 'https://cdn-icons-png.flaticon.com/512/8583/8583722.png',
     beret: 'https://cdn-icons-png.flaticon.com/512/8583/8583721.png',
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.informationHead}>
@@ -57,7 +90,6 @@ const UserProfileScreen = () => {
           <OurText subtitle>@{username || userReducer.username}</OurText>
         </View>
       </View>
-
       <ScrollView style={styles.cards}>
         <View style={styles.card}>
           <OurTitle h3>Informations</OurTitle>
@@ -80,7 +112,19 @@ const UserProfileScreen = () => {
         </View>
         <View style={[styles.card, styles.lastCard]}>
           <OurTitle h3>Collections</OurTitle>
-          <View style={styles.informationBody}></View>
+          <View style={[styles.informationBody, styles.collections]}>
+            <View style={styles.topCollection}>
+              <CollectionCard title="Favoris" icon="heart" />
+            </View>
+            <View style={styles.bottomCollections}>
+              <CollectionCard
+                title="Bientôt"
+                icon="bookmark"
+                hasCustomMarginRight
+              />
+              <CollectionCard title="Visités" icon="building" />
+            </View>
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -138,6 +182,23 @@ const styles = StyleSheet.create({
   },
   lastCard: {
     marginBottom: 16,
+  },
+  collections: {
+    flex: 1,
+  },
+  collectionCard: {
+    height: 150,
+    flex: 1,
+    padding: 16,
+    justifyContent: 'space-between',
+    borderRadius: 20,
+    backgroundColor: convertColor('cannelle'),
+  },
+  topCollection: {
+    marginBottom: 16,
+  },
+  bottomCollections: {
+    flexDirection: 'row',
   },
 });
 

@@ -15,15 +15,16 @@ import Title from '../components/Title';
 import { likeMeal, unLikeMeal } from '../reducers/likedMeals';
 
 export default function Meal(props) {
+    const { isScaledDown } = props;
+    const scale = isScaledDown && {
+        width: 240,
+    }
+
     //Import du reducer
     const dispatch = useDispatch();
 
     //on récupère le tableau des like pour les tests : vérification de son contenu
     const liked = useSelector(state => state.user.value.liked)
-
-    //const [isLiked, setIsLiked] = useState(false);
-
-
     const handleLikeClick = () => {
         if (props.isLiked) {
             //si l'élément est dans le reducer, isLiked === true ; donc on l'enlève au clic
@@ -33,12 +34,15 @@ export default function Meal(props) {
             dispatch(likeMeal(props))
         }
     }
+    const handlePageChangeOnClick = () => {
+        props.selectMeal('CLICK OH');
+    }
 
     return (
-        <View style={styles.background}>
+        <View style={[styles.background, scale]} isScaledDown>
             <Image source={{ uri: props.src }} style={styles.images} />
-            <View style={styles.mealName}>
-                <View>
+            <View style={styles.names}>
+                <View style={styles.mealName} onPress={() => handlePageChangeOnClick()}>
                     <Title h5 isLight={true}>
                         {props.meal}
                     </Title>
@@ -73,10 +77,13 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 15,
         marginBottom: 10,
     },
-    mealName: {
+    names: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+    },
+    mealName: {
+        flex: 1,
     },
     like: {
         justifyContent: 'center',

@@ -96,7 +96,7 @@ export default function PreferencesScreen({ navigation, route }) {
           .then((response) => response.json())
           .then((data) => {
             if (data.result) {
-              navigation.navigate('TabNavigation', { type: 'restaurant' });
+              navigation.navigate('Welcome', { type: 'restaurant' });
               console.log(data.result);
             }
           });
