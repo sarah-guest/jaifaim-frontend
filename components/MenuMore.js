@@ -28,7 +28,7 @@ export default function MenuMore() {
                     onPress={() => navigation.navigate('Faq')}>
                     FAQ
                 </OurText>
-                <FontAwesomeIcon name={'cog'} style={styles.icon} />
+                <FontAwesomeIcon name={'question-circle'} style={styles.icon} />
             </View>
             <View style={[styles.link, styles.notLastLink]}>
                 <OurText body2

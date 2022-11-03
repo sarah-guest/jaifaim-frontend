@@ -34,7 +34,7 @@ export default function DemoScreen({ navigation }) {
           <Image source={require('../assets/images/TUTO4.jpeg')} style={styles.image} />
         </View>
         <View style={styles.slide2}>
-          <Image source={require('../assets/images/TUTO3.jpeg')} style={styles.image} />
+          <Image source={require('../assets/images/TUTO5.jpg')} style={styles.image} />
         </View>
         <View style={styles.slide2}>
           <Image source={require('../assets/images/TUTO2.jpeg')} style={styles.image} />

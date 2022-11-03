@@ -83,7 +83,7 @@ const UserProfileScreen = () => {
 
   const avatars = {
     purple: 'https://cdn-icons-png.flaticon.com/512/8583/8583723.png',
-    blue: 'https://cdn-icons-png.flaticon.com/512/8583/8583722.png',
+    blue: 'https://cdn-icons-png.flaticon.com/512/5286/5286352.png',
     beret: 'https://cdn-icons-png.flaticon.com/512/8583/8583721.png',
   };
 
@@ -185,9 +185,8 @@ const styles = StyleSheet.create({
     height: 120,
     width: 120,
     borderRadius: 100,
-    borderWidth: 1,
-    borderColor: convertColor('cannelle'),
-    backgroundColor: convertColor('sable'),
+    borderWidth: 4,
+    borderColor: 'black',
   },
   section: {
     marginBottom: 8,

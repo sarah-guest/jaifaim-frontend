@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 // IMPORTS COMPOSANTS
 import { Modal, ScrollView, Image, StyleSheet, Text, View } from 'react-native';
 import OurButton from '../components/Button';
+import Title from '../components/Title';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // IMPORTS REDUCER
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,7 +36,9 @@ export default function ProfileScreen({ route, navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <Image source={require('../assets/images/avatarRestaurant.png')} />
-      <Text style={styles.name}>{restaurantName}</Text>
+      <View style={styles.name}>
+        <Title h1>{restaurantName}</Title>
+      </View>
 
       <Modal visible={modalVisible} animationType="slide" transparent>
         <View style={styles.modalView}>
