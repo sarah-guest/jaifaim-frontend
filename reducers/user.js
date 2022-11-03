@@ -1,7 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: { username: null, password: null, email: null, token: null, firstName: null, pref: null, diet: [], intolerances: [] },
+  value: {
+    username: null,
+    password: null,
+    email: null,
+    token: null,
+    firstName: null,
+    pref: null,
+    diet: [],
+    intolerances: [],
+  },
 };
 
 export const userSlice = createSlice({
@@ -29,8 +38,15 @@ export const userSlice = createSlice({
     },
     getIntolerances: (state, action) => {
       state.value.intolerances.push(action.payload);
-    }
-  }
+    },
+  },
 });
-export const { signInUser, signOutUser, getFirstName, setProfilGourmand, getDiet, getIntolerances } = userSlice.actions;
+export const {
+  signInUser,
+  signOutUser,
+  getFirstName,
+  setProfilGourmand,
+  getDiet,
+  getIntolerances,
+} = userSlice.actions;
 export default userSlice.reducer;

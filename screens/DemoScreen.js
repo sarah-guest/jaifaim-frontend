@@ -20,7 +20,7 @@ export default function DemoScreen({ navigation }) {
       <View style={styles.title}>
         <Title h1 isCentered={true}>Tutoriel</Title>
       </View>
-
+      {/* On initialise le composant qui permettra le Swipe */}
       <Swiper style={styles.wrapper} showsButtons={true}
         prevButton={<Text style={styles.arrows}>‹</Text>}
         nextButton={<Text style={styles.arrows}>›</Text>}
