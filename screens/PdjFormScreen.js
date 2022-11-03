@@ -83,7 +83,7 @@ export default function PdjFormScreen({ navigation }) {
             .then((response) => response.json())
             .then((json) => {
               console.log(json.log);
-              navigation.navigate('Profile', { type: 'restaurant' });
+              navigation.navigate('Profil', { type: 'restaurant' });
               dispatch(clearPlatdujourPhoto());
             });
         }
@@ -92,7 +92,9 @@ export default function PdjFormScreen({ navigation }) {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
       <Image style={styles.image} source={temporary.platdujourPhoto} />
       <View style={styles.gauche}>
         <View style={styles.categorie}>
@@ -152,5 +154,5 @@ const styles = StyleSheet.create({
   },
   categorie: {
     marginBottom: 30,
-  }
+  },
 });

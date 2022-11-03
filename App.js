@@ -41,13 +41,13 @@ const store = configureStore({
 
 const getIconName = (routeName) => {
   switch (routeName) {
-    case 'Home': // commun: feed pour users, dashboard pour restaurants
+    case 'Accueil': // commun: feed pour users, dashboard pour restaurants
       return 'home';
     case 'Map': // users: vue restaurants
       return 'map';
-    case 'Profile': // commun
+    case 'Profil': // commun
       return 'user';
-    case 'Snap': // restaurants: prise photo plat du jour
+    case 'Photo': // restaurants: prise photo plat du jour
       return 'camera';
     case 'Questions': // restaurants: Q&A
       return 'comments';
@@ -84,9 +84,9 @@ const TabNavigation = ({ route }) => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Home" component={DashboardScreen} />
-      <Tab.Screen name="Snap" component={SnapScreen} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Accueil" component={DashboardScreen} />
+      <Tab.Screen name="Photo" component={SnapScreen} />
+      <Tab.Screen name="Profil" component={ProfileScreen} />
     </Tab.Navigator>
   );
 
@@ -112,9 +112,9 @@ const TabNavigation = ({ route }) => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Accueil" component={HomeScreen} />
       <Tab.Screen name="Map" component={MapScreen} />
-      <Tab.Screen name="Profile" component={UserProfileScreen} />
+      <Tab.Screen name="Profil" component={UserProfileScreen} />
     </Tab.Navigator>
   );
 
@@ -135,7 +135,7 @@ export default function App() {
           <Stack.Screen name="Demo" component={DemoScreen} />
           <Stack.Screen name="EaterProvider" component={EaterProviderScreen} />
           <Stack.Screen
-            name="Home"
+            name="Accueil"
             component={HomeScreen}
             options={{ animation: 'fade' }}
           />
@@ -151,7 +151,7 @@ export default function App() {
           <Stack.Screen name="UserPref" component={UserPrefScreen} />
           <Stack.Screen name="Preferences" component={PreferencesScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="Snap" component={SnapScreen} />
+          <Stack.Screen name="Photo" component={SnapScreen} />
           <Stack.Screen name="Faq" component={FaqScreen} />
           <Stack.Screen
             name="UserParameters"
