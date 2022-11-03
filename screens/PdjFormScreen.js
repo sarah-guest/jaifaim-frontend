@@ -95,20 +95,26 @@ export default function PdjFormScreen({ navigation }) {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
       <Image style={styles.image} source={temporary.platdujourPhoto} />
       <View style={styles.gauche}>
-        <Title h3={true}>Nom du plat</Title>
-        <OurTextInput
-          placeholder="Alokos"
-          onChangeText={(value) => setName(value)}
-        />
-        <Title h4={true}>Régimes compatibles</Title>
-        <View style={styles.tagCloud}>{dietsDom}</View>
-        <Title h4={true}>Description</Title>
-        <OurTextInput
-          multiline={true}
-          numberOfLines={4}
-          placeholder="Brève description du plat"
-          onChangeText={(value) => setDescription(value)}
-        ></OurTextInput>
+        <View style={styles.categorie}>
+          <Title h3={true}>Nom du plat</Title>
+          <OurTextInput
+            placeholder="Alokos"
+            onChangeText={(value) => setName(value)}
+          />
+        </View>
+        <View style={styles.categorie}>
+          <Title h4={true}>Régimes compatibles</Title>
+          <View style={styles.tagCloud}>{dietsDom}</View>
+        </View>
+        <View style={styles.categorie}>
+          <Title h4={true}>Description</Title>
+          <OurTextInput
+            multiline={true}
+            numberOfLines={4}
+            placeholder="Brève description du plat"
+            onChangeText={(value) => setDescription(value)}
+          ></OurTextInput>
+        </View>
       </View>
       <View style={styles.buttonValidate}>
         <OurButton
@@ -132,6 +138,7 @@ const styles = StyleSheet.create({
     height: 250,
     width: 350,
     marginVertical: 16,
+    borderRadius: 30,
   },
   tagCloud: {
     width: 350,
@@ -143,4 +150,7 @@ const styles = StyleSheet.create({
     bottom: 8,
     right: 16,
   },
+  categorie: {
+    marginBottom: 30,
+  }
 });

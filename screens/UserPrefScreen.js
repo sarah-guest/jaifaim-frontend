@@ -88,6 +88,7 @@ export default function UserPrefScreen({ navigation, route }) {
             />
           </View>
           <OurButton
+            onPress={() => getUserIntolerances()}
             color=""
             icon={'check'}
           ></OurButton>
