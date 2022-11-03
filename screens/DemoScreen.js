@@ -31,10 +31,16 @@ export default function DemoScreen({ navigation }) {
           <Image source={require('../assets/images/DEMO_screen1.png')} style={styles.image} />
         </View>
         <View style={styles.slide2}>
-          <Image source={require('../assets/images/DEMO_screen2.png')} style={styles.image} />
+          <Image source={require('../assets/images/TUTO4.jpeg')} style={styles.image} />
+        </View>
+        <View style={styles.slide2}>
+          <Image source={require('../assets/images/TUTO3.jpeg')} style={styles.image} />
+        </View>
+        <View style={styles.slide2}>
+          <Image source={require('../assets/images/TUTO2.jpeg')} style={styles.image} />
         </View>
         <View style={styles.slide3}>
-          <Image source={require('../assets/images/DEMO_screen3.png')} style={styles.image} />
+          <Image source={require('../assets/images/TUTO1.jpeg')} style={styles.image} />
         </View>
       </Swiper>
 
