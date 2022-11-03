@@ -101,19 +101,20 @@ export default function HomeScreen() {
           )
             : (
               <View>
-                {/* MENUS DU JOUR */}
-                <Title h2 isLight={true}>
-                  Menus du jour
-                </Title>
-                <ScrollView
-                  style={styles.scroll}
-                  horizontal={true}
-                  showsVerticalScrollIndicator={false}
-                  showsHorizontalScrollIndicator={false}
-                >
-                  {mealsOfTheDay}
-                </ScrollView>
-
+                {mealsOfTheDay.length > 0 && <View>
+                  {/* MENUS DU JOUR */}
+                  <Title h2 isLight={true}>
+                    Menus du jour
+                  </Title>
+                  <ScrollView
+                    style={styles.scroll}
+                    horizontal={true}
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
+                  >
+                    {mealsOfTheDay}
+                  </ScrollView>
+                </View>}
 
                 {/* MENUS RÉCENTS */}
                 <Title h4 isLight={true}>
