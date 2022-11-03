@@ -7,12 +7,11 @@ import Title from '../components/Title';
 export default function UserParametersScreen() {
     return (
         <View style={styles.container}>
-            <Title h2 isCentered={true}>Paramètres</Title>
-            <View>
-                <OurButton color='caféaulaitfroid' text='Profil' onPress={() => handleOnPress()} />
+            <Title h1 isCentered={true}>Paramètres</Title>
+            <View style={{ marginTop: 20 }}>
+                <OurButton color='caféaulaitfroid' text='Informations personnelles' onPress={() => handleOnPress()} />
                 <OurButton color='caféaulaitfroid' text='Confidentialité' onPress={() => handleOnPress()} />
-                <OurButton color='caféaulaitfroid' text='Géolocalisation' onPress={() => handleOnPress()} />
-                <OurButton color='caféaulaitfroid' text='Autres' onPress={() => handleOnPress()} />
+                <OurButton color='caféaulaitfroid' text='Sécurité' onPress={() => handleOnPress()} />
             </View>
         </View>
     );
