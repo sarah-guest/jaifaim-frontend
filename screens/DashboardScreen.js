@@ -171,7 +171,6 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: convertColor('poudrelibre'),
   },
   greeting: {
     marginBottom: 16,
@@ -225,7 +224,7 @@ const styles = StyleSheet.create({
     flex: 0.5,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: convertColor('oeufpérimé'),
+    backgroundColor: convertColor('sable'),
   },
   lastBottomCard: {
     marginBottom: 0,
@@ -233,13 +232,13 @@ const styles = StyleSheet.create({
   card: {
     padding: 16,
     borderRadius: 20,
-    shadowColor: convertColor('caféaulaitchaud'),
-    shadowOffset: {
-      height: 5,
-      width: 5,
-    },
-    shadowOpacity: 1,
-    elevation: 5,
+    // shadowColor: convertColor('caféaulaitchaud'),
+    // shadowOffset: {
+    //   height: 5,
+    //   width: 5,
+    // },
+    // shadowOpacity: 1,
+    // elevation: 5,
   },
   icon: {
     marginRight: 16,

@@ -1,7 +1,7 @@
 // IMPORTS REACT
 import { useState, useEffect } from 'react';
 // IMPORTS COMPOSANTS
-import { Modal, Image, StyleSheet, Text, View } from 'react-native';
+import { Modal, ScrollView, Image, StyleSheet, Text, View } from 'react-native';
 import OurButton from '../components/Button';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // IMPORTS REDUCER
@@ -16,6 +16,7 @@ export default function ProfileScreen({ route, navigation }) {
 
   const [restaurantInfo, setRestaurantInfo] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [restaurantName, setRestaurantName] = useState('')
 
   // On Récupère les informations des restaurants
   useEffect(() => {
@@ -27,14 +28,14 @@ export default function ProfileScreen({ route, navigation }) {
       .then((response) => response.json())
       .then((rest) => {
         setRestaurantInfo(rest.data);
-
+        setRestaurantName(rest.data.name)
       });
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <Image source={require('../assets/images/avatarRestaurant.png')} />
-      <Text style={styles.name}>{restaurantInfo.username} </Text>
+      <Text style={styles.name}>{restaurantName}</Text>
 
       <Modal visible={modalVisible} animationType="slide" transparent>
         <View style={styles.modalView}>
@@ -50,7 +51,7 @@ export default function ProfileScreen({ route, navigation }) {
                 {restaurantInfo.address.streetType}{' '}
                 {restaurantInfo.address.streetName}{' '}
                 {restaurantInfo.address.postCode} {restaurantInfo.address.city}
-                
+
               </Text>
             )}
           </View>
@@ -61,7 +62,7 @@ export default function ProfileScreen({ route, navigation }) {
               size={30}
               color={convertColor('caféaulaitchaud')}
             />   {restaurantInfo.email}
-            
+
           </Text>
           <Text style={styles.restinfo}>
             <FontAwesome
@@ -69,16 +70,17 @@ export default function ProfileScreen({ route, navigation }) {
               size={30}
               color={convertColor('caféaulaitchaud')}
             />   {restaurantInfo.phone}
-            
+
           </Text>
 
-          <FontAwesome
-            name={'ban'}
-            size={50}
-            color={convertColor('caféaulaitchaud')}
-            style={styles.ban}
-            onPress={() => setModalVisible(false)}
-          />
+          <View style={styles.close}>
+            <FontAwesome
+              name={'times'}
+              size={40}
+              color={convertColor('caféaulaitchaud')}
+              onPress={() => setModalVisible(false)}
+            />
+          </View>
         </View>
       </Modal>
       <View style={styles.description}>
@@ -108,14 +110,16 @@ export default function ProfileScreen({ route, navigation }) {
         <View style={styles.restinfo}>
           {/* Au chargement de la Page si les infos sont récupérées return les infos. */}
           {restaurantInfo && (
-            <View>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              style={{ height: '100%' }}>
               <Text style={styles.restinfo}>
                 <FontAwesome
                   name={'ship'}
                   size={30}
                   color={convertColor('caféaulaitchaud')}
                 />   {restaurantInfo.platsdujour[0].name}
-                
+
               </Text>
               <Text style={styles.restinfo}>
                 <FontAwesome
@@ -123,12 +127,12 @@ export default function ProfileScreen({ route, navigation }) {
                   size={30}
                   color={convertColor('caféaulaitchaud')}
                 />   {restaurantInfo.platsdujour[0].description}
-                
+
               </Text>
-            </View>
+            </ScrollView>
           )}
         </View>
-        
+
       </View>
     </SafeAreaView>
   );
@@ -139,7 +143,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#E6CCB3',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -154,17 +157,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
   },
-
   description: {
     justifyContent: 'space-between',
-    marginTop: 40,
+    marginBottom: 80,
     height: '50%',
     borderRadius: 30,
     width: 300,
     padding: 20,
     backgroundColor: convertColor('sable'),
   },
-
   modalView: {
     height: 400,
     borderRadius: 20,
@@ -199,11 +200,9 @@ const styles = StyleSheet.create({
   icons: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingBottom: 20,
   },
-
-  ban: {
-    paddingLeft: 110,
-    paddingTop: 40,
+  close: {
+    marginTop: 20,
+    alignItems: 'center',
   },
 });

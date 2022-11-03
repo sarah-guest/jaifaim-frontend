@@ -21,7 +21,7 @@ const convertColor = (name) => {
     case 'océan':
       return '#1D487F';
     case 'poudrelibre':
-      return '#FFEAD1';
+      return '#f4ebe1';
     case 'transparent':
       return 'transparent';
     default:

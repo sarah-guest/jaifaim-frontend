@@ -1,7 +1,7 @@
 // IMPORTS REACT
 import { useEffect, useState } from 'react';
 // IMPORTS COMPOSANTS
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
 import OurButton from '../components/Button';
 import OurTag from '../components/Tag';
 import OurTextInput from '../components/TextInput';
@@ -91,7 +91,8 @@ export default function PdjFormScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
       <Image style={styles.image} source={temporary.platdujourPhoto} />
       <View style={styles.gauche}>
         <Title h3={true}>Nom du plat</Title>
@@ -116,7 +117,7 @@ export default function PdjFormScreen({ navigation }) {
           color="cannelle"
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 32,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   image: {
