@@ -121,9 +121,7 @@ const DashboardScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.greeting}>
         <OurTitle h2>Mon espace</OurTitle>
-        {/* Stretch : mettre le name du restaurant au lieu de son username */}
-        {/* Cela impliquerait de modifier signInRestaurant dans le reducer restaurant */}
-        <OurTitle h4>{restaurant.username}</OurTitle>
+        <OurTitle h4>{restaurant.name}</OurTitle>
       </View>
       {restaurant.platdujour ? (
         <MealPreview platdujour={restaurant.platdujour} />
