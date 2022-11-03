@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import convertColor from '../modules/convertColor';
 
-export default function OurButton(props) {
+export default function OurTag(props) {
   const { isPressed, onPress, text } = props;
 
   const isPressedStyle = isPressed && {

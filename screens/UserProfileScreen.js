@@ -179,7 +179,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    backgroundColor: convertColor('poudrelibre'),
     overflow: 'scroll',
   },
   image: {
