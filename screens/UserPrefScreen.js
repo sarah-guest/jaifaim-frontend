@@ -1,4 +1,4 @@
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView } from 'react-native';
 import { useState } from 'react';
 //import de nos composants
 import Title from '../components/Title';
@@ -44,61 +44,64 @@ export default function UserPrefScreen({ navigation, route }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.result) {
-          navigation.navigate('TabNavigation', { type: 'user' });
+          navigation.navigate('Welcome', { type: 'user' });
         }
       });
   };
 
   return (
-    <View>
-      <View style={styles.titre}>
-        <Title h2 h1={true}>
-          Dernières précisions
-        </Title>
-      </View>
-      <Title h5>
-        Tu peux préciser un régime allimentaire
-      </Title>
-
-      <View style={styles.buttons}>
-        <OurButton text='Végétarien' onPress={() => getUserDiet('Vegératien')} />
-        <OurButton text='Végan' onPress={() => getUserDiet('Végan')} />
-        <OurButton text='Homnivore' onPress={() => getUserDiet('Homnivore')} />
-        <OurButton text='Grossesse' onPress={() => getUserDiet('Grossesse')} />
-        <OurButton text='Sans gluten' onPress={() => getUserDiet('Sans gluten')} />
-        <OurButton text='Crudivore' onPress={() => getUserDiet('Crudivore')} />
-        <OurButton text='Paléo' onPress={() => getUserDiet('Paléo')} />
-        <OurButton text='Bec Sucré' onPress={() => getUserDiet('Bec Sucré')} />
-        <OurButton text='Faible en glycémie' onPress={() => getUserDiet('Faible en glycémie')} />
-        <OurButton text='Hallal' onPress={() => getUserDiet('Hallal')} />
-        <OurButton text='Casher' onPress={() => getUserDiet('Casher')} />
-
-      </View>
-      <Title h5>
-        Tu peux aussi nous indiquer tes allergies et/ou intolérances
-      </Title>
-      <View styles={styles.intolerances}>
-        <View style={styles.input}>
-          <OurTextInput
-            placeholder="Arachide, gluten..."
-            onChangeText={(value) => setAllergie(value)}
-            value={allergie}
-          />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <View>
+        <View style={styles.titre}>
+          <Title h2 h1={true}>
+            Dernières précisions
+          </Title>
         </View>
-        <View style={styles.valider}></View>
-        <OurButton
-          text="C'est tout bon"
-          onPress={getUserIntolerances}
-        ></OurButton>
+        <Title h5>
+          Tu peux préciser un régime allimentaire
+        </Title>
+
+        <View style={styles.buttons}>
+          <OurButton text='Végétarien' onPress={() => getUserDiet('Vegératien')} />
+          <OurButton text='Végan' onPress={() => getUserDiet('Végan')} />
+          <OurButton text='Homnivore' onPress={() => getUserDiet('Homnivore')} />
+          <OurButton text='Grossesse' onPress={() => getUserDiet('Grossesse')} />
+          <OurButton text='Sans gluten' onPress={() => getUserDiet('Sans gluten')} />
+          <OurButton text='Crudivore' onPress={() => getUserDiet('Crudivore')} />
+          <OurButton text='Paléo' onPress={() => getUserDiet('Paléo')} />
+          <OurButton text='Bec Sucré' onPress={() => getUserDiet('Bec Sucré')} />
+          <OurButton text='Faible en glycémie' onPress={() => getUserDiet('Faible en glycémie')} />
+          <OurButton text='Hallal' onPress={() => getUserDiet('Hallal')} />
+          <OurButton text='Casher' onPress={() => getUserDiet('Casher')} />
+
+        </View>
+        <Title h5>
+          Tu peux aussi nous indiquer tes allergies et/ou intolérances
+        </Title>
+        <View styles={styles.intolerances}>
+          <View style={styles.input}>
+            <OurTextInput
+              placeholder="Arachide, gluten..."
+              onChangeText={(value) => setAllergie(value)}
+              value={allergie}
+            />
+          </View>
+          <View style={styles.valider}></View>
+          <OurButton
+            text="C'est tout bon"
+            onPress={getUserIntolerances}
+          ></OurButton>
+        </View>
+        <View style={styles.button}>
+          <OurButton
+            onPress={sendUserInfo}
+            icon={'arrow-circle-right'}
+          >
+          </OurButton>
+        </View>
       </View>
-      <View style={styles.button}>
-        <OurButton
-          onPress={sendUserInfo}
-          icon={'arrow-circle-right'}
-        >
-        </OurButton>
-      </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
