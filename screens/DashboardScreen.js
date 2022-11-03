@@ -142,7 +142,10 @@ const DashboardScreen = ({ navigation }) => {
             color={convertColor('poudrelibre')}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.midright, styles.card]}>
+        <TouchableOpacity
+          style={[styles.midright, styles.card]}
+          onPress={() => navigation.navigate('Faq')}
+        >
           <OurTitle isLight h5>
             Messages
           </OurTitle>
