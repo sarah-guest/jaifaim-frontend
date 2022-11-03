@@ -6,6 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import TextInput from '../components/TextInput';
 import OurButton from '../components/Button';
 import OurText from '../components/OurText';
+import Title from '../components/Title';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInUser } from '../reducers/user';
 import { signInRestaurant } from '../reducers/restaurant';
@@ -79,7 +80,12 @@ export default function SignInScreen({ navigation, route }) {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
       >
-        <OurText body1>Utilisateur</OurText>
+        <View style={styles.titre}>
+          <Title h1>Bref,</Title>
+          <OurText body2>
+            J'AI FAIM
+          </OurText>
+        </View>
         <View style={styles.inputs}>
           <TextInput
             placeholder="Username"
@@ -103,7 +109,7 @@ export default function SignInScreen({ navigation, route }) {
         </View>
         {error && <OurText body2>Ce compte n'existe pas</OurText>}
         <OurButton
-          text="je me connecte"
+          text="Je me connecte"
           color="caféaulaitchaud"
           onPress={handleConnection}
         ></OurButton>
@@ -118,7 +124,12 @@ export default function SignInScreen({ navigation, route }) {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}
       >
-        <OurText body1>Restaurant</OurText>
+        <View style={styles.titre}>
+          <Title h1>Bref,</Title>
+          <OurText body2>
+            J'AI À MANGER
+          </OurText>
+        </View>
         <View style={styles.inputs}>
           <TextInput
             width={true}
@@ -157,14 +168,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  titre: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
   inputs: {
     marginLeft: 20,
     marginRight: 20,
     marginTop: 20,
   },
   password: {
-    marginTop: 10,
-    marginBottom: 20,
+    marginTop: 20,
+    marginBottom: 40,
     flexDirection: 'row',
     alignItems: 'space-between',
   },

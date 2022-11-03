@@ -8,6 +8,7 @@ import { signInUser } from '../reducers/user';
 import { signInRestaurant } from '../reducers/restaurant';
 //Import de nos composants
 import OurButton from '../components/Button';
+import OurText from '../components/OurText';
 import OurTextInput from '../components/TextInput';
 import Title from '../components/Title';
 
@@ -23,6 +24,8 @@ export default function SignInScreen({ navigation, route }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState(null);
   const [passwordVisible, setPasswordVisible] = useState(true);
+
+  const [error, setError] = useState(false);
 
   //On crée la fonction d'inscription
   const handleRegister = () => {
@@ -44,42 +47,50 @@ export default function SignInScreen({ navigation, route }) {
       whichPassword = password;
     }
 
-
     if (type === 'user') {
-      dispatch(signInUser({ username: whichUser, email: whichEmail, password: whichPassword }));
-      navigation.navigate('AskName', { type: 'user' });
+      if (user !== '' && email !== '' && password !== '') {
+        dispatch(signInUser({ username: whichUser, email: whichEmail, password: whichPassword }));
+        navigation.navigate('AskName', { type: 'user' });
+        setError(false)
+      } else {
+        setError(true)
+      }
     } else if (type === 'restaurant') {
-      dispatch(signInRestaurant({ username: whichUser, email: whichEmail, password: whichPassword }));
-      navigation.navigate('AskName', { type: 'restaurant' });
+      if (name !== '' && email !== '' && password !== '') {
+        dispatch(signInRestaurant({ username: whichUser, email: whichEmail, password: whichPassword }));
+        navigation.navigate('AskName', { type: 'restaurant' });
+        setError(false)
+      } else {
+        setError(true)
+      }
     }
 
   };
   //Si on s'incrit en tant qu'utilisateur
   if (type === 'user') {
     return (
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}>
-      
-         <View style={styles.Inputs} width={'70%'}>
-         <View style={styles.titre}>
-        <Title h1>Bref,</Title>
-         <Title  h2>
-           J'ai faim
-          </Title>
-          </View>
-        <OurTextInput
-          placeholder="New name"
-          onChangeText={(value) => SetUser(value)}
-          value={user}
-        />
-        <OurTextInput
-          placeholder="New email"
-          onChangeText={(value) => setEmail(value)}
-          value={email}
-        />
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
+        <View style={styles.titre}>
+          <Title h1>Bref,</Title>
+          <OurText body2>
+            J'AI FAIM
+          </OurText>
+        </View>
+        <View style={styles.Inputs}>
+          <View style={styles.input}>
+            <OurTextInput
+              placeholder="Username"
+              onChangeText={(value) => SetUser(value)}
+              value={user}
+            /></View>
+          <View style={styles.input}>
+            <OurTextInput
+              placeholder="Email"
+              onChangeText={(value) => setEmail(value)}
+              value={email}
+            /></View>
 
-<View style={styles.password}>
+          <View style={styles.password}>
             <OurTextInput
               placeholder="Mot de passe"
               onChangeText={(value) => setPassword(value)}
@@ -88,46 +99,50 @@ export default function SignInScreen({ navigation, route }) {
               width={true}
             />
             <View style={styles.eyeCon}>
-            <FontAwesome
-              style={styles.showHide}
-              name={passwordVisible ? 'eye' : 'eye-slash'}
-              size={25}
-              onPress={() => setPasswordVisible(!passwordVisible)}
-            />
+              <FontAwesome
+                style={styles.showHide}
+                name={passwordVisible ? 'eye' : 'eye-slash'}
+                onPress={() => setPasswordVisible(!passwordVisible)}
+              />
             </View>
           </View>
 
-        <OurButton
-          text="Je m'inscris"
-          color="caféaulaitchaud"
-          onPress={handleRegister}
-        />
+          {error && <OurText body2>Informations manquantes</OurText>}
+          <OurButton
+            text="Je m'inscris"
+            color="caféaulaitchaud"
+            onPress={handleRegister}
+          />
         </View>
-        </KeyboardAvoidingView> 
+      </KeyboardAvoidingView>
     );
   }
   else if (type === 'restaurant') {
-//si on s'incrit en tant que restaurant
+    //si on s'incrit en tant que restaurant
     return (
-      <View style={styles.container}>
-       <View style={styles.Inputs} width={'70%'}> 
-       <View style={styles.titre}>
-        <Title h1>Bref,</Title>
-         <Title  h2>
-           J'ai à manger
-          </Title>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
+        <View style={styles.titre}>
+          <Title h1>Bref,</Title>
+          <OurText body2>
+            J'AI À MANGER
+          </OurText>
+        </View>
+        <View style={styles.Inputs}>
+          <View style={styles.input}>
+            <OurTextInput
+              placeholder="Nom du restaurant"
+              onChangeText={(value) => setName(value)}
+              value={name}
+            />
           </View>
-        <OurTextInput
-          placeholder="New name"
-          onChangeText={(value) => setName(value)}
-          value={name}
-        />
-        <OurTextInput
-          placeholder="New email"
-          onChangeText={(value) => setEmail(value)}
-          value={email}
-        />
-       <View style={styles.password}>
+          <View style={styles.input}>
+            <OurTextInput
+              placeholder="Email"
+              onChangeText={(value) => setEmail(value)}
+              value={email}
+            />
+          </View>
+          <View style={styles.password}>
             <OurTextInput
               placeholder="Mot de passe"
               onChangeText={(value) => setPassword(value)}
@@ -136,55 +151,59 @@ export default function SignInScreen({ navigation, route }) {
               width={true}
             />
             <View style={styles.eyeCon}>
-            <FontAwesome
-              style={styles.showHide}
-              name={passwordVisible ? 'eye' : 'eye-slash'}
-              size={25}
-              onPress={() => setPasswordVisible(!passwordVisible)}
-            />
-            </View>            
+              <FontAwesome
+                style={styles.showHide}
+                name={passwordVisible ? 'eye' : 'eye-slash'}
+                size={25}
+                onPress={() => setPasswordVisible(!passwordVisible)}
+              />
+            </View>
           </View>
-       
-        <OurButton
-          text="Je m'inscris"
-          color="caféaulaitchaud"
-          onPress={handleRegister}
-        />
- </View>
-      </View>
+
+          {error && <OurText body2>Informations manquantes</OurText>}
+          <OurButton
+            text="Je m'inscris"
+            color="caféaulaitchaud"
+            onPress={handleRegister}
+          />
+        </View>
+      </KeyboardAvoidingView>
     );
   }
 }
 
-
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'center', 
+    backgroundColor: '#ffffff',
   },
-  titre:{
-  
-  justifyContent:'center',
-  alignItems: 'center',
+  titre: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
- Inputs: {
-  flex:1,
-  paddingTop:'20%',
-  justifyContent: 'space-evenly',
-   marginBottom:'20%',
-  
- },
- password:{
-flexDirection: 'row',
- alignItems: 'space-between',
-
-},
-eyeCon:{
-  paddingLeft:'25%',
-  justifyContent:'flex-end'
-},
+  Inputs: {
+    paddingTop: 20,
+    // justifyContent: 'space-around',
+    marginBottom: 20,
+  },
+  input: {
+    marginTop: 20,
+  },
+  password: {
+    marginTop: 20,
+    marginBottom: 20,
+    flexDirection: 'row',
+    alignItems: 'space-between',
+  },
+  eyeCon: {
+    paddingLeft: 10,
+    justifyContent: 'flex-end'
+  },
+  showHide: {
+    marginLeft: 15,
+    marginBottom: 10,
+    fontSize: 20,
+  },
 });

@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image } from 'react-native';
+import { KeyboardAvoidingView, View, StyleSheet, Image } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { getFirstName } from '../reducers/user';
@@ -47,47 +47,47 @@ export default function AskNameScreen({ navigation, route }) {
   if (type === 'user') {
     return (
 
-      <View style={styles.container}>
-    <View  style={styles.titre}>
-        <Title h2>Comment voudrais-tu que l'on t'appelle ?</Title>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
+        <View style={styles.titre}>
+          <Title h2 isCentered>Comment voudrais-tu qu'on t'appelle ?</Title>
         </View>
-        <View style={styles.Inputs} width={'70%'}>
-        <OurTextInput
-          placeholder="Prénom"
-          onChangeText={(value) => setFirstname(value)}
-          value={firstname}
-        />
-         </View>
-        <View styles={styles.inscription} width={'70%'}>
-        <OurButton
-          text="Je m'inscris"
-          color="caféaulaitchaud"
-          onPress={myNameIs} />
-         
-          </View>
-      </View>
+        <View style={styles.Inputs} width={'50%'}>
+          <OurTextInput
+            placeholder="Prénom"
+            onChangeText={(value) => setFirstname(value)}
+            value={firstname}
+          />
+        </View>
+        <View styles={styles.inscription} width={'50%'}>
+          <OurButton
+            text="Je m'inscris"
+            color="caféaulaitchaud"
+            onPress={myNameIs} />
+
+        </View>
+      </KeyboardAvoidingView>
     );
   } else if (type === 'restaurant') {
     return (
 
       <View style={styles.container}>
-        <View  style={styles.titre}>
-        <Title h2>Quel est le nom de votre commerce ?</Title>
+        <View style={styles.titre}>
+          <Title h2>Quel est le nom de votre commerce ?</Title>
         </View>
-        <View style={styles.Inputs} width={'70%'}>
-        <OurTextInput
-          placeholder="Nom du restaurant"
-          onChangeText={(value) => setRestaurantName(value)}
-          value={restaurantName}
-        />
+        <View style={styles.Inputs} width={'50%'}>
+          <OurTextInput
+            placeholder="Nom du restaurant"
+            onChangeText={(value) => setRestaurantName(value)}
+            value={restaurantName}
+          />
         </View>
-        <View styles={styles.inscription} width={'70%'}>
-        <OurButton
-          text="Je m'inscris"
-          color="caféaulaitchaud"
-          onPress={myNameIs} />
-          </View>
-          
+        <View styles={styles.inscription} width={'50%'}>
+          <OurButton
+            text="Je m'inscris"
+            color="caféaulaitchaud"
+            onPress={myNameIs} />
+        </View>
+
       </View>
     );
   }
@@ -98,17 +98,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  Inputs:{
-    marginTop:'10%',
+  Inputs: {
+    marginTop: '10%',
     justifyContent: 'space-evenly',
-    marginBottom:'10%'
-},
-titre:{padding:'10%' ,
-justifyContent: 'center',
+    marginBottom: '10%',
+  },
+  titre: {
+    padding: 30,
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  inscription:{
-    paddingTop:'20%'
+  inscription: {
+    paddingTop: '20%'
   },
 
 });

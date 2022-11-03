@@ -9,10 +9,10 @@ import OurButton from '../components/Button';
 
 export default function InfoScreen({ navigation, route }) {
     const dispatch = useDispatch();
-    
-   // type='user'
+
+    // type='user'
     const user = useSelector(state => state.user.value);
-//fonction qui récuppère les infos des boutons et le mets dans le reducer
+    //fonction qui récuppère les infos des boutons et le mets dans le reducer
     const addInfo = (profilGourmand) => {
         dispatch(setProfilGourmand(profilGourmand));
         navigation.navigate('UserPref');
@@ -22,15 +22,15 @@ export default function InfoScreen({ navigation, route }) {
     return (
         <View style={styles.container}>
             <View style={styles.titre}>
-        <Title h2> Quel type d'endroit cherches-tu?</Title>
+                <Title h2 isCentered> Quel type d'endroit cherches-tu?</Title>
             </View>
-        <View style={styles.buttons}>
-            <OurButton text='Restaurant Familial' onPress={() => addInfo('Familial')} />
-            <OurButton text='Café Cozy' onPress={() => addInfo('Café Cozy')} />
-            <OurButton text='Fin Gourmet' onPress={() => addInfo('Fin Gourmet')} />
-            <OurButton text='Fin du mois' onPress={() => addInfo('Fin du mois')} />
-            <OurButton text='Bistronomie' onPress={() => addInfo('Familial')} />
-            <OurButton text='Surprenez moi !' onPress={() => addInfo('Surprenez moi')} />
+            <View style={styles.buttons}>
+                <OurButton color="caféaulaitchaud" text='Restaurant Familial' onPress={() => addInfo('Familial')} />
+                <OurButton color="caféaulaitchaud" text='Café Cozy' onPress={() => addInfo('Café Cozy')} />
+                <OurButton color="caféaulaitchaud" text='Fin Gourmet' onPress={() => addInfo('Fin Gourmet')} />
+                <OurButton color="caféaulaitchaud" text='Fin du mois' onPress={() => addInfo('Fin du mois')} />
+                <OurButton color="caféaulaitchaud" text='Bistronomie' onPress={() => addInfo('Familial')} />
+                <OurButton color="caféaulaitchaud" text='Surprenez moi !' onPress={() => addInfo('Surprenez moi')} />
             </View>
         </View>
     );
@@ -42,18 +42,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    titre:{
-        marginTop:'30%',
-        justifyContent:'center',
-        alignItems:'center',
-        paddingBottom:'10%'
+    titre: {
+        marginTop: '30%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingBottom: '10%'
     },
-    buttons:{
-        marginTop:'10%',
-        flex:1,
-        
-     
+    buttons: {
+        marginTop: '10%',
+        flex: 1,
+
+
     },
 });
-     //  <Title name={styles.titre} 
+     //  <Title name={styles.titre}
      //h5={true}>Je suis plutôt</Title>   
