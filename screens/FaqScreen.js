@@ -1,5 +1,6 @@
 import {
   StyleSheet,
+  Modal,
   Text,
   TextInput,
   TouchableOpacity,
@@ -18,68 +19,53 @@ import IP_ADDRESS from '../modules/ipAddress';
 //Import de nos composants
 import OurTextInput from '../components/TextInput';
 import OurButton from '../components/Button';
-
+import convertColor from '../modules/convertColor';
+import OurText from '../components/OurText';
+import Title from '../components/Title';
+//Import du composant question/reponse
+import Toggle from '../components/Toggle';
+//Import FontAwesome
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 export default function FaqScreen({ navigation, route }) {
-  const restaurant = useSelector((state) => state.restaurant.value);
-  const [answer, setAnswer] = useState('');
-  const [question, setQuestion] = useState('');
-  const [date, setDate] = useState('2050-11-22T23:59:59');
 
- // let { type } = route.params;
-    
-	useEffect(() => {
-		setDate(new Date());
-	}, []);
-  const askQuestion = () => {
-    
-      fetch(`http://${IP_ADDRESS}:3000/askquestion/:token`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-           date: Date,
-           message: question,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data.message, "C'est la réponse!")
-          if (type === 'user') {
-           
-            if(data.result){
-            setQuestion('');
-          }}
-        });
-    
-  };
+  //On créer un état pour chaque bouton, sinon ils s'ouvrent tous au onPress
+ 
 
   return (
     <ImageBackground
       source={require('../assets/images/background.jpg')}
       style={styles.background}
       blurRadius={60}
+
     >
+
+
+
+
       <SafeAreaView style={styles.container}>
         <SearchBar />
-        <OurTextInput
-          placeholder="Postez votre réponse"
-          onChangeText={(value) => setQuestion(value)}
-          value={question}
-        />
-        <OurButton
-          onPress={askQuestion}
-          text="Pose ta question"
-          color="caféaulaitchaud"/>
-        < View style={styles.question}>
+        <Title h1 isLight={true}>FAQ </Title>
 
+
+
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
+        <View>
+        <Toggle question='Votre restaurant est-il ouvert le dimanche ?' answer='Nous sommes ouverts du mercredi au dimanche de 9h à minuit.' />
+        <Toggle question='Est-ce que vous avez une formule déjeuner?' answer='Oui, 11,50€ le plat, 13,50€ entrée/plat ou plat/dessert et 16€ pour la formule entière.' />
+        <Toggle question='Est-ce que vous avez-vous une Happy Hour le soir?' answer="Oui, la pinte de blonde à 4€ jusqu'à 22h et les cocktails 6€!" />
+        <Toggle question='Est-ce que vous avez une formule brunch le weekend?' answer="Non, nous avons une formule petit déjeuner et une formule petit dejeuner à l'anglaise avec oeuf tous le jours de la semaine." />
+        <Toggle question="Est- il possible de privatiser l'établissement pour des événements type anniversaire? "answer="Il est possible de négocier des privatisation, passez nous voir pour en discuter!" />
+      
         </View>
+          
+           </ScrollView>
 
 
-
-        <ScrollView showsVerticalScrollIndicator={false}></ScrollView>
+        
+        
       </SafeAreaView >
+      
     </ImageBackground>
 
   );
@@ -92,20 +78,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
-
     justifyContent: 'center',
     alignItems: 'center',
-
   },
-  text: {
-    backgroundColor: 'blue',
-  },
-  input: {
-    height: 50,
-    width: '90%',
-    backgroundColor: '#E6CCB2',
-    alignItems: 'center',
-    textAlign: 'center',
-    borderRadius: 50,
-  },
+  scroll: {
+    width: '80%',
+    marginTop: 30,
+  }
 });
