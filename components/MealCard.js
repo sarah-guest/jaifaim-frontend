@@ -12,13 +12,14 @@ import { useEffect, useState } from 'react';
 
 const MealCard = (props) => {
   const { restaurant } = props;
-  const { address, dernierPlat, name, username } = restaurant;
+  const { address, dernierPlat, name } = restaurant;
   const { streetNumber, streetName, streetType, postCode, city } = address;
   const { description, src } = dernierPlat;
   const user = useSelector((state) => state.user.value);
   const [isLiked, setIsLiked] = useState(null);
+  const [isBookmarked, setIsBookmarked] = useState(null);
 
-  // Lors de l'initialisation du composant, récupère les favoris du user
+  // Lors de l'initialisation du composant, récupère les favoris et les bookmarks du user
   useEffect(() => {
     fetch(`http://${IP_ADDRESS}:3000/users/${user.token}/likes`)
       .then((response) => response.json())
@@ -26,6 +27,16 @@ const MealCard = (props) => {
         const liked = json.data.collections.likes.restaurants;
         const names = liked.map((liked) => liked.name);
         names.includes(restaurant.name) && setIsLiked(true);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(`http://${IP_ADDRESS}:3000/users/${user.token}/bookmarks`)
+      .then((response) => response.json())
+      .then((json) => {
+        const bookmarks = json.data.collections.bookmarks.restaurants;
+        const names = bookmarks.map((liked) => liked.name);
+        names.includes(restaurant.name) && setIsBookmarked(true);
       });
   }, []);
 
@@ -64,6 +75,39 @@ const MealCard = (props) => {
     }
   };
 
+  const toggleBookmark = () => {
+    const data = {
+      userToken: user.token,
+      restaurantToken: restaurant.token,
+    };
+
+    if (!isBookmarked) {
+      setIsBookmarked(true);
+
+      fetch(`http://${IP_ADDRESS}:3000/users/bookmark`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json.log));
+    } else {
+      setIsBookmarked(false);
+
+      fetch(`http://${IP_ADDRESS}:3000/users/unbookmark`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json.log));
+    }
+  };
+
   return (
     <View style={styles.mealCard}>
       <View style={styles.top}>
@@ -81,9 +125,10 @@ const MealCard = (props) => {
           />
           <FontAwesomeIcon
             style={styles.icon}
-            name="bookmark-o"
+            name={isBookmarked ? 'bookmark' : 'bookmark-o'}
             size={25}
             color={convertColor('cannelle')}
+            onPress={() => toggleBookmark()}
           />
         </View>
       </View>
