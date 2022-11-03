@@ -25,10 +25,8 @@ export default function ProfileScreen({ route, navigation }) {
   const restaurant = useSelector((state) => state.restaurant.value);
 
   const [restaurantInfo, setRestaurantInfo] = useState('');
-  const temporary = useSelector((state) => state.temporary.value);
-  const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
-  const [modalVisibletwo, setModalVisibletwo] = useState(false);
+ 
 
   useEffect(() => {
     fetch(`http://${IP_ADDRESS}:3000/restaurants/restaurant`, {
@@ -56,12 +54,7 @@ export default function ProfileScreen({ route, navigation }) {
       <Modal visible={modalVisible} animationType="slide" transparent>
         <View style={styles.modalView}>
           <View>
-            {/* <FontAwesome
-                name={'location-arrow'}
-                size={30}
-                color={convertColor('caféaulaitchaud')}
-                style={styles.icon}
-              /> */}
+           
             {restaurantInfo && (
               <Text style={styles.restinfo}>
                 <FontAwesome
@@ -139,7 +132,7 @@ export default function ProfileScreen({ route, navigation }) {
                   name={'ship'}
                   size={30}
                   color={convertColor('caféaulaitchaud')}
-                />{' '}
+                />
                 {restaurantInfo.platsdujour[0].name}
               </Text>
               <Text style={styles.restinfo}>
@@ -147,8 +140,9 @@ export default function ProfileScreen({ route, navigation }) {
                   name={'hand-o-right'}
                   size={30}
                   color={convertColor('caféaulaitchaud')}
-                />{' '}
+                />
                 {restaurantInfo.platsdujour[0].description}
+               
               </Text>
             </View>
           )}
