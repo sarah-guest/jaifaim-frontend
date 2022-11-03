@@ -1,4 +1,5 @@
 import {
+  ImageBackground,
   StyleSheet,
   SafeAreaView,
   View,
@@ -12,13 +13,14 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 //nos imports
 import OurButton from '../components/Button';
 import Title from '../components/Title';
+import OurText from '../components/OurText';
 import convertColor from '../modules/convertColor';
 
 export default function DemoScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.title}>
-        <Title h1 isCentered={true}>Tutoriel</Title>
+        <Title h1 isCentered={true}>En bref</Title>
       </View>
       {/* On initialise le composant qui permettra le Swipe */}
       <Swiper style={styles.wrapper} showsButtons={true}
@@ -27,20 +29,21 @@ export default function DemoScreen({ navigation }) {
         dot={<View style={[styles.dots, { backgroundColor: convertColor('sable') }]} />}
         activeDot={<View style={[styles.dots, { backgroundColor: convertColor('marronglacé') }]} />}
       >
-        <View style={styles.slide1}>
-          <Image source={require('../assets/images/DEMO_screen1.png')} style={styles.image} />
+        <View style={styles.slide}>
+          <ImageBackground
+            source={require('../assets/images/TUTO_slide1.jpg')}
+            style={styles.background}
+          >
+            <View style={styles.slide1}>
+              <OurText body2 isLight>Avec « BREF. J'ai faim », finie l'interminable recherche de restaurants. Renouez avec vos commerçants de quartier et découvrez de nouvelles adresses via un aperçu appétissant du plat du jour!</OurText>
+            </View>
+          </ImageBackground>
         </View>
         <View style={styles.slide2}>
-          <Image source={require('../assets/images/TUTO4.jpeg')} style={styles.image} />
+          <Image source={require('../assets/images/DEMO_screen1.jpg')} style={styles.image} />
         </View>
         <View style={styles.slide2}>
-          <Image source={require('../assets/images/TUTO5.jpg')} style={styles.image} />
-        </View>
-        <View style={styles.slide2}>
-          <Image source={require('../assets/images/TUTO2.jpeg')} style={styles.image} />
-        </View>
-        <View style={styles.slide3}>
-          <Image source={require('../assets/images/TUTO1.jpeg')} style={styles.image} />
+          <Image source={require('../assets/images/DEMO_screen2.jpg')} style={styles.image} />
         </View>
       </Swiper>
 
@@ -61,10 +64,6 @@ const styles = StyleSheet.create({
   },
   //swiper styles: 
   wrapper: {},
-  slide1: {
-    flex: 1,
-    alignItems: 'center',
-  },
   dots: {
     width: 8,
     height: 8,
@@ -78,6 +77,26 @@ const styles = StyleSheet.create({
     color: convertColor('marronglacé'),
     fontSize: 60,
   },
+  slide: {
+    flex: 1,
+    width: 250,
+    height: 550,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    overflow: 'hidden',
+  },
+  background: {
+    padding: 20,
+  },
+  slide1: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 20,
+  },
   slide2: {
     flex: 1,
     alignItems: 'center',
@@ -88,7 +107,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: 250,
-    height: 550,
+    height: 570,
     borderRadius: 20,
   },
   text: {
