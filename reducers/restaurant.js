@@ -33,8 +33,8 @@ export const restaurantSlice = createSlice({
       state.value.username = action.payload.username;
       state.value.email = action.payload.email;
       state.value.password = action.payload.password;
+      state.value.name = action.payload.name;
     },
-
     getName: (state, action) => {
       state.value.name = action.payload.name;
     },

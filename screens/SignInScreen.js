@@ -59,7 +59,11 @@ export default function SignInScreen({ navigation, route }) {
             navigation.navigate('Welcome', { type: 'user' });
           } else if (type === 'restaurant') {
             dispatch(
-              signInRestaurant({ username: whatUser, token: data.token })
+              signInRestaurant({
+                name: data.name,
+                username: whatUser,
+                token: data.token,
+              })
             );
             navigation.navigate('Welcome', { type: 'restaurant' });
           }
@@ -82,9 +86,7 @@ export default function SignInScreen({ navigation, route }) {
       >
         <View style={styles.titre}>
           <Title h1>Bref,</Title>
-          <OurText body2>
-            J'AI FAIM
-          </OurText>
+          <OurText body2>J'AI FAIM</OurText>
         </View>
         <View style={styles.inputs}>
           <TextInput
@@ -126,9 +128,7 @@ export default function SignInScreen({ navigation, route }) {
       >
         <View style={styles.titre}>
           <Title h1>Bref,</Title>
-          <OurText body2>
-            J'AI À MANGER
-          </OurText>
+          <OurText body2>J'AI À MANGER</OurText>
         </View>
         <View style={styles.inputs}>
           <TextInput
