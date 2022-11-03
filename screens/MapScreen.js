@@ -1,7 +1,9 @@
 // IMPORTS REACT
 import { useEffect, useState } from 'react';
+// IMPORTS FONT AWESOME
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 // IMPORTS COMPOSANTS
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Button } from 'react-native';
 import OurButton from '../components/Button';
 import MealCard from '../components/MealCard';
 // IMPORTS MAP
@@ -10,6 +12,7 @@ import { Marker } from 'react-native-maps'; // composant Marker
 import * as Location from 'expo-location'; // permet la géolocalisation
 import style from '../styles/customMapStyle.json'; // style de la map généré sur Google Maps
 import IP_ADDRESS from '../modules/ipAddress';
+import convertColor from '../modules/convertColor';
 
 export default function MapScreen({ navigation, route }) {
   const [latitude, setLatitude] = useState(null);
@@ -71,7 +74,9 @@ export default function MapScreen({ navigation, route }) {
           }}
           onPress={() => handleRestaurantIconPress(restaurant)}
         >
-          <OurButton icon="heart" color="sable" />
+          <View style={[styles.markers, styles.restaurant]}>
+            <FontAwesomeIcon style={styles.markerIcon} name="map-pin" />
+          </View>
         </Marker>
       );
     }
@@ -94,7 +99,9 @@ export default function MapScreen({ navigation, route }) {
       >
         {longitude && latitude && (
           <Marker coordinate={{ latitude, longitude }}>
-            <OurButton icon="heart" color="pingouin" />
+            <View style={[styles.markers, styles.position]}>
+              <FontAwesomeIcon style={styles.markerIcon} name="heart" />
+            </View>
           </Marker>
         )}
         {restaurantsDom}
@@ -121,4 +128,21 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 30,
   },
+  markers: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 30,
+    height: 30,
+    borderRadius: '50%',
+  },
+  restaurant: {
+    backgroundColor: convertColor('sable'),
+  },
+  position: {
+    backgroundColor: convertColor('pingouin'),
+  },
+  markerIcon: {
+    color: 'white',
+    fontSize: 15,
+  }
 });
