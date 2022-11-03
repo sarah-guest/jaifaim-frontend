@@ -15,24 +15,117 @@ import {
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import convertColor from '../modules/convertColor';
 import IP_ADDRESS from '../modules/ipAddress';
+import { useState } from 'react';
 
 export default function PreferencesScreen({ navigation, route }) {
+  const [selectedCuisines, setSelectedCuisines] = useState([]);
+  const [selectedAtmospheres, setSelectedAtmospheres] = useState([]);
+  const [selectedBookings, setSelectedBookings] = useState('');
+  const [selectedMiscellaneous, setSelectedMiscellaneous] = useState([]);
+
+  // CUISINE
+  const cuisines = [
+    'Gourmet',
+    'Franchouillarde',
+    'Bistronome',
+    'Café cosy',
+    'Petite Bourse',
+  ];
+  const toggleCuisineSelection = (cuisine) => {
+    !selectedCuisines.includes(cuisine)
+      ? setSelectedCuisines([...selectedCuisines, cuisine])
+      : setSelectedCuisines(selectedCuisines.filter((e) => e !== cuisine));
+  };
+  const cuisinesDom = cuisines.map((cuisine, key) => (
+    <OurTag
+      key={key}
+      text={cuisine}
+      onPress={() => {
+        toggleCuisineSelection(cuisine);
+      }}
+      isPressed={selectedCuisines.includes(cuisine)}
+    />
+  ));
+
+  // ATMOSPHERE
+  const atmospheres = ['Familles', 'Tête-à-tête', 'Grands groupes'];
+  const toggleAtmosphereSelection = (atmosphere) => {
+    !selectedAtmospheres.includes(atmosphere)
+      ? setSelectedAtmospheres([...selectedAtmospheres, atmosphere])
+      : setSelectedAtmospheres(
+          selectedAtmospheres.filter((e) => e !== atmosphere)
+        );
+  };
+  const atmospheresDom = atmospheres.map((atmosphere, key) => (
+    <OurTag
+      key={key}
+      text={atmosphere}
+      onPress={() => {
+        toggleAtmosphereSelection(atmosphere);
+      }}
+      isPressed={selectedAtmospheres.includes(atmosphere)}
+    />
+  ));
+
+  // BOOKING
+  const bookings = ['Oui', 'Non'];
+  const toggleBookingsSelection = (booking) => {
+    !selectedBookings.includes(booking)
+      ? setSelectedBookings([...selectedBookings, booking])
+      : setSelectedBookings(selectedBookings.filter((e) => e !== booking));
+  };
+  const bookingsDom = bookings.map((booking, key) => (
+    <OurTag
+      key={key}
+      text={booking}
+      onPress={() => {
+        toggleBookingsSelection(booking);
+      }}
+      isPressed={selectedBookings.includes(booking)}
+    />
+  ));
+
+  // BOOKING
+  const miscellaneous = [
+    'Accueil PMR',
+    'Menu enfant',
+    'Casques anti-bruit',
+    'Animaux bienvenu',
+  ];
+  const toggleMiscellaneousSelection = (miscellaneous) => {
+    !selectedMiscellaneous.includes(miscellaneous)
+      ? setSelectedMiscellaneous([...selectedMiscellaneous, miscellaneous])
+      : setSelectedMiscellaneous(
+          selectedMiscellaneous.filter((e) => e !== miscellaneous)
+        );
+  };
+  const miscellaneousDom = miscellaneous.map((miscellaneous, key) => (
+    <OurTag
+      key={key}
+      text={miscellaneous}
+      onPress={() => {
+        toggleMiscellaneousSelection(miscellaneous);
+      }}
+      isPressed={selectedMiscellaneous.includes(miscellaneous)}
+    />
+  ));
+
   const dispatch = useDispatch();
   const restaurant = useSelector((state) => state.restaurant.value);
 
-  // Fonctions qui récupèrent les infos des inputs et les mettent dans le store
-  const checkPrefCuisine = (newCuisine) => {
-    dispatch(getPrefRestauCuisine(newCuisine), console.log(newCuisine));
-  };
-  const checkPrefAtmos = (newAtmos) => {
-    dispatch(getPrefRestauAtmos(newAtmos), console.log(newAtmos));
-  };
-  const checkPrefBook = (newBook) => {
-    dispatch(getPrefRestauBook(newBook), console.log(newBook));
-  };
-  const checkPreMesce = (newMesce) => {
-    dispatch(getPrefRestauMisce(newMesce), console.log(newMesce));
-  };
+  // // Fonctions qui récupèrent les infos des inputs et les mettent dans le store
+  // const checkPrefCuisine = (newCuisine) => {
+  //   dispatch(getPrefRestauCuisine(newCuisine), console.log(newCuisine));
+  // };
+  // const checkPrefAtmos = (newAtmos) => {
+  //   dispatch(getPrefRestauAtmos(newAtmos), console.log(newAtmos));
+  // };
+  // const checkPrefBook = (newBook) => {
+  //   dispatch(getPrefRestauBook(newBook), console.log(newBook));
+  // };
+  // const checkPreMesce = (newMesce) => {
+  //   dispatch(getPrefRestauMisce(newMesce), console.log(newMesce));
+  // };
 
   // Envoyer toutes les informations du restaurant dans la base de données
   const sendInfoRestaurant = () => {
@@ -82,10 +175,10 @@ export default function PreferencesScreen({ navigation, route }) {
             siren,
             website,
             phone,
-            cuisine,
-            atmosphere,
-            bookings,
-            miscellaneous,
+            cuisine: selectedCuisines,
+            atmosphere: selectedAtmospheres,
+            bookings: selectedBookings,
+            miscellaneous: selectedMiscellaneous,
             bioShort: '',
             bioLong: '',
             socials: {},
@@ -111,77 +204,25 @@ export default function PreferencesScreen({ navigation, route }) {
           <Title style={styles.titre} h5>
             Votre cuisine est plutôt...
           </Title>
-          <View style={styles.buttons}>
-            <OurTag
-              style={styles.button}
-              text="Gourmet"
-              onPress={() => checkPrefCuisine('Gourmet')}
-            />
-            <OurTag
-              style={styles.button}
-              text="Franchouillarde"
-              onPress={() => checkPrefCuisine('Frachouillarde')}
-            />
-            <OurTag
-              style={styles.button}
-              text="Bistronome"
-              onPress={() => checkPrefCuisine('Bistronomie')}
-            />
-            <OurTag
-              style={styles.button}
-              text="Café cosy"
-              onPress={() => checkPrefCuisine('Café cosy')}
-            />
-            <OurTag
-              style={styles.button}
-              text="Petite Bourse"
-              onPress={() => checkPrefCuisine('Petite Bourse')}
-            />
-          </View>
+          <View style={styles.buttons}>{cuisinesDom}</View>
         </View>
         <View style={styles.optGroup}>
           <Title style={styles.titre} h5>
             L'atmosphère du lieu
           </Title>
-          <View style={styles.buttons}>
-            <OurTag
-              style={styles.button}
-              text="Groupe d'amis"
-              onPress={() => checkPrefAtmos("Groupe d'amis")}
-            />
-            <OurTag
-              style={styles.button}
-              text="Famille"
-              onPress={() => checkPrefAtmos('Famille')}
-            />
-            <OurTag
-              style={styles.button}
-              text="Tête à tête"
-              onPress={() => checkPrefAtmos('Tête à tête')}
-            />
-          </View>
+          <View style={styles.buttons}>{atmospheresDom}</View>
         </View>
         <View style={styles.optGroup}>
           <Title styles={styles.titre} h5>
             Les réservations
           </Title>
-          <View style={styles.buttons}>
-            <OurTag text="Oui" onPress={() => checkPrefBook('Oui')} />
-            <OurTag text="Non" onPress={() => checkPrefBook('Non')} />
-          </View>
+          <View style={styles.buttons}>{bookingsDom}</View>
+        </View>
+        <View style={styles.optGroup}>
           <Title style={styles.titre} h5>
             Autres
           </Title>
-          <View style={styles.buttons}>
-            <OurTag
-              text="Accueil PMR"
-              onPress={() => checkPreMesce('Accueil PMR')}
-            />
-            <OurTag
-              text="Animaux acceptés"
-              onPress={() => checkPreMesce('Animaux acceptés')}
-            />
-          </View>
+          <View style={styles.buttons}>{miscellaneousDom}</View>
         </View>
         <View style={styles.optGroup}>
           <Title style={styles.titre} h5>
