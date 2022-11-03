@@ -1,14 +1,7 @@
 // IMPORTS REACT
 import { useState, useEffect } from 'react';
 // IMPORTS COMPOSANTS
-import {
-  Modal,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-} from 'react-native';
+import { Modal, Image, StyleSheet, Text, View } from 'react-native';
 import OurButton from '../components/Button';
 import { SafeAreaView } from 'react-native-safe-area-context';
 // IMPORTS REDUCER
@@ -17,17 +10,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import IP_ADDRESS from '../modules/ipAddress';
 import convertColor from '../modules/convertColor';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import OurTitle from '../components/Title';
-import OurText from '../components/OurText';
-import Swiper from 'react-native-swiper';
 
 export default function ProfileScreen({ route, navigation }) {
   const restaurant = useSelector((state) => state.restaurant.value);
 
   const [restaurantInfo, setRestaurantInfo] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
- 
 
+  // On Récupère les informations des restaurants
   useEffect(() => {
     fetch(`http://${IP_ADDRESS}:3000/restaurants/restaurant`, {
       method: 'POST',
@@ -38,30 +28,25 @@ export default function ProfileScreen({ route, navigation }) {
       .then((rest) => {
         setRestaurantInfo(rest.data);
 
-        console.log(rest.data);
       });
   }, []);
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <View style={styles.view}> */}
-      <Image
-        style={styles.image}
-        source={require('../assets/images/avatarRestaurant.png')}
-      />
+      <Image source={require('../assets/images/avatarRestaurant.png')} />
       <Text style={styles.name}>{restaurantInfo.username} </Text>
 
       <Modal visible={modalVisible} animationType="slide" transparent>
         <View style={styles.modalView}>
           <View>
-           
+            {/* Au chargement de la Page si les infos sont récupérées return les infos. */}
             {restaurantInfo && (
               <Text style={styles.restinfo}>
                 <FontAwesome
                   name={'location-arrow'}
                   size={30}
                   color={convertColor('caféaulaitchaud')}
-                />  {restaurantInfo.address.streetNumber}{' '}
+                />   {restaurantInfo.address.streetNumber}{' '}
                 {restaurantInfo.address.streetType}{' '}
                 {restaurantInfo.address.streetName}{' '}
                 {restaurantInfo.address.postCode} {restaurantInfo.address.city}
@@ -83,9 +68,8 @@ export default function ProfileScreen({ route, navigation }) {
               name={'phone'}
               size={30}
               color={convertColor('caféaulaitchaud')}
-
             />   {restaurantInfo.phone}
-           
+            
           </Text>
 
           <FontAwesome
@@ -97,10 +81,7 @@ export default function ProfileScreen({ route, navigation }) {
           />
         </View>
       </Modal>
-      <View
-        style={styles.description}
-       
-      >
+      <View style={styles.description}>
         <View style={styles.icons}>
           <FontAwesome
             name={'cutlery'}
@@ -125,6 +106,7 @@ export default function ProfileScreen({ route, navigation }) {
           />
         </View>
         <View style={styles.restinfo}>
+          {/* Au chargement de la Page si les infos sont récupérées return les infos. */}
           {restaurantInfo && (
             <View>
               <Text style={styles.restinfo}>
@@ -132,23 +114,21 @@ export default function ProfileScreen({ route, navigation }) {
                   name={'ship'}
                   size={30}
                   color={convertColor('caféaulaitchaud')}
-                />
-                {restaurantInfo.platsdujour[0].name}
+                />   {restaurantInfo.platsdujour[0].name}
+                
               </Text>
               <Text style={styles.restinfo}>
                 <FontAwesome
                   name={'hand-o-right'}
                   size={30}
                   color={convertColor('caféaulaitchaud')}
-                />
-                {restaurantInfo.platsdujour[0].description}
-               
+                />   {restaurantInfo.platsdujour[0].description}
+                
               </Text>
             </View>
           )}
-          
         </View>
-        <Text style={styles.acc}></Text>
+        
       </View>
     </SafeAreaView>
   );
@@ -194,7 +174,6 @@ const styles = StyleSheet.create({
     right: 0,
     marginLeft: 30,
     marginRight: 30,
-    // top: 0,
     bottom: 98,
     shadowColor: '#000',
     shadowOffset: {
@@ -214,8 +193,6 @@ const styles = StyleSheet.create({
   restinfo: {
     fontSize: 25,
     marginBottom: 30,
-    // marginLeft: 30,
-    // marginRight: 30,
     color: 'white',
     paddingTop: 20,
   },
@@ -224,7 +201,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: 20,
   },
-  
+
   ban: {
     paddingLeft: 110,
     paddingTop: 40,
