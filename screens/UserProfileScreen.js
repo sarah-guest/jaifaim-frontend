@@ -102,7 +102,7 @@ const UserProfileScreen = () => {
             <OurText subtitle>@{username || userReducer.username}</OurText>
           </View>
         </View>
-        <ScrollView style={styles.cards}>
+        <ScrollView style={styles.cards} showsVerticalScrollIndicator={false}>
           <View style={styles.card}>
             <OurTitle h3>Informations</OurTitle>
             <View style={styles.informationBody}>
